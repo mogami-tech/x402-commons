@@ -9,7 +9,7 @@
     <groupId>tech.mogami.commons</groupId>
     <artifactId>mogami-x402-commons</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <name>Common classes used by Mogami projects</name>
     <description>Common classes used by Mogami projects</description>
     <url>https://github.com/mogami-tech/x402-commons</url>
