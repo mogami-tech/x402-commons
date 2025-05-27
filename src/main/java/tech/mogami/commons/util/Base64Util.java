@@ -2,6 +2,8 @@ package tech.mogami.commons.util;
 
 import lombok.experimental.UtilityClass;
 
+import java.util.Base64;
+
 /**
  * Utility class for Base64 encoding and decoding operations.
  */
@@ -16,7 +18,7 @@ public class Base64Util {
      * @return the Base64 encoded string
      */
     public static String encode(String input) {
-        return java.util.Base64.getEncoder().withoutPadding().encodeToString(input.getBytes());
+        return Base64.getEncoder().withoutPadding().encodeToString(input.getBytes());
     }
 
     /**
@@ -26,7 +28,7 @@ public class Base64Util {
      * @return the decoded string
      */
     public static String decode(String input) {
-        return new String(java.util.Base64.getDecoder().decode(input));
+        return new String(Base64.getDecoder().decode(input));
     }
 
 }

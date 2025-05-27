@@ -1,4 +1,4 @@
-package tech.mogami.commons.constants;
+package tech.mogami.commons.constant;
 
 import lombok.experimental.UtilityClass;
 
