@@ -65,10 +65,11 @@
 
         <!-- ======================================================================================================= -->
         <!-- Libraries releases -->
-        <jackson.version>2.19.0</jackson.version>
 
-        <!-- Core utils -->
+        <jackson.version>2.19.0</jackson.version>
         <lombok.version>1.18.38</lombok.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <jakarta.validation.version>3.1.1</jakarta.validation.version>
 
         <!-- Maven -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
@@ -96,6 +97,16 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${jakarta.validation.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
