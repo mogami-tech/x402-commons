@@ -21,4 +21,41 @@ public class BaseTestData {
     /** Asset contract address. */
     public static final String TEST_ASSET_CONTRACT_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
+    /** Payment requirements for server. */
+    public static final String TEST_PAYMENT_REQUIREMENTS_HEADER = """
+            {
+              "x402Version": 1,
+              "accepts": [
+                {
+                  "scheme": "exact",
+                  "network": "base-sepolia",
+                  "maxAmountRequired": "1000",
+                  "resource": "http://localhost/weather",
+                  "description": "",
+                  "mimeType": "",
+                  "payTo": "0x7553F6FA4Fb62986b64f79aEFa1fB93ea64A22b1",
+                  "maxTimeoutSeconds": 60,
+                  "asset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+                  "extra": {
+                    "name": "USDC",
+                    "version": "2"
+                  }
+                },
+                {
+                  "scheme": "exact",
+                  "network": "base-sepolia",
+                  "maxAmountRequired": "2000",
+                  "resource": "http://localhost/weather",
+                  "description": "Description number 2",
+                  "mimeType": "",
+                  "payTo": "0x29082D631199d7FD35399378B6522D6042A7Da6C",
+                  "maxTimeoutSeconds": 60,
+                  "asset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+                  "extra": {}
+                }
+              ],
+              "error": "Payment required"
+            }
+            """;
+
 }
