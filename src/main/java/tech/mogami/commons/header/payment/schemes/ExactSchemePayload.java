@@ -10,7 +10,7 @@ import lombok.extern.jackson.Jacksonized;
  * @param authorization parameters required to reconstruct the messaged signed for the transferWithAuthorization operation.
  */
 @Jacksonized
-@Builder
+@Builder(toBuilder = true)
 @SuppressWarnings("unused")
 public record ExactSchemePayload(
         String signature,

@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * Payment constants.
  */
 @UtilityClass
-@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
+@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class PaymentConstants {
 
     /**

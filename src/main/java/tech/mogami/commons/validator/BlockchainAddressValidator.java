@@ -1,11 +1,11 @@
-package tech.mogami.commons.validators;
+package tech.mogami.commons.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
 
-import static tech.mogami.commons.constants.BlockchainConstants.BLOCKCHAIN_ADDRESS_LENGTH;
-import static tech.mogami.commons.constants.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
+import static tech.mogami.commons.constant.BlockchainConstants.BLOCKCHAIN_ADDRESS_LENGTH;
+import static tech.mogami.commons.constant.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
 
 /**
  * Blockchain address validator.

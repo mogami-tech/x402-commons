@@ -1,4 +1,4 @@
-package tech.mogami.commons.validators;
+package tech.mogami.commons.validator;
 
 import jakarta.validation.Constraint;
 
