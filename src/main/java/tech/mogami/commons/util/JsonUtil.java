@@ -17,6 +17,10 @@ public class JsonUtil {
 
     /** Mapper . */
     private static final ObjectMapper MAPPER = new ObjectMapper()
+            // TODO Check with this option if it is needed
+            //.configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
+            //.configure(WRITE_DATES_AS_TIMESTAMPS, false)
+            //.setSerializationInclusion(JsonInclude.Include.NON_NULL)
             .findAndRegisterModules();
 
     /**

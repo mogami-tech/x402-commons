@@ -17,7 +17,7 @@ import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EX
  * @param network     network is the network id of the accepted `paymentRequirements` the client is using to pay
  * @param payload     payload is scheme dependent
  */
-@Builder
+@Builder(toBuilder = true)
 @Jacksonized
 @SuppressWarnings("unused")
 public record PaymentPayload(

@@ -8,7 +8,7 @@ import java.util.Base64;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static tech.mogami.commons.constant.networks.BaseNetworks.BASE_SEPOLIA;
+import static tech.mogami.commons.constant.networks.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_NAME;
 
 /**
@@ -38,7 +38,7 @@ public class BaseTest extends BaseTestData {
         return PaymentPayload.builder()
                 .x402Version(1)
                 .scheme(EXACT_SCHEME_NAME)
-                .network(BASE_SEPOLIA)
+                .network(BASE_SEPOLIA.name())
                 .payload(ExactSchemePayload.builder()
                         .signature("0xf268bbac717601c718075e60461516d6d36302e3d3c07be5c58a89d3dc10b3bf5dfc813c446f82c0f71e9dfef47fd894e16fc64d666553c89717f7730b3698531c")
                         .authorization(ExactSchemePayload.Authorization.builder()
@@ -61,7 +61,7 @@ public class BaseTest extends BaseTestData {
     protected PaymentRequirements getSamplePaymentRequirements() {
         return PaymentRequirements.builder()
                 .scheme(EXACT_SCHEME_NAME)
-                .network(BASE_SEPOLIA)
+                .network(BASE_SEPOLIA.name())
                 .maxAmountRequired("1000")
                 .resource("http://localhost:4021/weather")
                 .description("")
