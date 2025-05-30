@@ -1,8 +1,12 @@
 package tech.mogami.commons.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.experimental.UtilityClass;
+
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
 /**
  * Utility class for JSON operations.
@@ -12,15 +16,14 @@ import lombok.experimental.UtilityClass;
  * </p>
  */
 @UtilityClass
-@SuppressWarnings("unused")
+@SuppressWarnings({"HideUtilityClassConstructor", "unused"})
 public class JsonUtil {
 
     /** Mapper . */
     private static final ObjectMapper MAPPER = new ObjectMapper()
-            // TODO Check with this option if it is needed
-            //.configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
-            //.configure(WRITE_DATES_AS_TIMESTAMPS, false)
-            //.setSerializationInclusion(JsonInclude.Include.NON_NULL)
+            .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .configure(WRITE_DATES_AS_TIMESTAMPS, false)
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
             .findAndRegisterModules();
 
     /**
@@ -31,7 +34,7 @@ public class JsonUtil {
      * @param <T>  the type of the object to return
      * @return the object of the specified type
      */
-    public static <T> T fromJson(String json, Class<T> type) {
+    public static <T> T fromJson(final String json, final Class<T> type) {
         try {
             return MAPPER.readValue(json, type);
         } catch (JsonProcessingException e) {
@@ -45,7 +48,7 @@ public class JsonUtil {
      * @param value the object to convert to JSON
      * @return the JSON string representation of the object
      */
-    public static String toJson(Object value) {
+    public static String toJson(final Object value) {
         try {
             return MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {

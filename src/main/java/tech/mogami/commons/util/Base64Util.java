@@ -8,7 +8,7 @@ import java.util.Base64;
  * Utility class for Base64 encoding and decoding operations.
  */
 @UtilityClass
-@SuppressWarnings("unused")
+@SuppressWarnings({"HideUtilityClassConstructor", "unused"})
 public class Base64Util {
 
     /**
@@ -17,7 +17,7 @@ public class Base64Util {
      * @param input the string to encode
      * @return the Base64 encoded string
      */
-    public static String encode(String input) {
+    public static String encode(final String input) {
         return Base64.getEncoder().withoutPadding().encodeToString(input.getBytes());
     }
 
@@ -27,7 +27,7 @@ public class Base64Util {
      * @param input the Base64 encoded string
      * @return the decoded string
      */
-    public static String decode(String input) {
+    public static String decode(final String input) {
         return new String(Base64.getDecoder().decode(input));
     }
 
