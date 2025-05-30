@@ -9,7 +9,7 @@ import java.util.Optional;
  * Existing networks.
  */
 @UtilityClass
-@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
+@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
 public class Networks {
 
     /** Base Sepolia network. */
@@ -40,7 +40,7 @@ public class Networks {
      * @param name the name of the network
      * @return an Optional containing the Network if found, or empty if not found
      */
-    public static Optional<Network> findByName(String name) {
+    public static Optional<Network> findByName(final String name) {
         return Optional.ofNullable(NETWORKS_BY_NAME.get(name));
     }
 

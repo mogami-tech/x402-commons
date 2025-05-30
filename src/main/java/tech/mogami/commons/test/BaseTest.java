@@ -8,6 +8,7 @@ import java.util.Base64;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static tech.mogami.commons.constant.X402Constants.X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS;
 import static tech.mogami.commons.constant.networks.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_NAME;
 
@@ -67,7 +68,7 @@ public class BaseTest extends BaseTestData {
                 .description("")
                 .mimeType("")
                 .payTo("0x7553F6FA4Fb62986b64f79aEFa1fB93ea64A22b1")
-                .maxTimeoutSeconds(60)
+                .maxTimeoutSeconds(X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS)
                 .asset("0x036CbD53842c5426634e7929541eC2318f3dCF7e")
                 .extra(Map.of("name", "USDC"))
                 .extra(Map.of("version", "2"))
@@ -77,6 +78,7 @@ public class BaseTest extends BaseTestData {
     /**
      * Get sample encoded payment header.
      *
+     * @param nonce the nonce to include in the payment header
      * @return the sample encoded payment header in base64 format
      */
     protected String getSampleEncodedPaymentHeader(final String nonce) {
