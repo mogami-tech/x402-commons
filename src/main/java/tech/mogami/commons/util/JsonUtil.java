@@ -52,7 +52,7 @@ public class JsonUtil {
         try {
             return MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("Error while writing JSON: r", e);
+            throw new IllegalStateException("Error while writing JSON: ", e);
         }
     }
 
