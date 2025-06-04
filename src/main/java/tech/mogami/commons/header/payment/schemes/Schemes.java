@@ -1,6 +1,7 @@
 package tech.mogami.commons.header.payment.schemes;
 
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.Optional;
@@ -30,7 +31,11 @@ public class Schemes {
      * @return an Optional containing the Network if found, or empty if not found
      */
     public static Optional<Scheme> findByName(final String name) {
-        return Optional.ofNullable(SCHEMES_BY_NAME.get(name));
+        if (StringUtils.isEmpty(name)) {
+            return Optional.empty();
+        } else {
+            return Optional.ofNullable(SCHEMES_BY_NAME.get(name));
+        }
     }
 
 }
