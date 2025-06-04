@@ -36,6 +36,7 @@ public class Networks {
 
     /**
      * Find a network by its name.
+     * TODO Should the search of a network name be case sensitive ?
      *
      * @param name the name of the network
      * @return an Optional containing the Network if found, or empty if not found

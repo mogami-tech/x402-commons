@@ -7,7 +7,6 @@ import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.header.payment.schemes.ExactSchemePayload;
 
 import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMETER;
-import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_NAME;
 
 /**
  * Payment payload (included as the X-PAYMENT header in base64 encoded JSON).
@@ -26,7 +25,7 @@ public record PaymentPayload(
         String network,
         @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = SCHEME_PARAMETER)
         @JsonSubTypes({
-                @JsonSubTypes.Type(value = ExactSchemePayload.class, name = EXACT_SCHEME_NAME)
+                @JsonSubTypes.Type(value = ExactSchemePayload.class, name = "exact")
         })
         Object payload
 ) {
