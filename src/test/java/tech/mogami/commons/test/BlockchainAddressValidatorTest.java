@@ -42,8 +42,8 @@ public class BlockchainAddressValidatorTest {
 
     @Test
     void shouldReturnTrueForValidAddress() {
-        String valid = "0x1234567890abcdef1234567890abcdef12345678";
-        assertThat(validator.isValid(valid, null)).isTrue();
+        assertThat(validator.isValid("0x1234567890abcdef1234567890abcdef12345678", null)).isTrue();
+        assertThat(validator.isValid("0x036CbD53842c5426634e7929541eC2318f3dCF7e", null)).isTrue();
     }
 
 }

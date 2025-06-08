@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
+import tech.mogami.commons.validator.BlockchainAddress;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
 
@@ -50,7 +51,7 @@ public record PaymentRequirements(
         int maxTimeoutSeconds,
 
         @NotBlank(message = "{validation.paymentRequirements.asset.required}")
-        @Scheme(message = "{validation.paymentRequirements.asset.invalid}")
+        @BlockchainAddress(message = "{validation.paymentRequirements.asset.invalid}")
         String asset,
 
         @Singular("extra") Map<String, String> extra
