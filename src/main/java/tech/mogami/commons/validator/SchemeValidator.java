@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.header.payment.schemes.Schemes;
 
 /**
- * Scheme validator.
+ * Validator for the {@link Scheme} annotation.
  */
 public class SchemeValidator implements ConstraintValidator<Scheme, String> {
 
