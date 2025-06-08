@@ -1,9 +1,12 @@
 package tech.mogami.commons.header.payment;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
+import tech.mogami.commons.validator.Network;
+import tech.mogami.commons.validator.Scheme;
 
 import java.util.Map;
 import java.util.Optional;
@@ -30,8 +33,15 @@ import java.util.Optional;
 @Jacksonized
 @SuppressWarnings("unused")
 public record PaymentRequirements(
+
+        @NotBlank(message = "{validation.paymentRequirements.scheme.required}")
+        @Scheme(message = "{validation.paymentRequirements.scheme.invalid}")
         String scheme,
+
+        @NotBlank(message = "{validation.paymentRequirements.network.required}")
+        @Network(message = "{validation.paymentRequirements.network.invalid}")
         String network,
+
         String maxAmountRequired,
         String resource,
         String description,

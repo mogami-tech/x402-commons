@@ -2,9 +2,12 @@ package tech.mogami.commons.header.payment;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.header.payment.schemes.ExactSchemePayload;
+import tech.mogami.commons.validator.Network;
+import tech.mogami.commons.validator.Scheme;
 
 import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMETER;
 
@@ -21,8 +24,15 @@ import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMET
 @SuppressWarnings("unused")
 public record PaymentPayload(
         int x402Version,
+
+        @NotBlank(message = "{validation.paymentPayload.scheme.required}")
+        @Scheme(message = "{validation.paymentPayload.scheme.invalid}")
         String scheme,
+
+        @NotBlank(message = "{validation.paymentPayload.network.required}")
+        @Network(message = "{validation.paymentPayload.network.invalid}")
         String network,
+
         @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = SCHEME_PARAMETER)
         @JsonSubTypes({
                 @JsonSubTypes.Type(value = ExactSchemePayload.class, name = "exact")

@@ -1,6 +1,8 @@
 package tech.mogami.commons.api.facilitator.verify;
 
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.header.payment.PaymentPayload;
@@ -18,6 +20,13 @@ import tech.mogami.commons.header.payment.PaymentRequirements;
 @SuppressWarnings("unused")
 public record VerifyRequest(
         int x402Version,
+
+        @Valid
+        @NotNull(message = "{validation.verifyRequest.paymentPayload.required}")
         PaymentPayload paymentPayload,
+
+        @Valid
+        @NotNull(message = "{validation.verifyRequest.paymentRequirements.required}")
         PaymentRequirements paymentRequirements) {
+
 }
