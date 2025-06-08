@@ -1,4 +1,4 @@
-package tech.mogami.commons.constant.networks;
+package tech.mogami.commons.constant.network;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;

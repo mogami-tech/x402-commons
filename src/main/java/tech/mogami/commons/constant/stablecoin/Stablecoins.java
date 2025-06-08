@@ -1,4 +1,4 @@
-package tech.mogami.commons.constant.stablecoins;
+package tech.mogami.commons.constant.stablecoin;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;

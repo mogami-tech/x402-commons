@@ -3,7 +3,7 @@ package tech.mogami.commons.validator;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
-import tech.mogami.commons.constant.networks.Networks;
+import tech.mogami.commons.constant.network.Networks;
 
 /**
  * Validator for the {@link Network} annotation.

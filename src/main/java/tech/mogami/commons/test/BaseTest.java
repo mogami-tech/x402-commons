@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static tech.mogami.commons.constant.X402Constants.X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS;
-import static tech.mogami.commons.constant.networks.Networks.BASE_SEPOLIA;
+import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.header.payment.schemes.Schemes.EXACT_SCHEME;
 
 /**

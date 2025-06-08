@@ -1,4 +1,4 @@
-package tech.mogami.commons.constant.stablecoins;
+package tech.mogami.commons.constant.stablecoin;
 
 import lombok.Builder;
 
