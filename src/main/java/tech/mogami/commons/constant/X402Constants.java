@@ -9,9 +9,6 @@ import lombok.experimental.UtilityClass;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class X402Constants {
 
-    /** X402 version. */
-    public static final int X402_SUPPORTED_VERSION = 1;
-
     /** X402 payment required header. */
     public static final String X402_X_PAYMENT_HEADER = "X-PAYMENT";
 
