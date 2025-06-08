@@ -48,7 +48,11 @@ public record PaymentRequirements(
         String mimeType,
         String payTo,
         int maxTimeoutSeconds,
+
+        @NotBlank(message = "{validation.paymentRequirements.asset.required}")
+        @Scheme(message = "{validation.paymentRequirements.asset.invalid}")
         String asset,
+
         @Singular("extra") Map<String, String> extra
 ) {
 
