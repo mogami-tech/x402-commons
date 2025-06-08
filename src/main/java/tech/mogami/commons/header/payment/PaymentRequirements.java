@@ -3,8 +3,10 @@ package tech.mogami.commons.header.payment;
 import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Payment requirement returned to the client when he tries to access a resource.
@@ -39,4 +41,19 @@ public record PaymentRequirements(
         String asset,
         @Singular("extra") Map<String, String> extra
 ) {
+
+    /**
+     * Get an extra value by its key.
+     *
+     * @param key the key of the extra value
+     * @return an Optional containing the extra value if present, or empty if not found
+     */
+    public Optional<String> getExtra(final String key) {
+        if (StringUtils.isEmpty(key)) {
+            return Optional.empty();
+        } else {
+            return Optional.ofNullable(extra.get(key));
+        }
+    }
+
 }

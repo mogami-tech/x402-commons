@@ -15,7 +15,4 @@ public class BlockchainConstants {
     /** Blockchain address prefix. */
     public static final String BLOCKCHAIN_ADDRESS_PREFIX = "0x";
 
-    /** Default maximum timeout in seconds for the payment. */
-    public static final int DEFAULT_MAX_TIMEOUT_SECONDS = 60;
-
 }
