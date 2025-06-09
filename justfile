@@ -21,3 +21,15 @@ finish_release:
 
 run_deploy_release:
     mvn -B -Prelease -DskipTests clean deploy
+
+# Contract generation ==================================================================================================
+build_contracts:
+    cd src/main/solidity && rm -rdf lib
+    cd src/main/solidity && forge install OpenZeppelin/openzeppelin-contracts@v5.0.2 --no-git
+    cd src/main/solidity && forge build --contracts lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol --extra-output-files abi bin
+    mv src/main/solidity/out/ERC20.sol/ERC20.abi.json src/main/solidity/out/ERC20.sol/ERC20.abi
+    web3j generate solidity \
+              -b src/main/solidity/out/ERC20.sol/ERC20.bin \
+              -a src/main/solidity/out/ERC20.sol/ERC20.abi \
+              -o src/main/java \
+              -p tech.mogami.commons.crypto.contract

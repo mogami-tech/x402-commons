@@ -125,6 +125,11 @@
 
         <dependency>
             <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+            <version>${web3j.crypto.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
             <artifactId>crypto</artifactId>
             <version>${web3j.crypto.version}</version>
         </dependency>
@@ -179,6 +184,7 @@
                     <configLocation>https://mogami.tech/shared/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
+                    <excludes>**/crypto/contract/**/*</excludes>
                 </configuration>
             </plugin>
             <!-- Tests -->

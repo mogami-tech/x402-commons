@@ -1,0 +1,4 @@
+[profile.default]
+out = "out"
+libs = ["lib"]
+extra_output = ["abi", "bin"]
