@@ -1,4 +1,4 @@
-package tech.mogami.commons.test;
+package tech.mogami.commons.test.validator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
