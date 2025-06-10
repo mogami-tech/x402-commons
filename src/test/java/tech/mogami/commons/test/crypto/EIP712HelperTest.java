@@ -72,14 +72,14 @@ public class EIP712HelperTest {
             ).build();
 
     @Test
-    @DisplayName("EIP-712 signing test")
-    public void testSign() throws Exception {
+    @DisplayName("Valid EIP-712 signature")
+    public void signingTest() throws Exception {
         assertThat(EIP712Helper.sign(credentials, paymentRequirements, paymentPayload))
                 .isEqualTo(expectedSignature);
     }
 
     @Test
-    @DisplayName("EIP-712 signing verification test")
+    @DisplayName("Valid EIP-712 signature verification")
     public void testSignVerification() throws Exception {
         assertThat(EIP712Helper.verify(
                 expectedSignature,
