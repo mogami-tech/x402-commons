@@ -10,6 +10,9 @@ import java.util.Map;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static tech.mogami.commons.constant.X402Constants.X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
+import static tech.mogami.commons.constant.version.X402Versions.X402_SUPPORTED_VERSION_BY_MOGAMI;
+import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
+import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 import static tech.mogami.commons.header.payment.schemes.Schemes.EXACT_SCHEME;
 
 /**
@@ -37,7 +40,7 @@ public class BaseTest extends BaseTestData {
      */
     protected PaymentPayload getSamplePaymentPayload() {
         return PaymentPayload.builder()
-                .x402Version(1)
+                .x402Version(X402_SUPPORTED_VERSION_BY_MOGAMI.version())
                 .scheme(EXACT_SCHEME.name())
                 .network(BASE_SEPOLIA.name())
                 .payload(ExactSchemePayload.builder()
@@ -70,8 +73,8 @@ public class BaseTest extends BaseTestData {
                 .payTo("0x7553F6FA4Fb62986b64f79aEFa1fB93ea64A22b1")
                 .maxTimeoutSeconds(X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS)
                 .asset("0x036CbD53842c5426634e7929541eC2318f3dCF7e")
-                .extra(Map.of("name", "USDC"))
-                .extra(Map.of("version", "2"))
+                .extra(Map.of(EXACT_SCHEME_PARAMETER_NAME, "USDC"))
+                .extra(Map.of(EXACT_SCHEME_PARAMETER_VERSION, "2"))
                 .build();
     }
 

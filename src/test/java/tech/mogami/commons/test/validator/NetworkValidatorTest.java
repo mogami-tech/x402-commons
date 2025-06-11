@@ -38,6 +38,7 @@ public class NetworkValidatorTest {
     @Test
     @DisplayName("Should return true for known network")
     void shouldReturnTrueForKnownNetwork() {
+        assertThat(validator.isValid("basE-Sepolia", null)).isTrue();
         assertThat(validator.isValid("base-sepolia", null)).isTrue();
     }
 

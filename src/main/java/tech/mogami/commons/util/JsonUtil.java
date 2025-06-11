@@ -19,7 +19,7 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS
 @SuppressWarnings({"HideUtilityClassConstructor", "unused"})
 public class JsonUtil {
 
-    /** Mapper . */
+    /** Mapper. */
     private static final ObjectMapper MAPPER = new ObjectMapper()
             .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
             .configure(WRITE_DATES_AS_TIMESTAMPS, false)

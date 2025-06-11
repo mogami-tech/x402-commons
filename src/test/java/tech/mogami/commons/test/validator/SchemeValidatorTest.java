@@ -39,6 +39,7 @@ public class SchemeValidatorTest {
     @DisplayName("Should return true for known scheme")
     void shouldReturnTrueForKnownScheme() {
         assertThat(validator.isValid("exact", null)).isTrue();
+        assertThat(validator.isValid("exAct", null)).isTrue();
     }
 
 }
