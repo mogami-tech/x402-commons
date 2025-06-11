@@ -28,7 +28,7 @@ public class Stablecoins {
     /** Map of stablecoins by name. */
     private static final Map<String, Stablecoin> STABLECOINS_BY_NAME = ALL_STABLECOINS.stream()
             .collect(Collectors.toUnmodifiableMap(
-                    stablecoin -> StringUtils.upperCase(stablecoin.toString()),
+                    stablecoin -> StringUtils.lowerCase(stablecoin.toString()),
                     Function.identity()
             ));
 

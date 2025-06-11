@@ -26,7 +26,7 @@ public class X402Versions {
     /** List of X402 suppoerted version. */
     public static final List<X402Version> X402_SUPPORTED_VERSIONS = List.of(V1);
 
-    /** Map of networks by name. */
+    /** Map of X402 versions by version number. */
     private static final Map<Integer, X402Version> X402_SUPPORTED_VERSIONS_BY_VERSION = X402_SUPPORTED_VERSIONS.stream()
             .collect(Collectors.toUnmodifiableMap(
                     X402Version::version,

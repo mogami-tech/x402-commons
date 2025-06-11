@@ -2,7 +2,7 @@ package tech.mogami.commons.test;
 
 import tech.mogami.commons.header.payment.PaymentPayload;
 import tech.mogami.commons.header.payment.PaymentRequirements;
-import tech.mogami.commons.header.payment.schemes.ExactSchemePayload;
+import tech.mogami.commons.header.payment.schemes.exact.ExactSchemePayload;
 
 import java.util.Base64;
 import java.util.Map;
@@ -11,9 +11,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static tech.mogami.commons.constant.X402Constants.X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.constant.version.X402Versions.X402_SUPPORTED_VERSION_BY_MOGAMI;
-import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
-import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 import static tech.mogami.commons.header.payment.schemes.Schemes.EXACT_SCHEME;
+import static tech.mogami.commons.header.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
+import static tech.mogami.commons.header.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 
 /**
  * Base test.

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
-import tech.mogami.commons.header.payment.schemes.ExactSchemePayload;
+import tech.mogami.commons.header.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
 

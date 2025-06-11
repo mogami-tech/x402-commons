@@ -24,7 +24,7 @@ public class Schemes {
     /** All schemes. */
     private static final List<Scheme> ALL_SCHEMES = List.of(EXACT_SCHEME);
 
-    /** Map of networks by name. */
+    /** Map of schemes by name. */
     private static final Map<String, Scheme> SCHEMES_BY_NAME = ALL_SCHEMES.stream()
             .collect(Collectors.toUnmodifiableMap(
                     scheme -> StringUtils.lowerCase(scheme.name()),
@@ -35,7 +35,7 @@ public class Schemes {
      * Find a scheme by its name.
      *
      * @param name the name of the scheme
-     * @return an Optional containing the Network if found, or empty if not found
+     * @return an Optional containing the scheme if found, or empty if not found
      */
     public static Optional<Scheme> findByName(final String name) {
         if (StringUtils.isEmpty(name)) {

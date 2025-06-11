@@ -13,14 +13,14 @@ import tech.mogami.commons.constant.network.Network;
 import tech.mogami.commons.constant.network.Networks;
 import tech.mogami.commons.header.payment.PaymentPayload;
 import tech.mogami.commons.header.payment.PaymentRequirements;
-import tech.mogami.commons.header.payment.schemes.ExactSchemePayload;
+import tech.mogami.commons.header.payment.schemes.exact.ExactSchemePayload;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 
 import static tech.mogami.commons.constant.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
-import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
-import static tech.mogami.commons.header.payment.schemes.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
+import static tech.mogami.commons.header.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
+import static tech.mogami.commons.header.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 
 /**
  * Utility class for EIP-712 related operations.
