@@ -28,7 +28,7 @@ public class Stablecoins {
     /** Map of stablecoins by name. */
     private static final Map<String, Stablecoin> STABLECOINS_BY_NAME = ALL_STABLECOINS.stream()
             .collect(Collectors.toUnmodifiableMap(
-                    stablecoin -> StringUtils.lowerCase(stablecoin.toString()),
+                    stablecoin -> StringUtils.lowerCase(stablecoin.name()),
                     Function.identity()
             ));
 
@@ -39,11 +39,9 @@ public class Stablecoins {
      * @return an Optional containing the stablecoin if found, or empty if not found
      */
     public static Optional<Stablecoin> findByName(final String name) {
-        if (StringUtils.isEmpty(name)) {
-            return Optional.empty();
-        } else {
-            return Optional.ofNullable(STABLECOINS_BY_NAME.get(name.toLowerCase()));
-        }
+        return Optional.ofNullable(name)
+                .map(String::toLowerCase)
+                .map(STABLECOINS_BY_NAME::get);
     }
 
 }

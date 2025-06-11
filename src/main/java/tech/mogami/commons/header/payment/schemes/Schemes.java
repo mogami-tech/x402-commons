@@ -38,11 +38,9 @@ public class Schemes {
      * @return an Optional containing the scheme if found, or empty if not found
      */
     public static Optional<Scheme> findByName(final String name) {
-        if (StringUtils.isEmpty(name)) {
-            return Optional.empty();
-        } else {
-            return Optional.ofNullable(SCHEMES_BY_NAME.get(name.toLowerCase()));
-        }
+        return Optional.ofNullable(name)
+                .map(String::toLowerCase)
+                .map(SCHEMES_BY_NAME::get);
     }
 
 }

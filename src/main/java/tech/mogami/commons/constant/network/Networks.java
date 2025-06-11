@@ -46,14 +46,12 @@ public class Networks {
      * Find a network by its name.
      *
      * @param name the name of the network
-     * @return an Optional containing the Network if found, or empty if not found
+     * @return an Optional containing the network if found, or empty if not found
      */
     public static Optional<Network> findByName(final String name) {
-        if (StringUtils.isEmpty(name)) {
-            return Optional.empty();
-        } else {
-            return Optional.ofNullable(NETWORKS_BY_NAME.get(name.toLowerCase()));
-        }
+        return Optional.ofNullable(name)
+                .map(String::toLowerCase)
+                .map(NETWORKS_BY_NAME::get);
     }
 
 }

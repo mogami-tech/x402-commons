@@ -23,7 +23,7 @@ import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMET
 @Jacksonized
 @SuppressWarnings("unused")
 public record PaymentPayload(
-        int x402Version,
+        Integer x402Version,
 
         @NotBlank(message = "{validation.paymentPayload.scheme.required}")
         @Scheme(message = "{validation.paymentPayload.scheme.invalid}")

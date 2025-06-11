@@ -19,7 +19,7 @@ import tech.mogami.commons.header.payment.PaymentRequirements;
 @Jacksonized
 @SuppressWarnings("unused")
 public record VerifyRequest(
-        int x402Version,
+        Integer x402Version,
 
         @Valid
         @NotNull(message = "{validation.verifyRequest.paymentPayload.required}")
