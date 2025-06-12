@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>tech.mogami.commons</groupId>
     <artifactId>mogami-x402-commons</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Common classes used by Mogami projects</name>
     <description>Common classes used by Mogami projects</description>
