@@ -1,6 +1,7 @@
 package tech.mogami.commons.api.facilitator.supported;
 
 import lombok.Builder;
+import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @Jacksonized
 @SuppressWarnings("unused")
 public record SupportedResponse(
-        List<SupportedKind> kinds
+        @Singular List<SupportedKind> kinds
 ) {
 
     /**
@@ -24,6 +25,9 @@ public record SupportedResponse(
      * @param scheme      the scheme used for the payment
      * @param network     the network used for the payment
      */
+    @Jacksonized
+    @Builder
+    @SuppressWarnings("unused")
     public record SupportedKind(
             int x402Version,
             String scheme,

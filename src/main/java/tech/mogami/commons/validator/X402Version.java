@@ -11,13 +11,13 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Blockchain address annotation.
+ * X402Version annotation.
  */
 @Documented
-@Constraint(validatedBy = BlockchainAddressValidator.class)
+@Constraint(validatedBy = SchemeValidator.class)
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
-public @interface BlockchainAddress {
+public @interface X402Version {
 
     /**
      * Message to show when the validation fails.

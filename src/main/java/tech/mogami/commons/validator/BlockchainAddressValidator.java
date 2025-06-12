@@ -8,7 +8,7 @@ import static tech.mogami.commons.constant.BlockchainConstants.BLOCKCHAIN_ADDRES
 import static tech.mogami.commons.constant.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
 
 /**
- * Blockchain address validator.
+ * Validator for the {@link BlockchainAddress} annotation.
  */
 public class BlockchainAddressValidator implements ConstraintValidator<BlockchainAddress, String> {
 

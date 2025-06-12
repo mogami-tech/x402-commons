@@ -1,4 +1,4 @@
-package tech.mogami.commons.header.payment.schemes;
+package tech.mogami.commons.header.payment.schemes.exact;
 
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;

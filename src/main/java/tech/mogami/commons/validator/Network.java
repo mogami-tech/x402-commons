@@ -11,13 +11,13 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Blockchain address annotation.
+ * Network annotation.
  */
 @Documented
-@Constraint(validatedBy = BlockchainAddressValidator.class)
+@Constraint(validatedBy = NetworkValidator.class)
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
-public @interface BlockchainAddress {
+public @interface Network {
 
     /**
      * Message to show when the validation fails.

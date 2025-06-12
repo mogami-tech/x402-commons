@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>tech.mogami.commons</groupId>
     <artifactId>mogami-x402-commons</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
     <packaging>jar</packaging>
     <name>Common classes used by Mogami projects</name>
     <description>Common classes used by Mogami projects</description>
@@ -71,9 +71,13 @@
         <commons-codec.version>1.18.0</commons-codec.version>
         <jakarta.validation.version>3.1.1</jakarta.validation.version>
 
+        <!-- Crypto libraries -->
+        <web3j.crypto.version>4.14.0</web3j.crypto.version>
+        <web3j.utils.version>4.14.0</web3j.utils.version>
+
         <!-- Maven -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
-        <maven.puppycrawl.checkstyle.version>10.24.0</maven.puppycrawl.checkstyle.version>
+        <maven.puppycrawl.checkstyle.version>10.25.0</maven.puppycrawl.checkstyle.version>
         <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
@@ -118,6 +122,36 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+            <version>${web3j.crypto.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>crypto</artifactId>
+            <version>${web3j.crypto.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>utils</artifactId>
+            <version>${web3j.utils.version}</version>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.13.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.27.3</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <!-- =========================================================================================================== -->
 
@@ -150,6 +184,7 @@
                     <configLocation>https://mogami.tech/shared/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
+                    <excludes>**/crypto/contract/**/*</excludes>
                 </configuration>
             </plugin>
             <!-- Tests -->

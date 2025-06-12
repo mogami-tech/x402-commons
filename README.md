@@ -12,3 +12,13 @@
 </p>
 
 <h3 align="center">x402-commons - Common classes used by Mogami projects.</h2>
+## Developers tools
+Web3j used to create Java Bindings for Ethereum contracts (used in `justfile`).
+```Bash
+curl -L get.web3j.io | bash && source ~/.web3j/source.sh
+```
+
+Foundry, a toolkit for Ethereum application development.
+```Bash
+curl -L https://foundry.paradigm.xyz | bash && source ~/.bashrc && foundryup
+```
