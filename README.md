@@ -11,4 +11,4 @@
     </a>
 </p>
 
-<h3 align="center">x402-commons - Common classes used by Mogami projects.</h2>
+<h3 align="center">x402-commons - Common classes used by Mogami projects.</h3>
