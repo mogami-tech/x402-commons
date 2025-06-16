@@ -1,5 +1,6 @@
 package tech.mogami.commons.header.payment;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Singular;
@@ -32,28 +33,44 @@ import java.util.Optional;
  */
 @Builder
 @Jacksonized
+@Schema(description = "Payment requirement returned to the client when accessing a protected resource")
 @SuppressWarnings("unused")
 public record PaymentRequirements(
 
         @NotBlank(message = "{validation.paymentRequirements.scheme.required}")
         @Scheme(message = "{validation.paymentRequirements.scheme.invalid}")
+        @Schema(description = "Scheme of the payment protocol to use", example = "exact")
         String scheme,
 
         @NotBlank(message = "{validation.paymentRequirements.network.required}")
         @Network(message = "{validation.paymentRequirements.network.invalid}")
+        @Schema(description = "Blockchain network to send the payment on", example = "base-sepolia")
         String network,
 
+        @Schema(description = "Maximum amount required to pay in atomic units (e.g., smallest token unit)", example = "100000")
         String maxAmountRequired,
+
+        @Schema(description = "URL of the resource to pay for", example = "https://example.com/weather")
         String resource,
+
+        @Schema(description = "Description of the resource", example = "Accurate weather data for your location")
         String description,
+
+        @Schema(description = "MIME type of the resource", example = "application/json")
         String mimeType,
+
+        @Schema(description = "Address to which payment should be made", example = "0x1234abcd...")
         String payTo,
+
+        @Schema(description = "Maximum allowed time in seconds for the server to respond", example = "60")
         int maxTimeoutSeconds,
 
         @NotBlank(message = "{validation.paymentRequirements.asset.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.asset.invalid}")
+        @Schema(description = "Contract asset address", example = "0xABCDEF1234567890...")
         String asset,
 
+        @Schema(description = "Extra scheme-specific information. For `exact` on EVM: should contain asset `name` and `version`.", example = "{\"name\": \"USDC\", \"version\": \"2\"}")
         @Singular("extra") Map<String, String> extra) {
 
     /**

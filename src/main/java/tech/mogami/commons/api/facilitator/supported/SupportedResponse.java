@@ -1,5 +1,6 @@
 package tech.mogami.commons.api.facilitator.supported;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
@@ -13,8 +14,11 @@ import java.util.List;
  */
 @Builder
 @Jacksonized
+@Schema(description = "List of supported payment kinds by the facilitator")
 @SuppressWarnings("unused")
 public record SupportedResponse(
+
+        @Schema(description = "List of supported payment kinds (x402 version, scheme, and network)")
         @Singular List<SupportedKind> kinds) {
 
     /**
@@ -24,12 +28,19 @@ public record SupportedResponse(
      * @param scheme      the scheme used for the payment
      * @param network     the network used for the payment
      */
-    @Jacksonized
     @Builder
+    @Jacksonized
+    @Schema(description = "Supported payment kind with version, scheme, and network")
     @SuppressWarnings("unused")
     public record SupportedKind(
+
+            @Schema(description = "x402 protocol version supported", example = "1")
             int x402Version,
+
+            @Schema(description = "Scheme identifier", example = "exact")
             String scheme,
+
+            @Schema(description = "Blockchain network supported", example = "base-sepolia")
             String network) {
     }
 

@@ -9,8 +9,8 @@ import lombok.extern.jackson.Jacksonized;
  * @param signature     the signature of the EIP-3009 transferWithAuthorization operation.
  * @param authorization parameters required to reconstruct the messaged signed for the transferWithAuthorization operation.
  */
-@Jacksonized
 @Builder(toBuilder = true)
+@Jacksonized
 @SuppressWarnings("unused")
 public record ExactSchemePayload(
         String signature,
@@ -26,8 +26,8 @@ public record ExactSchemePayload(
      * @param validBefore the timestamp before which the authorization is isValid
      * @param nonce       a unique identifier for the authorization
      */
-    @Jacksonized
     @Builder
+    @Jacksonized
     @SuppressWarnings("unused")
     public record Authorization(
             String from,
