@@ -19,6 +19,5 @@ import java.util.List;
 public record PaymentRequired(
         int x402Version,
         List<PaymentRequirements> accepts,
-        String error
-) {
+        String error) {
 }

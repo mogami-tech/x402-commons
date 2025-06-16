@@ -14,8 +14,7 @@ import lombok.extern.jackson.Jacksonized;
 @SuppressWarnings("unused")
 public record ExactSchemePayload(
         String signature,
-        Authorization authorization
-) {
+        Authorization authorization) {
 
     /**
      * Authorization parameters required to reconstruct the messaged signed for the transferWithAuthorization operation.
@@ -36,8 +35,7 @@ public record ExactSchemePayload(
             String value,
             String validAfter,
             String validBefore,
-            String nonce
-    ) {
+            String nonce) {
     }
 
 }

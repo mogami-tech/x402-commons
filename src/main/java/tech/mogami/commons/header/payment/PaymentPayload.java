@@ -37,6 +37,5 @@ public record PaymentPayload(
         @JsonSubTypes({
                 @JsonSubTypes.Type(value = ExactSchemePayload.class, name = "exact")
         })
-        Object payload
-) {
+        Object payload) {
 }

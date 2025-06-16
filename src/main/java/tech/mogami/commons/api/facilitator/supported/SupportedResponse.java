@@ -15,8 +15,7 @@ import java.util.List;
 @Jacksonized
 @SuppressWarnings("unused")
 public record SupportedResponse(
-        @Singular List<SupportedKind> kinds
-) {
+        @Singular List<SupportedKind> kinds) {
 
     /**
      * Single pair the facilitator can handle.

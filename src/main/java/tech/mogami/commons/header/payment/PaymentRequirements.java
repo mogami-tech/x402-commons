@@ -54,8 +54,7 @@ public record PaymentRequirements(
         @BlockchainAddress(message = "{validation.paymentRequirements.asset.invalid}")
         String asset,
 
-        @Singular("extra") Map<String, String> extra
-) {
+        @Singular("extra") Map<String, String> extra) {
 
     /**
      * Get an extra value by its key.
@@ -64,11 +63,9 @@ public record PaymentRequirements(
      * @return an Optional containing the extra value if present, or empty if not found
      */
     public Optional<String> getExtra(final String key) {
-        if (StringUtils.isEmpty(key)) {
-            return Optional.empty();
-        } else {
-            return Optional.ofNullable(extra.get(key));
-        }
+        return Optional.ofNullable(key)
+                .filter(StringUtils::isNotEmpty)
+                .map(extra::get);
     }
 
 }

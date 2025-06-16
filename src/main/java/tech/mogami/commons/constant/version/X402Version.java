@@ -10,6 +10,5 @@ import lombok.Builder;
 @Builder
 @SuppressWarnings("unused")
 public record X402Version(
-        int version
-) {
+        int version) {
 }

@@ -20,6 +20,5 @@ public record SettleResponse(
         String network,
         String transaction,
         String errorReason,
-        String payer
-) {
+        String payer) {
 }
