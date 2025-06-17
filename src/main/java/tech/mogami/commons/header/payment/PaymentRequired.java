@@ -23,12 +23,12 @@ import java.util.List;
 @SuppressWarnings("unused")
 public record PaymentRequired(
 
-        @NotBlank(message = "{validation.paymentPayload.x402Version.required}")
-        @X402Version(message = "{validation.paymentPayload.x402Version.invalid}")
+        @NotBlank(message = "{validation.paymentRequired.x402Version.required}")
+        @X402Version(message = "{validation.paymentRequired.x402Version.invalid}")
         @Schema(description = "x402 protocol version used for the payment requirement", example = "1")
         Integer x402Version,
 
-        @NotNull(message = "{validation.paymentPayload.accepts.required}")
+        @NotNull(message = "{validation.paymentRequired.accepts.required}")
         @Schema(description = "List of acceptable payment methods (e.g., different schemes/networks/assets)")
         List<PaymentRequirements> accepts,
 
