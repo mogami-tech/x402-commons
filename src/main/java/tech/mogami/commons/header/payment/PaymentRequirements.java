@@ -2,6 +2,8 @@ package tech.mogami.commons.header.payment;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
@@ -47,9 +49,11 @@ public record PaymentRequirements(
         @Schema(description = "Blockchain network to send the payment on", example = "base-sepolia")
         String network,
 
+        @NotBlank(message = "{validation.paymentRequirements.maxAmountRequired.required}")
         @Schema(description = "Maximum amount required to pay in atomic units (e.g., smallest token unit)", example = "100000")
         String maxAmountRequired,
 
+        @NotBlank(message = "{validation.paymentRequirements.resource.required}")
         @Schema(description = "URL of the resource to pay for", example = "https://example.com/weather")
         String resource,
 
@@ -59,11 +63,15 @@ public record PaymentRequirements(
         @Schema(description = "MIME type of the resource", example = "application/json")
         String mimeType,
 
+        @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
+        @BlockchainAddress(message = "{validation.paymentRequirements.payTo.invalid}")
         @Schema(description = "Address to which payment should be made", example = "0x1234abcd...")
         String payTo,
 
+        @NotNull(message = "{validation.paymentRequirements.maxTimeoutSeconds.required}")
+        @Positive(message = "{validation.paymentRequirements.maxTimeoutSeconds.positive}")
         @Schema(description = "Maximum allowed time in seconds for the server to respond", example = "60")
-        int maxTimeoutSeconds,
+        Integer maxTimeoutSeconds,
 
         @NotBlank(message = "{validation.paymentRequirements.asset.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.asset.invalid}")

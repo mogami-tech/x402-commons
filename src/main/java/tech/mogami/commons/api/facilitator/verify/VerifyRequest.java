@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.header.payment.PaymentPayload;
 import tech.mogami.commons.header.payment.PaymentRequirements;
+import tech.mogami.commons.validator.X402Version;
 
 /**
  * Request to verify a payment.
@@ -22,6 +23,8 @@ import tech.mogami.commons.header.payment.PaymentRequirements;
 @SuppressWarnings("unused")
 public record VerifyRequest(
 
+        @NotNull(message = "{validation.verifyRequest.x402Version.required}")
+        @X402Version(message = "{validation.verifyRequest.x402Version.invalid}")
         @Schema(description = "x402 protocol version", example = "1")
         Integer x402Version,
 

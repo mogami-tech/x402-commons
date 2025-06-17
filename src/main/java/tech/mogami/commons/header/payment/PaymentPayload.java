@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.header.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
+import tech.mogami.commons.validator.X402Version;
 
 import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMETER;
 
@@ -26,6 +28,8 @@ import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMET
 @SuppressWarnings("unused")
 public record PaymentPayload(
 
+        @NotBlank(message = "{validation.paymentPayload.x402Version.required}")
+        @X402Version(message = "{validation.paymentPayload.x402Version.invalid}")
         @Schema(description = "Version of the x402 payment protocol", example = "1")
         Integer x402Version,
 
@@ -39,10 +43,11 @@ public record PaymentPayload(
         @Schema(description = "Network used to pay", example = "base-sepolia")
         String network,
 
+        @NotNull(message = "{validation.paymentPayload.payload.required}")
         @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = SCHEME_PARAMETER)
         @JsonSubTypes({
                 @JsonSubTypes.Type(value = ExactSchemePayload.class, name = "exact")
         })
-        @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)")
+        @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", oneOf = {ExactSchemePayload.class})
         Object payload) {
 }
