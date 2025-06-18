@@ -1,10 +1,12 @@
 package tech.mogami.commons.header.payment.schemes.exact;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
 
 /**
@@ -23,6 +25,7 @@ public record ExactSchemePayload(
         @Schema(description = "Signature of the EIP-3009 transferWithAuthorization operation", example = "0xabcdef1234567890...")
         String signature,
 
+        @Valid
         @NotNull(message = "{validation.exactSchemePayload.authorization.required}")
         @Schema(description = "Authorization parameters required to reconstruct the signed message")
         Authorization authorization) {
@@ -53,6 +56,7 @@ public record ExactSchemePayload(
             String to,
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.value.required}")
+            @BigIntegerString(message = "{validation.exactSchemePayload.authorization.value.invalid}")
             @Schema(description = "Token amount to be transferred (as string representing uint256)", example = "1000000000000000000")
             String value,
 

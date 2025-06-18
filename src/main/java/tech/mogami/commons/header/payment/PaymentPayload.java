@@ -3,6 +3,7 @@ package tech.mogami.commons.header.payment;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -28,7 +29,7 @@ import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMET
 @SuppressWarnings("unused")
 public record PaymentPayload(
 
-        @NotBlank(message = "{validation.paymentPayload.x402Version.required}")
+        @NotNull(message = "{validation.paymentPayload.x402Version.required}")
         @X402Version(message = "{validation.paymentPayload.x402Version.invalid}")
         @Schema(description = "Version of the x402 payment protocol", example = "1")
         Integer x402Version,
@@ -43,6 +44,7 @@ public record PaymentPayload(
         @Schema(description = "Network used to pay", example = "base-sepolia")
         String network,
 
+        @Valid
         @NotNull(message = "{validation.paymentPayload.payload.required}")
         @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = SCHEME_PARAMETER)
         @JsonSubTypes({

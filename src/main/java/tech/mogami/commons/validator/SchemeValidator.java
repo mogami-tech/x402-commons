@@ -12,7 +12,7 @@ public class SchemeValidator implements ConstraintValidator<Scheme, String> {
 
     @Override
     public final boolean isValid(final String scheme, final ConstraintValidatorContext constraintValidatorContext) {
-        if (StringUtils.isEmpty(scheme)) {
+        if (StringUtils.isBlank(scheme)) {
             return true;
         }
 

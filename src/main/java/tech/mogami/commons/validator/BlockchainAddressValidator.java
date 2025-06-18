@@ -14,7 +14,7 @@ public class BlockchainAddressValidator implements ConstraintValidator<Blockchai
 
     @Override
     public final boolean isValid(final String blockchainAddress, final ConstraintValidatorContext context) {
-        if (StringUtils.isEmpty(blockchainAddress)) {
+        if (StringUtils.isBlank(blockchainAddress)) {
             return true;
         }
 

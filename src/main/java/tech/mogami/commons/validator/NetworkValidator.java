@@ -12,7 +12,7 @@ public class NetworkValidator implements ConstraintValidator<Network, String> {
 
     @Override
     public final boolean isValid(final String network, final ConstraintValidatorContext constraintValidatorContext) {
-        if (StringUtils.isEmpty(network)) {
+        if (StringUtils.isBlank(network)) {
             return true;
         }
 

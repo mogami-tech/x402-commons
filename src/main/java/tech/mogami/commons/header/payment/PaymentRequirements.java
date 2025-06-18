@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
+import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
@@ -50,6 +51,7 @@ public record PaymentRequirements(
         String network,
 
         @NotBlank(message = "{validation.paymentRequirements.maxAmountRequired.required}")
+        @BigIntegerString(message = "{validation.paymentRequirements.maxAmountRequired.invalid}")
         @Schema(description = "Maximum amount required to pay in atomic units (e.g., smallest token unit)", example = "100000")
         String maxAmountRequired,
 
