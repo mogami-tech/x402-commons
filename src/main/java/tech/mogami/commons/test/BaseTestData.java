@@ -6,23 +6,32 @@ package tech.mogami.commons.test;
 @SuppressWarnings({"HideUtilityClassConstructor", "unused", "SpellCheckingInspection"})
 public class BaseTestData {
 
-    /** Client (buyer) address. */
-    public static final String TEST_CLIENT_WALLET_ADDRESS_1 = "0x2980bc24bBFB34DE1BBC91479Cb712ffbCE02F73";
+    /** Test mnemonic phrase. */
+    public static final String TEST_MNEMONIC = "slice joke drink glove ice brown erosion frown census talk topic entire size pair safe";
 
-    /** Client (buyer) address numero 1 private key. */
-    public static final String TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY = "0x9d2675820d55300a05c8991df217a619bcfdc86e2fd91e56443dbbcf159337fd";
+    /** Client (buyer) address number 1 - index(0). */
+    public static final String TEST_CLIENT_WALLET_ADDRESS_1 = "0xf6b42050A71Ca13f842eDa53C7d31B7C1BD94F6E";
 
-    /** Server (seller) address numero 1. */
-    public static final String TEST_SERVER_WALLET_ADDRESS_1 = "0x7553F6FA4Fb62986b64f79aEFa1fB93ea64A22b1";
+    /** Client (buyer) address numero 1 private key - index(0). */
+    public static final String TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY = "0x9348777b9d20188fe21139591877048c76ffc91bdd445e708f2a5b91ea75fda8";
 
-    /** Server (seller) address numero 1 private key. */
-    public static final String TEST_SERVER_WALLET_ADDRESS_1_PRIVATE_KEY = "0xf4f7e165433421377856179c698aa387bd8f872657977bd8fa6d62604f41773c";
+    /** Client (buyer) address number 2 - index(1). */
+    public static final String TEST_CLIENT_WALLET_ADDRESS_2 = "0xCC6f005718945b59cfC5aF1981BF93904A813601";
 
-    /** Server (seller) address numero 2. */
-    public static final String TEST_SERVER_WALLET_ADDRESS_2 = "0x29082D631199d7FD35399378B6522D6042A7Da6C";
+    /** Client (buyer) address numero 2 private key - index(1). */
+    public static final String TEST_CLIENT_WALLET_ADDRESS_2_PRIVATE_KEY = "0x138874b2df71c4ecfd6dab78139f821e780c274ca4a3610dc7246be01a31294f";
 
-    /** Server (seller) address numero 2 private key. */
-    public static final String TEST_SERVER_WALLET_ADDRESS_2_PRIVATE_KEY = "0xff47ed3bd116b6040e3469ee54673559745cdeb3c636b869247a5efd68ea1664";
+    /** Server (seller) address number 1 - index(5). */
+    public static final String TEST_SERVER_WALLET_ADDRESS_1 = "0xB02166b97d37551cb8154c657d4c01B835404fc4";
+
+    /** Server (seller) address number 1 private key - index(5). */
+    public static final String TEST_SERVER_WALLET_ADDRESS_1_PRIVATE_KEY = "0xc1f97668293dcaecb72bfc6fba31a39d34a1a5d1d3d36e30f237a9cbcb3077e9";
+
+    /** Server (seller) address number 2 - index(6). */
+    public static final String TEST_SERVER_WALLET_ADDRESS_2 = "0x9E9F32D248d0f3E093310044847Ad1e8B6EF50a3";
+
+    /** Server (seller) address number 2 private key - index(6). */
+    public static final String TEST_SERVER_WALLET_ADDRESS_2_PRIVATE_KEY = "0x37b8c69095c9247fce67b1b9bdfd30a5d364216a2f84a8a02a37725359ca9d9b";
 
     /** Asset contract address. */
     public static final String TEST_ASSET_CONTRACT_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";

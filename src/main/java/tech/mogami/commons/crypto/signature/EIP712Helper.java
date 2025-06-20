@@ -86,7 +86,7 @@ public class EIP712Helper {
                                  @NonNull final PaymentPayload paymentPayload,
                                  @NonNull final String expectedSigner) throws Exception {
 
-        // Re-create the typed-data JSON exactly as in sign()
+        // Create the typed-data JSON exactly as in sign()
         String typedDataJson = buildTypedDataJson(paymentsRequirements, paymentPayload);
 
         // Hash according to EIP-712

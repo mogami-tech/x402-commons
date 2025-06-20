@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Scheme validator tests")
 public class SchemeValidatorTest {
 
-    private SchemeValidator validator;
+    SchemeValidator validator;
 
     @BeforeEach
     void setUp() {
