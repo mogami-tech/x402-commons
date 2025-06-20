@@ -23,6 +23,10 @@ run_deploy_release:
     mvn -B -Prelease -DskipTests clean deploy
 
 # Contract generation ==================================================================================================
+install_tools:
+    curl -L https://get.web3j.io | bash && source ~/.web3j/source.sh
+    curl -L https://foundry.paradigm.xyz | bash && source ~/.bashrc && foundryup
+
 build_contracts:
     cd src/main/solidity && rm -rdf lib
     cd src/main/solidity && forge install OpenZeppelin/openzeppelin-contracts@v3.4.2 --no-git

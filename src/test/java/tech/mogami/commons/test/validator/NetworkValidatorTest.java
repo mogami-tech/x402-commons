@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Network validator tests")
 public class NetworkValidatorTest {
 
-    private NetworkValidator validator;
+    NetworkValidator validator;
 
     @BeforeEach
     void setUp() {

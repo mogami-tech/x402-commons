@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Blockchain address validator tests")
 public class BlockchainAddressValidatorTest {
 
-    private BlockchainAddressValidator validator;
+    BlockchainAddressValidator validator;
 
     @BeforeEach
     void setUp() {

@@ -13,6 +13,15 @@ public enum VerificationError {
     /** Undefined error. */
     UNDEFINED("undefined"),
 
+    /** Invalid payload. */
+    INVALID_PAYLOAD("invalid_payload"),
+
+    /** Invalid payment requirements. */
+    INVALID_PAYMENT_REQUIREMENTS("invalid_payment_requirements"),
+
+    /** Unexpected verify error. */
+    UNEXPECTED_VERIFY_ERROR("unexpected_verify_error"),
+
     /** Unsupported scheme. */
     UNSUPPORTED_SCHEME("unsupported_scheme"),
 

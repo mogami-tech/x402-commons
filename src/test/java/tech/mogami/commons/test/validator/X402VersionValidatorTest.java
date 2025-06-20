@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("X402 version validator tests")
 public class X402VersionValidatorTest {
 
-    private X402VersionValidator validator;
+    X402VersionValidator validator;
 
     @BeforeEach
     void setUp() {

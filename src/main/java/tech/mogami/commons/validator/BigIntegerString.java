@@ -11,13 +11,13 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * X402Version annotation.
+ * Big Integer as a String annotation.
  */
 @Documented
-@Constraint(validatedBy = X402VersionValidator.class)
+@Constraint(validatedBy = BigIntegerStringValidator.class)
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
-public @interface X402Version {
+public @interface BigIntegerString {
 
     /**
      * Message to show when the validation fails.

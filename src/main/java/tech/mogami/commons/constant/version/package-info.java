@@ -1,4 +1,4 @@
 /**
- * Version constants for Mogami Commons.
+ * Existing x402 versions.
  */
 package tech.mogami.commons.constant.version;

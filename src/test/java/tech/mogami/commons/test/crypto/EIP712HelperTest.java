@@ -40,9 +40,7 @@ import static tech.mogami.commons.test.BaseTestData.TEST_SERVER_WALLET_ADDRESS_1
 @DisplayName("EIP-712 helper Tests")
 public class EIP712HelperTest {
 
-    String expectedSignature = "0xde533856d81c76984a8dbc8d563bbb6d6d4ca36ce6c4d6e8cf315de3bfc14ab26d6bcdc37549aeed78bf92e39d5180268f8f399a4ffb816cfbf500823882b6001c";
-
-    Credentials credentials = Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY);
+    String expectedSignature = "0x7d9463e2c7c98e33c08747882521be88cc02443a8c46f3a1f5b51ae8d1bdd9581fa41ab35c1cebfe70a79471640a1bde9ffadd377e38d708b5ca6a38b30300f61b";
 
     PaymentRequirements paymentRequirements = PaymentRequirements.builder()
             .scheme(EXACT_SCHEME.name())
@@ -67,26 +65,29 @@ public class EIP712HelperTest {
                             .validAfter("1748534647")
                             .validBefore("1748534767")
                             .nonce("0x9b750f5097972d82c02ac371278b83ecf3ca3be8387db59e664eb38c98f97a3d")
-                            .build()
-                    ).build()
-            ).build();
+                            .build())
+                    .build())
+            .build();
 
     @Test
-    @DisplayName("Valid EIP-712 signature")
-    public void signingTest() throws Exception {
-        assertThat(EIP712Helper.sign(credentials, paymentRequirements, paymentPayload))
+    @DisplayName("EIP-712 signature creation")
+    public void signatureCreation() throws Exception {
+        assertThat(EIP712Helper.sign(
+                Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY),
+                paymentRequirements,
+                paymentPayload))
                 .isEqualTo(expectedSignature);
     }
 
     @Test
-    @DisplayName("Valid EIP-712 signature verification")
-    public void testSignVerification() throws Exception {
+    @DisplayName("EIP-712 signature verification")
+    public void signatureVerification() throws Exception {
         assertThat(EIP712Helper.verify(
                 expectedSignature,
                 paymentRequirements,
                 paymentPayload,
-                credentials.getAddress()
-        )).isTrue();
+                Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY).getAddress()))
+                .isTrue();
     }
 
 }
