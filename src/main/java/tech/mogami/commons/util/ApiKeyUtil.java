@@ -1,6 +1,7 @@
 package tech.mogami.commons.util;
 
 import lombok.experimental.UtilityClass;
+import org.apache.commons.text.RandomStringGenerator;
 
 import java.security.SecureRandom;
 
@@ -13,9 +14,6 @@ public class ApiKeyUtil {
 
     /** Default length for generated API keys. */
     public static final int DEFAULT_API_KEY_LENGTH = 64;
-
-    /** Characters used for generating API keys. */
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     /** Secure random. */
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
@@ -36,12 +34,12 @@ public class ApiKeyUtil {
      * @return a randomly generated API key
      */
     public static String generateApiKey(final int length) {
-        StringBuilder apiKey = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            int index = SECURE_RANDOM.nextInt(CHARACTERS.length());
-            apiKey.append(CHARACTERS.charAt(index));
-        }
-        return apiKey.toString();
+        return new RandomStringGenerator.Builder()
+                .usingRandom(SECURE_RANDOM::nextInt)
+                .withinRange('0', 'z') // Covers letters, digits, and a few symbols
+                .filteredBy(Character::isLetterOrDigit)
+                .get()
+                .generate(length);
     }
 
 }
