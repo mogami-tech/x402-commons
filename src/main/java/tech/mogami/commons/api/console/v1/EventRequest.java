@@ -1,5 +1,6 @@
 package tech.mogami.commons.api.console.v1;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -49,6 +50,7 @@ public record EventRequest(
     /**
      * The actor that captured the event.
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     public enum Actor {
         /** The x402 server. */
         SERVER,
