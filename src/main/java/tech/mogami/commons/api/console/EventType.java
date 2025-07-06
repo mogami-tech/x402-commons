@@ -2,6 +2,7 @@ package tech.mogami.commons.api.console;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Event types for x402 server and facilitator interactions.
@@ -51,9 +52,9 @@ public enum EventType {
      * @return the actor (X402_SERVER or X402_FACILITATOR)
      */
     public Actor actor() {
-        if (this.name().startsWith("X402_SERVER")) {
+        if (StringUtils.startsWith(this.name(), "X402_SERVER")) {
             return Actor.X402_SERVER;
-        } else if (this.name().startsWith("X402_FACILITATOR")) {
+        } else if (StringUtils.startsWith(this.name(), "X402_FACILITATOR")) {
             return Actor.X402_FACILITATOR;
         } else {
             throw new IllegalStateException("Unknown actor for event type: " + this.name());
