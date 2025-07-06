@@ -78,7 +78,7 @@
 
         <!-- Maven -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
-        <maven.puppycrawl.checkstyle.version>10.25.1</maven.puppycrawl.checkstyle.version>
+        <maven.puppycrawl.checkstyle.version>10.26.1</maven.puppycrawl.checkstyle.version>
         <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
@@ -87,7 +87,7 @@
         <maven.archetype-packaging.version>3.2.1</maven.archetype-packaging.version>
         <maven.surefire.plugin.version>3.5.3</maven.surefire.plugin.version>
         <maven.surefire-junit5-tree-reporter.version>1.4.0</maven.surefire-junit5-tree-reporter.version>
-        <maven.maven-gpg-plugin>3.2.7</maven.maven-gpg-plugin>
+        <maven.maven-gpg-plugin>3.2.8</maven.maven-gpg-plugin>
         <maven.maven-deploy-plugin>3.1.4</maven.maven-deploy-plugin>
         <maven.gitflow-maven-plugin>1.21.0</maven.gitflow-maven-plugin>
         <maven.central-publishing-maven-plugin>0.8.0</maven.central-publishing-maven-plugin>
@@ -154,7 +154,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.13.1</version>
+            <version>5.13.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
