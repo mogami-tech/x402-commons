@@ -20,6 +20,9 @@ public class ConsoleApiEndpoints {
         /** V1 events URL. */
         public static final String EVENTS_URL = V1_PREFIX + "/events";
 
+        /** V1 event status URL. */
+        public static final String EVENT_STATUS_URL = EVENTS_URL + "/{eventId}/status";
+
     }
 
 }
