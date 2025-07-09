@@ -69,11 +69,10 @@ public enum EventType {
     /**
      * Get the expected JSON type for the event based on its type.
      *
-     * @param eventType the type of the event
      * @return the expected JSON type for the event
      */
-    private Class<?> getExpectedJsonType(final EventType eventType) {
-        return switch (eventType) {
+    public Class<?> getExpectedJsonType() {
+        return switch (this) {
             case X402_SERVER_URL_ACCESS_REQUEST -> PaymentPayload.class;
             case X402_SERVER_PAYMENT_VERIFY_REQUEST, X402_FACILITATOR_VERIFY_REQUEST -> VerifyRequest.class;
             case X402_FACILITATOR_VERIFY_RESPONSE, X402_SERVER_PAYMENT_VERIFY_RESPONSE -> VerifyResponse.class;
