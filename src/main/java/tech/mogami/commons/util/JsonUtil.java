@@ -56,4 +56,20 @@ public class JsonUtil {
         }
     }
 
+    /**
+     * Check if a JSON string is valid for a given class type.
+     *
+     * @param json        the JSON string to validate
+     * @param targetClass the class type to validate against
+     * @return true if the JSON is valid for the class type, false otherwise
+     */
+    public static boolean isValidJson(final String json, final Class<?> targetClass) {
+        try {
+            MAPPER.readValue(json, targetClass);
+            return true;
+        } catch (JsonProcessingException e) {
+            return false;
+        }
+    }
+
 }
