@@ -23,6 +23,7 @@ public class JsonUtil {
     private static final ObjectMapper MAPPER = new ObjectMapper()
             .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
             .configure(WRITE_DATES_AS_TIMESTAMPS, false)
+            .configure(FAIL_ON_UNKNOWN_PROPERTIES, true)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
             .findAndRegisterModules();
 
