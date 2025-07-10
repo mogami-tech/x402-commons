@@ -36,4 +36,13 @@ public class BaseTestData {
     /** Asset contract address. */
     public static final String TEST_ASSET_CONTRACT_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
+    /** Client 1 client ID. */
+    public static final String CLIENT_1_CLIENT_ID = "11111111-1111-1111-1111-111111111111";
+
+    /** Client 2 tenant ID. */
+    public static final String CLIENT_1_TENANT_ID = "11111111-1111-1111-1111-111111111111";
+
+    /** Client 2 tenant API key. */
+    public static final String CLIENT_1_TENANT_API_KEY = "cJNKTeIMnUUqj6qhK2c8sg2iggZ4FbBSnUCcJ4UgxWcdEaeO3KbXk4hz0s6jZIC1";
+
 }
