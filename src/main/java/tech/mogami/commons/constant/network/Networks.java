@@ -34,9 +34,9 @@ public class Networks {
 
     /** Base mainnet network. */
     public static final Network BASE_MAINNET = Network.builder()
-            .name("base-mainnet")
+            .name("base")
             .displayName("Base Mainnet")
-            .chainId(84533)
+            .chainId(8453)
             .isTestnet(false)
             .build();
 
