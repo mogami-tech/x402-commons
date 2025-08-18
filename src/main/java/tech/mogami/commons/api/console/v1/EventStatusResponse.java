@@ -3,6 +3,7 @@ package tech.mogami.commons.api.console.v1;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.jetbrains.annotations.Nullable;
 import tech.mogami.commons.api.console.EventStatus;
 
 /**
@@ -21,7 +22,7 @@ public record EventStatusResponse(
         EventStatus status,
 
         @Schema(description = "A specific message providing additional information about the event status", example = "Nonce not found in the payload")
-        String message
+        @Nullable String message
 
 ) {
 }

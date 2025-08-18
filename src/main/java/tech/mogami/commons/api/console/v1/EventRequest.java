@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.api.console.EventType;
 
 import java.time.Instant;
@@ -38,7 +39,7 @@ public record EventRequest(
         String payload,
 
         @Schema(description = "A specific error message, if any", example = "Connexion to blockchain node failed")
-        String errorMessage,
+        @Nullable String errorMessage,
 
         @NotNull(message = "{validation.console.event.timestamp.required}")
         @PastOrPresent(message = "{validation.console.event.timestamp.pastOrPresent}")

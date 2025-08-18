@@ -3,6 +3,7 @@ package tech.mogami.commons.api.facilitator.settle;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Settle response returned by the x402 facilitator for a settle attempt.
@@ -26,11 +27,11 @@ public record SettleResponse(
         String network,
 
         @Schema(description = "Blockchain transaction hash of the settled payment, or null if error", example = "0xabc123...", nullable = true)
-        String transaction,
+        @Nullable String transaction,
 
         @Schema(description = "Error message from the facilitator, or null if success", example = "invalid_payload", nullable = true)
-        String errorReason,
+        @Nullable String errorReason,
 
         @Schema(description = "Payer address, or null if error", example = "0x1234abcd...", nullable = true)
-        String payer) {
+        @Nullable String payer) {
 }
