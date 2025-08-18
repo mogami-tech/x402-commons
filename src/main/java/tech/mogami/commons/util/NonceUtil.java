@@ -15,9 +15,9 @@ import static tech.mogami.commons.constant.BlockchainConstants.BLOCKCHAIN_ADDRES
 public class NonceUtil {
 
     /** Length of the nonce in bytes. */
-    public static final int INT = 32;
+    public static final int NONCE_LENGTH = 32;
 
-    /** Secure random instance for generating nonces. */
+    /** Secure random instance for generating nonce's. */
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**
@@ -26,7 +26,7 @@ public class NonceUtil {
      * @return randomly generated nonce
      */
     public static String generateNonce() {
-        byte[] bytes = new byte[INT];
+        byte[] bytes = new byte[NONCE_LENGTH];
         SECURE_RANDOM.nextBytes(bytes);
         return BLOCKCHAIN_ADDRESS_PREFIX + Hex.encodeHexString(bytes);
     }
