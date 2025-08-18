@@ -1,4 +1,4 @@
-package tech.mogami.commons.test.json;
+package tech.mogami.commons.test.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ public class JsonUtilTest {
     @Test
     @DisplayName("isValidJson()")
     public void testIsValidJson() {
-        String json = """
+        var json = """
                 {
                   "isValid": false,
                   "invalidReason": "invalid_payload",

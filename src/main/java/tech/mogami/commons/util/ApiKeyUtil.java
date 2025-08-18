@@ -34,6 +34,10 @@ public class ApiKeyUtil {
      * @return a randomly generated API key
      */
     public static String generateApiKey(final int length) {
+        if (length <= 0) {
+            throw new IllegalArgumentException("API key length must be positive");
+        }
+
         return new RandomStringGenerator.Builder()
                 .usingRandom(SECURE_RANDOM::nextInt)
                 .withinRange('0', 'z') // Covers letters, digits, and a few symbols

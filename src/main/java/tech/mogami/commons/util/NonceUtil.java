@@ -23,7 +23,7 @@ public class NonceUtil {
     /**
      * Generates a random nonce.
      *
-     * @return randomly generated nonce
+     * @return the generated nonce string (non-null)
      */
     public static String generateNonce() {
         byte[] bytes = new byte[NONCE_LENGTH];

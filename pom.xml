@@ -77,6 +77,9 @@
         <web3j.crypto.version>4.14.0</web3j.crypto.version>
         <web3j.utils.version>4.14.0</web3j.utils.version>
 
+        <!-- Util -->
+        <jspecify.version>1.0.0</jspecify.version>
+
         <!-- Maven -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.26.1</maven.puppycrawl.checkstyle.version>
@@ -154,6 +157,13 @@
             <groupId>org.web3j</groupId>
             <artifactId>utils</artifactId>
             <version>${web3j.utils.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jspecify</groupId>
+            <artifactId>jspecify</artifactId>
+            <version>${jspecify.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Test dependencies -->
