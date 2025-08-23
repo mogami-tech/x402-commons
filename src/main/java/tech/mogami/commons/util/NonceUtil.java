@@ -15,7 +15,7 @@ import static tech.mogami.commons.constant.BlockchainConstants.BLOCKCHAIN_ADDRES
 public class NonceUtil {
 
     /** Length of the nonce in bytes. */
-    public static final int NONCE_LENGTH = 32;
+    private static final int NONCE_LENGTH = 32;
 
     /** Secure random instance for generating nonce's. */
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();

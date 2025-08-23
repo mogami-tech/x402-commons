@@ -13,7 +13,7 @@ import java.security.SecureRandom;
 public class ApiKeyUtil {
 
     /** Default length for generated API keys. */
-    public static final int DEFAULT_API_KEY_LENGTH = 64;
+    private static final int DEFAULT_API_KEY_LENGTH = 64;
 
     /** Secure random. */
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();

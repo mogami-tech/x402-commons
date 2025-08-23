@@ -37,7 +37,7 @@ public enum VerificationError {
     /** Deadline on permit isn't far enough in the future. */
     INVALID_EXACT_EVM_PAYLOAD_VALID_BEFORE("invalid_exact_evm_payload_authorization_valid_before"),
 
-    /** Deadline on permit is in the futur. */
+    /** Deadline on permit is in the future. */
     INVALID_EXACT_EVM_PAYLOAD_VALID_AFTER("invalid_exact_evm_payload_authorization_valid_after"),
 
     /** Insufficient funds. */

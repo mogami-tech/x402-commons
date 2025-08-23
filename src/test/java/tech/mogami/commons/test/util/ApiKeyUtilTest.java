@@ -18,7 +18,7 @@ public class ApiKeyUtilTest {
     void shouldGenerateApiKeyWithDefaultLength() {
         var apiKey = ApiKeyUtil.generateApiKey();
         assertNotNull(apiKey);
-        assertEquals(ApiKeyUtil.DEFAULT_API_KEY_LENGTH, apiKey.length());
+        assertEquals(64, apiKey.length());
         assertTrue(apiKey.chars().allMatch(Character::isLetterOrDigit));
     }
 

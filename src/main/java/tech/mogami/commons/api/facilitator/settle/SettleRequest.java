@@ -14,7 +14,7 @@ import tech.mogami.commons.validator.X402Version;
  * Request to settle a payment.
  *
  * @param x402Version         x402 version
- * @param paymentPayload      paument payload
+ * @param paymentPayload      payment payload
  * @param paymentRequirements payment requirements
  */
 @Builder
