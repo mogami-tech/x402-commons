@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
 import tech.mogami.commons.validator.Network;
@@ -60,10 +61,10 @@ public record PaymentRequirements(
         String resource,
 
         @Schema(description = "Description of the resource", example = "Accurate weather data for your location")
-        String description,
+        @Nullable String description,
 
         @Schema(description = "MIME type of the resource", example = "application/json")
-        String mimeType,
+        @Nullable String mimeType,
 
         @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.payTo.invalid}")

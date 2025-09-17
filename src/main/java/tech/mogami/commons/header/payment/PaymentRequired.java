@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.validator.X402Version;
 
 import java.util.List;
@@ -33,5 +34,5 @@ public record PaymentRequired(
         List<PaymentRequirements> accepts,
 
         @Schema(description = "Optional error message indicating why payment is required")
-        String error) {
+        @Nullable String error) {
 }

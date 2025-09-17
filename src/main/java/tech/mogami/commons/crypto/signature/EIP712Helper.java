@@ -2,7 +2,6 @@ package tech.mogami.commons.crypto.signature;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Keys;
@@ -61,9 +60,9 @@ public class EIP712Helper {
      * @return the signature in hexadecimal format
      * @throws Exception if an error occurs during signing
      */
-    public static String sign(@NonNull final Credentials credentials,
-                              @NonNull final PaymentRequirements paymentsRequirements,
-                              @NonNull final PaymentPayload paymentPayload) throws Exception {
+    public static String sign(final Credentials credentials,
+                              final PaymentRequirements paymentsRequirements,
+                              final PaymentPayload paymentPayload) throws Exception {
         // Build the EIP-712 typed-data JSON (domain + message) exactly once
         String typedDataJson = buildTypedDataJson(paymentsRequirements, paymentPayload);
 
@@ -81,10 +80,10 @@ public class EIP712Helper {
      * @return true if the signature is valid for the expected signer, false otherwise
      * @throws Exception if an error occurs during verification
      */
-    public static boolean verify(@NonNull final String signatureHex,
-                                 @NonNull final PaymentRequirements paymentsRequirements,
-                                 @NonNull final PaymentPayload paymentPayload,
-                                 @NonNull final String expectedSigner) throws Exception {
+    public static boolean verify(final String signatureHex,
+                                 final PaymentRequirements paymentsRequirements,
+                                 final PaymentPayload paymentPayload,
+                                 final String expectedSigner) throws Exception {
 
         // Create the typed-data JSON exactly as in sign()
         String typedDataJson = buildTypedDataJson(paymentsRequirements, paymentPayload);

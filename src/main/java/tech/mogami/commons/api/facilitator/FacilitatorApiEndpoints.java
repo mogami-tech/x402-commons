@@ -3,11 +3,11 @@ package tech.mogami.commons.api.facilitator;
 import lombok.experimental.UtilityClass;
 
 /**
- * Facilitator routes.
+ * Facilitator API endpoints.
  */
 @UtilityClass
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
-public class FacilitatorRoutes {
+public class FacilitatorApiEndpoints {
 
     /** Supported URL. */
     public static final String SUPPORTED_URL = "/supported";

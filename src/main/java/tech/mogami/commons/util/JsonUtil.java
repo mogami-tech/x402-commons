@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.experimental.UtilityClass;
+import org.jspecify.annotations.Nullable;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
@@ -21,7 +22,7 @@ public class JsonUtil {
 
     /** Mapper. */
     private static final ObjectMapper MAPPER = new ObjectMapper()
-            .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .configure(FAIL_ON_UNKNOWN_PROPERTIES, true)
             .configure(WRITE_DATES_AS_TIMESTAMPS, false)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
             .findAndRegisterModules();
@@ -33,6 +34,7 @@ public class JsonUtil {
      * @param type the class type to convert the JSON string to
      * @param <T>  the type of the object to return
      * @return the object of the specified type
+     * @throws IllegalArgumentException if parsing fails
      */
     public static <T> T fromJson(final String json, final Class<T> type) {
         try {
@@ -45,14 +47,31 @@ public class JsonUtil {
     /**
      * Convert an object to a JSON string.
      *
-     * @param value the object to convert to JSON
-     * @return the JSON string representation of the object
+     * @param value the object to serialize (nullable)
+     * @return the JSON string, or "null" if value is null
+     * @throws IllegalStateException if serialization fails
      */
-    public static String toJson(final Object value) {
+    public static String toJson(@Nullable final Object value) {
         try {
             return MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Error while writing JSON: ", e);
+        }
+    }
+
+    /**
+     * Check if a JSON string is valid for a given class type.
+     *
+     * @param json        the JSON string to validate
+     * @param targetClass the class type to validate against
+     * @return true if the JSON is valid for the class type, false otherwise
+     */
+    public static boolean isValidJson(final String json, final Class<?> targetClass) {
+        try {
+            MAPPER.readValue(json, targetClass);
+            return true;
+        } catch (JsonProcessingException e) {
+            return false;
         }
     }
 

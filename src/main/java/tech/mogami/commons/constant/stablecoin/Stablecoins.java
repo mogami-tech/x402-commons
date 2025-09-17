@@ -2,6 +2,7 @@ package tech.mogami.commons.constant.stablecoin;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class Stablecoins {
      * @param name the name of the stablecoin
      * @return an Optional containing the stablecoin if found, or empty if not found
      */
-    public static Optional<Stablecoin> findByName(final String name) {
+    public static Optional<Stablecoin> findByName(@Nullable final String name) {
         return Optional.ofNullable(name)
                 .map(String::toLowerCase)
                 .map(STABLECOINS_BY_NAME::get);

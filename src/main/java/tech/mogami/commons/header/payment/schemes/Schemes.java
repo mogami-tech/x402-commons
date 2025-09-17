@@ -2,6 +2,7 @@ package tech.mogami.commons.header.payment.schemes;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class Schemes {
      * @param name the name of the scheme
      * @return an Optional containing the scheme if found, or empty if not found
      */
-    public static Optional<Scheme> findByName(final String name) {
+    public static Optional<Scheme> findByName(@Nullable final String name) {
         return Optional.ofNullable(name)
                 .map(String::toLowerCase)
                 .map(SCHEMES_BY_NAME::get);

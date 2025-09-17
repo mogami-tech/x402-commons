@@ -2,6 +2,7 @@ package tech.mogami.commons.constant.network;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,14 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
 public class Networks {
 
+    /** Unknown network. */
+    public static final Network UNKNOWN = Network.builder()
+            .name("unknown")
+            .displayName("Unknown Network")
+            .chainId(0)
+            .isTestnet(true)
+            .build();
+
     /** Base Sepolia network. */
     public static final Network BASE_SEPOLIA = Network.builder()
             .name("base-sepolia")
@@ -26,9 +35,9 @@ public class Networks {
 
     /** Base mainnet network. */
     public static final Network BASE_MAINNET = Network.builder()
-            .name("base-mainnet")
+            .name("base")
             .displayName("Base Mainnet")
-            .chainId(84533)
+            .chainId(8453)
             .isTestnet(false)
             .build();
 
@@ -48,7 +57,7 @@ public class Networks {
      * @param name the name of the network
      * @return an Optional containing the network if found, or empty if not found
      */
-    public static Optional<Network> findByName(final String name) {
+    public static Optional<Network> findByName(@Nullable final String name) {
         return Optional.ofNullable(name)
                 .map(String::toLowerCase)
                 .map(NETWORKS_BY_NAME::get);

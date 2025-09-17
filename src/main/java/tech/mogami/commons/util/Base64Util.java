@@ -4,6 +4,8 @@ import lombok.experimental.UtilityClass;
 
 import java.util.Base64;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * Utility class for Base64 encoding and decoding operations.
  */
@@ -18,7 +20,9 @@ public class Base64Util {
      * @return the Base64 encoded string
      */
     public static String encode(final String input) {
-        return Base64.getEncoder().withoutPadding().encodeToString(input.getBytes());
+        return Base64.getEncoder()
+                .withoutPadding()
+                .encodeToString(input.getBytes(UTF_8));
     }
 
     /**
@@ -28,7 +32,7 @@ public class Base64Util {
      * @return the decoded string
      */
     public static String decode(final String input) {
-        return new String(Base64.getDecoder().decode(input));
+        return new String(Base64.getDecoder().decode(input), UTF_8);
     }
 
 }
