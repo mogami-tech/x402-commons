@@ -1,5 +1,6 @@
 package tech.mogami.commons.header.payment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -62,6 +63,7 @@ public record PaymentPayload(
      *
      * @return the nonce if available
      */
+    @JsonIgnore
     public Optional<String> getNonce() {
         // Exact scheme.
         if (Strings.CI.equals(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {

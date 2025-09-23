@@ -1,6 +1,7 @@
 package tech.mogami.commons.api.facilitator.verify;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -43,6 +44,7 @@ public record VerifyRequest(
     /**
      * Get the nonce from the payload.
      */
+    @JsonIgnore
     public Optional<String> getNonce() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getNonce);

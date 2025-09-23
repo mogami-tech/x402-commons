@@ -1,5 +1,6 @@
 package tech.mogami.commons.header.payment.schemes.exact;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -81,6 +82,7 @@ public record ExactSchemePayload(
      *
      * @return the nonce if available
      */
+    @JsonIgnore
     public Optional<String> getNonce() {
         if (authorization == null) {
             return Optional.empty();
