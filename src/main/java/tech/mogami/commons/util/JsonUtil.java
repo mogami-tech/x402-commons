@@ -24,7 +24,7 @@ public class JsonUtil {
     private static final ObjectMapper MAPPER = new ObjectMapper()
             .configure(FAIL_ON_UNKNOWN_PROPERTIES, true)
             .configure(WRITE_DATES_AS_TIMESTAMPS, false)
-            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
             .findAndRegisterModules();
 
     /**
@@ -56,6 +56,21 @@ public class JsonUtil {
             return MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Error while writing JSON: ", e);
+        }
+    }
+
+    /**
+     * Convert an object to a pretty-printed JSON string.
+     *
+     * @param value the object to serialize (nullable)
+     * @return the JSON string, or "null" if value is null
+     * @throws IllegalStateException if serialization fails
+     */
+    public static String toPrettyJson(@Nullable final Object value) {
+        try {
+            return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Error while writing pretty JSON: ", e);
         }
     }
 
