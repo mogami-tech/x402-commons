@@ -9,6 +9,9 @@ import lombok.experimental.UtilityClass;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class ConsoleApiEndpoints {
 
+    /** Base URL for console API. */
+    public static final String API_BASE_URL = "https://api.console.mogami.tech";
+
     /** Base URL for V1. */
     public static final String V1_PREFIX = "/v1";
 
