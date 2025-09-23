@@ -10,6 +10,8 @@ import tech.mogami.commons.header.payment.PaymentPayload;
 import tech.mogami.commons.header.payment.PaymentRequirements;
 import tech.mogami.commons.validator.X402Version;
 
+import java.util.Optional;
+
 /**
  * Request to verify a payment.
  *
@@ -37,5 +39,13 @@ public record VerifyRequest(
         @NotNull(message = "{validation.verifyRequest.paymentRequirements.required}")
         @Schema(description = "Payment requirements as provided by the server")
         PaymentRequirements paymentRequirements) {
+
+    /**
+     * Get the nonce from the payload.
+     */
+    public Optional<String> getNonce() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getNonce);
+    }
 
 }

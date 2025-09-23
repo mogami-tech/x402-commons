@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 
 /**
  * Console API endpoints.
+ * TODO Rename all these variables to X402_CONSOLE_EVENTS_ENDPOINT or something similar.
  */
 @UtilityClass
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
