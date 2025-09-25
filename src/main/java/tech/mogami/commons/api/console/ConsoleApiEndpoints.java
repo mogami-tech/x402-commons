@@ -14,7 +14,7 @@ public class ConsoleApiEndpoints {
     public static final String API_BASE_URL = "https://api.console.mogami.tech";
 
     /** Base URL for V1. */
-    public static final String V1_PREFIX = API_BASE_URL + "/v1";
+    public static final String V1_PREFIX = "/v1";
 
     /**
      * Console API endpoints for version 1.
