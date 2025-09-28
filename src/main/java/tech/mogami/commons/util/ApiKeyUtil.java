@@ -35,7 +35,7 @@ public class ApiKeyUtil {
      */
     public static String generateApiKey(final int length) {
         if (length <= 0) {
-            throw new IllegalArgumentException("API key length must be positive");
+            throw new IllegalArgumentException("API key length must be positive, not (" + length + ")");
         }
 
         return new RandomStringGenerator.Builder()
