@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 
 /**
  * Facilitator API endpoints.
+ * TODO rename URL variables to X402_FACILITATOR_..._ENDPOINT.
  */
 @UtilityClass
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})

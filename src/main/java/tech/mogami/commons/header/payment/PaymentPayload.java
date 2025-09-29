@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
-import org.apache.commons.lang3.Strings;
+import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.header.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
@@ -66,7 +66,7 @@ public record PaymentPayload(
     @JsonIgnore
     public Optional<String> getNonce() {
         // Exact scheme.
-        if (Strings.CI.equals(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {
+        if (StringUtils.equalsIgnoreCase(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {
             return exactPayload.getNonce();
         }
         return Optional.empty();

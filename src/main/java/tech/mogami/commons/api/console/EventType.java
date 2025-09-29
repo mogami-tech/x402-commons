@@ -2,7 +2,7 @@ package tech.mogami.commons.api.console;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.apache.commons.lang3.Strings;
+import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.api.facilitator.settle.SettleRequest;
 import tech.mogami.commons.api.facilitator.settle.SettleResponse;
 import tech.mogami.commons.api.facilitator.verify.VerifyRequest;
@@ -57,9 +57,9 @@ public enum EventType {
      * @return the actor (X402_SERVER or X402_FACILITATOR)
      */
     public Actor actor() {
-        if (Strings.CI.startsWith(this.name(), "X402_SERVER")) {
+        if (StringUtils.startsWithIgnoreCase(this.name(), "X402_SERVER")) {
             return Actor.X402_SERVER;
-        } else if (Strings.CI.startsWith(this.name(), "X402_FACILITATOR")) {
+        } else if (StringUtils.startsWithIgnoreCase(this.name(), "X402_FACILITATOR")) {
             return Actor.X402_FACILITATOR;
         } else {
             throw new IllegalStateException("Unknown actor for event type: " + this.name());
