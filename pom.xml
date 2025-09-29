@@ -66,7 +66,7 @@
         <!-- Libraries releases -->
         <jackson.version>2.20.0</jackson.version>
         <lombok.version>1.18.42</lombok.version>
-        <commons-lang3.version>3.18.0</commons-lang3.version>
+        <commons-lang3.version>3.19.0</commons-lang3.version>
         <commons-text.version>1.14.0</commons-text.version>
         <commons-codec.version>1.19.0</commons-codec.version>
         <commons-collections.version>4.5.0</commons-collections.version>
@@ -94,7 +94,7 @@
         <maven.maven-gpg-plugin>3.2.8</maven.maven-gpg-plugin>
         <maven.maven-deploy-plugin>3.1.4</maven.maven-deploy-plugin>
         <maven.gitflow-maven-plugin>1.21.0</maven.gitflow-maven-plugin>
-        <maven.central-publishing-maven-plugin>0.8.0</maven.central-publishing-maven-plugin>
+        <maven.central-publishing-maven-plugin>0.9.0</maven.central-publishing-maven-plugin>
     </properties>
     <!-- =========================================================================================================== -->
 
@@ -176,7 +176,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.27.5</version>
+            <version>3.27.6</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
