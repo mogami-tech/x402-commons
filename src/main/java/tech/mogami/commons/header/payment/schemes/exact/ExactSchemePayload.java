@@ -1,13 +1,17 @@
 package tech.mogami.commons.header.payment.schemes.exact;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
+
+import java.util.Optional;
 
 /**
  * Exact scheme payload.
@@ -71,6 +75,20 @@ public record ExactSchemePayload(
             @NotBlank(message = "{validation.exactSchemePayload.authorization.nonce.required}")
             @Schema(description = "Unique nonce to prevent replay of the authorization", example = "0xdeadbeefcafebabe12345678abcdef12")
             String nonce) {
+    }
+
+    /**
+     * Get the nonce from the payload.
+     *
+     * @return the nonce if available
+     */
+    @JsonIgnore
+    public Optional<String> getNonce() {
+        if (authorization == null) {
+            return Optional.empty();
+        } else {
+            return Optional.ofNullable(StringUtils.trimToNull(authorization.nonce()));
+        }
     }
 
 }

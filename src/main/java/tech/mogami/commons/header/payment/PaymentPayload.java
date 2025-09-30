@@ -1,5 +1,6 @@
 package tech.mogami.commons.header.payment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,12 +9,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.header.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
 import tech.mogami.commons.validator.X402Version;
 
+import java.util.Optional;
+
 import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMETER;
+import static tech.mogami.commons.header.payment.schemes.Schemes.EXACT_SCHEME;
 
 /**
  * Payment payload (included as the X-PAYMENT header in base64 encoded JSON).
@@ -52,4 +57,19 @@ public record PaymentPayload(
         })
         @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", oneOf = {ExactSchemePayload.class})
         Object payload) {
+
+    /**
+     * Get the nonce from the payload.
+     *
+     * @return the nonce if available
+     */
+    @JsonIgnore
+    public Optional<String> getNonce() {
+        // Exact scheme.
+        if (StringUtils.equalsIgnoreCase(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {
+            return exactPayload.getNonce();
+        }
+        return Optional.empty();
+    }
+
 }

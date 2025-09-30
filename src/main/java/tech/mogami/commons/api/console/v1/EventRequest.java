@@ -48,4 +48,13 @@ public record EventRequest(
 
 ) {
 
+    /**
+     * Canonical constructor to enforce default value for timestamp.
+     */
+    public EventRequest {
+        if (timestamp == null) {
+            timestamp = Instant.now();
+        }
+    }
+
 }

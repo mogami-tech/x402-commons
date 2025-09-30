@@ -9,13 +9,13 @@ import lombok.experimental.UtilityClass;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class FacilitatorApiEndpoints {
 
-    /** Supported URL. */
-    public static final String SUPPORTED_URL = "/supported";
+    /** Supported endpoint. */
+    public static final String SUPPORTED_ENDPOINT = "/supported";
 
-    /** Verify URL. */
-    public static final String VERIFY_URL = "/verify";
+    /** Verify endpoint. */
+    public static final String VERIFY_ENDPOINT = "/verify";
 
-    /** Settle URL. */
-    public static final String SETTLE_URL = "/settle";
+    /** Settle endpoint. */
+    public static final String SETTLE_ENDPOINT = "/settle";
 
 }

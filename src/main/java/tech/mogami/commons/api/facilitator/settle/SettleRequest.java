@@ -1,6 +1,7 @@
 package tech.mogami.commons.api.facilitator.settle;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +10,8 @@ import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.header.payment.PaymentPayload;
 import tech.mogami.commons.header.payment.PaymentRequirements;
 import tech.mogami.commons.validator.X402Version;
+
+import java.util.Optional;
 
 /**
  * Request to settle a payment.
@@ -37,4 +40,14 @@ public record SettleRequest(
         @NotNull(message = "{validation.settleRequest.paymentRequirements.required}")
         @Schema(description = "Payment requirements as provided by the server")
         PaymentRequirements paymentRequirements) {
+
+    /**
+     * Get the nonce from the payload.
+     */
+    @JsonIgnore
+    public Optional<String> getNonce() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getNonce);
+    }
+
 }
