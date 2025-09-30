@@ -16,6 +16,6 @@ public class FacilitatorApiEndpoints {
     public static final String VERIFY_ENDPOINT = "/verify";
 
     /** Settle endpoint. */
-    public static final String SETTLE__ENDPOINT = "/settle";
+    public static final String SETTLE_ENDPOINT = "/settle";
 
 }
