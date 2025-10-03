@@ -80,7 +80,7 @@
         <web3j.utils.version>4.14.1</web3j.utils.version>
 
         <!-- API & documentation -->
-        <swagger.version>2.2.37</swagger.version>
+        <swagger.version>2.2.38</swagger.version>
 
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
