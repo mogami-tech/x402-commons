@@ -99,7 +99,6 @@ public class EIP712Helper {
         return recoveredAddress.equalsIgnoreCase(Keys.toChecksumAddress(expectedSigner));
     }
 
-
     /**
      * Builds the JSON representation of the typed data for EIP-712 signing.
      *
@@ -111,7 +110,6 @@ public class EIP712Helper {
     private static String buildTypedDataJson(final PaymentRequirements paymentsRequirements,
                                              final PaymentPayload paymentPayload) throws Exception {
         // Validate inputs =============================================================================================
-        // TODO Add validations on scheme name, parameter version; extra parameters...
         Network network = Networks.findByName(paymentsRequirements.network())
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported network: " + paymentsRequirements.network()));
 

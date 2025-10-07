@@ -10,6 +10,7 @@ import static tech.mogami.commons.api.console.ConsoleApiEndpoints.X402_CONSOLE_A
 public class APIBaseURLTest {
 
     @Test
+    @DisplayName("Check API base URL")
     void getAPIBaseURL() {
         assertEquals(X402_CONSOLE_API_BASE_URL, "https://api.console.mogami.tech");
     }
