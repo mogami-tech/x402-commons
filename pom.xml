@@ -10,8 +10,10 @@
     <artifactId>mogami-x402-commons</artifactId>
     <version>0.0.9-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Common classes used by Mogami projects</name>
-    <description>Common classes used by Mogami projects</description>
+    <name>Mogami x402 commons</name>
+    <description>Provides all core classes, enums, constants, and API definitions required to implement the x402
+        protocol
+    </description>
     <url>https://github.com/mogami-tech/x402-commons</url>
     <licenses>
         <license>

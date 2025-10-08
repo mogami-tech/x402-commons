@@ -77,7 +77,7 @@ public enum X402Error {
             "Unknown or unmapped error");
 
     /**
-     * Map of all wire codes to enum constants for fast lookup.
+     * Map of all codes to enum constants for fast lookup.
      */
     public static final Map<String, X402Error> ALL_X402_ERRORS = Map.ofEntries(
             Map.entry(INSUFFICIENT_FUNDS.code, INSUFFICIENT_FUNDS),

@@ -6,10 +6,11 @@
 </p>
 
 <p align="center">
-    <a href="https://mogami.gitbook.io/mogami">
+    <a href="https://mogami.tech">
         <img    src="https://mogami.tech/images/logo/logo_mogami_vertical_small.png"
                 alt="Mogami logo"/>
     </a>
 </p>
 
-<h3 align="center">x402-commons: Common classes used by Mogami projects.</h3>
+<h3 align="center">x402-commons is the shared foundation for building x402-compatible systems.</h3>
+<p align="center">It provides all core classes, enums, constants, and API definitions required to implement the x402 protocol.</p>
