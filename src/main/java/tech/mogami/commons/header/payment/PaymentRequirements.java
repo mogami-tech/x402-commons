@@ -82,7 +82,9 @@ public record PaymentRequirements(
         String asset,
 
         @Schema(description = "Extra scheme-specific information. For `exact` on EVM: should contain asset `name` and `version`.", example = "{\"name\": \"USDC\", \"version\": \"2\"}")
-        @Singular("extra") Map<String, String> extra) {
+        @Singular("extra") Map<String, String> extra
+
+) {
 
     /**
      * Get an extra value by its key.
@@ -90,7 +92,7 @@ public record PaymentRequirements(
      * @param key the key of the extra value
      * @return an Optional containing the extra value if present, or empty if not found
      */
-    public Optional<String> getExtra(final String key) {
+    public Optional<String> getExtra(@Nullable final String key) {
         return Optional.ofNullable(key)
                 .filter(StringUtils::isNotEmpty)
                 .map(extra::get);

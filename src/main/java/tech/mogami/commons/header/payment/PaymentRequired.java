@@ -34,5 +34,7 @@ public record PaymentRequired(
         List<PaymentRequirements> accepts,
 
         @Schema(description = "Optional error message indicating why payment is required")
-        @Nullable String error) {
+        @Nullable String error
+
+) {
 }

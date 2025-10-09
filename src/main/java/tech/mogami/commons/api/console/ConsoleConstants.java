@@ -3,7 +3,7 @@ package tech.mogami.commons.api.console;
 import lombok.experimental.UtilityClass;
 
 /**
- * Console constants.
+ * Mogami console constants.
  */
 @UtilityClass
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})

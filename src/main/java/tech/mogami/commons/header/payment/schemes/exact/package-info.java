@@ -1,4 +1,4 @@
 /**
- * Exact payment schemes for Mogami Commons.
+ * Exact payment.
  */
 package tech.mogami.commons.header.payment.schemes.exact;

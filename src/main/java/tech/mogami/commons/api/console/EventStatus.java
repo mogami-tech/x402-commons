@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * EventStatus represents the status of an event in the x402 system.
  */
 @JsonFormat(shape = JsonFormat.Shape.STRING)
+@SuppressWarnings("unused")
 public enum EventStatus {
 
     /** The event is pending and has not yet been processed. */

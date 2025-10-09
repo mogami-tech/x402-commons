@@ -11,8 +11,7 @@
     <version>0.0.9-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Mogami x402 commons</name>
-    <description>Provides all core classes, enums, constants, and API definitions required to implement the x402
-        protocol
+    <description>Provides core classes, enums, constants, and API definitions required to implement the x402 protocol
     </description>
     <url>https://github.com/mogami-tech/x402-commons</url>
     <licenses>
@@ -83,6 +82,10 @@
 
         <!-- API & documentation -->
         <swagger.version>2.2.38</swagger.version>
+
+        <!-- Test dependencies  -->
+        <junit-jupiter.version>6.0.0</junit-jupiter.version>
+        <assertj.version>3.27.6</assertj.version>
 
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
@@ -174,13 +177,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>6.0.0</version>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.27.6</version>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

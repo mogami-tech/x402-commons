@@ -28,11 +28,8 @@ import static tech.mogami.commons.header.payment.schemes.exact.ExactSchemeConsta
 @SuppressWarnings({"magicnumber", "HideUtilityClassConstructor", "unused"})
 public class EIP712Helper {
 
-    /** ObjectMapper instance for JSON operations. */
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    /** EIP-712 JSON. */
-    private static final String TYPES = """
+    /** EIP-712 schema in JSON. */
+    private static final String EIP712_SCHEMA_JSON = """
             {
               "EIP712Domain":[
                 {"name":"name","type":"string"},
@@ -53,6 +50,7 @@ public class EIP712Helper {
 
     /**
      * Signs an authorization message using EIP-712 structured data signing.
+     * TYPES
      *
      * @param credentials          the credentials of the signer
      * @param paymentsRequirements the payment requirements containing network and scheme information
@@ -84,7 +82,6 @@ public class EIP712Helper {
                                  final PaymentRequirements paymentsRequirements,
                                  final PaymentPayload paymentPayload,
                                  final String expectedSigner) throws Exception {
-
         // Create the typed-data JSON exactly as in sign()
         String typedDataJson = buildTypedDataJson(paymentsRequirements, paymentPayload);
 
@@ -109,12 +106,14 @@ public class EIP712Helper {
      */
     private static String buildTypedDataJson(final PaymentRequirements paymentsRequirements,
                                              final PaymentPayload paymentPayload) throws Exception {
+        final ObjectMapper mapper = new ObjectMapper();
+
         // Validate inputs =============================================================================================
         Network network = Networks.findByName(paymentsRequirements.network())
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported network: " + paymentsRequirements.network()));
 
         // Build the EIP-712 typed-data JSON (domain + message) ========================================================
-        ObjectNode domain = MAPPER.createObjectNode();
+        ObjectNode domain = mapper.createObjectNode();
         domain.put("name", paymentsRequirements.extra().get(EXACT_SCHEME_PARAMETER_NAME));
         domain.put("version", paymentsRequirements.extra().get(EXACT_SCHEME_PARAMETER_VERSION));
         domain.put("chainId", network.chainId());
@@ -122,7 +121,7 @@ public class EIP712Helper {
 
         ExactSchemePayload exactSchemePayload = (ExactSchemePayload) paymentPayload.payload();
 
-        ObjectNode msg = MAPPER.createObjectNode();
+        ObjectNode msg = mapper.createObjectNode();
         msg.put("from", exactSchemePayload.authorization().from());
         msg.put("to", exactSchemePayload.authorization().to());
         msg.put("value", new BigInteger(exactSchemePayload.authorization().value()));
@@ -130,13 +129,13 @@ public class EIP712Helper {
         msg.put("validBefore", new BigInteger(exactSchemePayload.authorization().validBefore()));
         msg.put("nonce", exactSchemePayload.authorization().nonce());
 
-        ObjectNode root = MAPPER.createObjectNode();
+        ObjectNode root = mapper.createObjectNode();
         root.put("primaryType", "TransferWithAuthorization");
-        root.set("types", MAPPER.readTree(TYPES));
+        root.set("types", mapper.readTree(EIP712_SCHEMA_JSON));
         root.set("domain", domain);
         root.set("message", msg);
 
-        return MAPPER.writeValueAsString(root);
+        return mapper.writeValueAsString(root);
     }
 
     /**

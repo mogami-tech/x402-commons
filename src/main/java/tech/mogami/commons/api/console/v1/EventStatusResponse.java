@@ -7,14 +7,14 @@ import org.jetbrains.annotations.Nullable;
 import tech.mogami.commons.api.console.EventStatus;
 
 /**
- * EventStatus represents the status of an event in the x402 console.
+ * EventStatus represents the status of an EventRequest in the x402 console.
  *
- * @param status  The status of the event, such as PENDING, ADDED, or REJECTED.
+ * @param status  The status of the event, see {@link EventStatus}.
  * @param message A specific message providing additional information about the event status.
  */
 @Builder
 @Jacksonized
-@Schema(description = "EventStatus represents the status of an event in the x402 console")
+@Schema(description = "EventStatus represents the status of an EventRequest in the x402 console")
 @SuppressWarnings("unused")
 public record EventStatusResponse(
 

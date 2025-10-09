@@ -39,7 +39,9 @@ public record SettleRequest(
         @Valid
         @NotNull(message = "{validation.settleRequest.paymentRequirements.required}")
         @Schema(description = "Payment requirements as provided by the server")
-        PaymentRequirements paymentRequirements) {
+        PaymentRequirements paymentRequirements
+
+) {
 
     /**
      * Get the nonce from the payload.

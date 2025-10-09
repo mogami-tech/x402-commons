@@ -22,7 +22,6 @@ public class Stablecoins {
             .name("USDC")
             .build();
 
-
     /** List of all stablecoins. */
     public static final List<Stablecoin> ALL_STABLECOINS = List.of(USDC);
 

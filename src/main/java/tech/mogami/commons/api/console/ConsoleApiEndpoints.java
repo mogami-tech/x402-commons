@@ -3,14 +3,14 @@ package tech.mogami.commons.api.console;
 import lombok.experimental.UtilityClass;
 
 /**
- * Console API endpoints.
+ * Mogami x402 console API endpoints.
  */
 @UtilityClass
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class ConsoleApiEndpoints {
 
     /** Base URL for console API. */
-    public static final String X402_CONSOLE_API_BASE_URL = "https://api.console.mogami.tech";
+    public static final String MOGAMI_X402_CONSOLE_API_BASE_URL = "https://api.console.mogami.tech";
 
     /** Base directory for V1. */
     public static final String V1_PREFIX = "/v1";

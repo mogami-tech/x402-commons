@@ -9,7 +9,7 @@ import org.jspecify.annotations.Nullable;
  * Settle response returned by the x402 facilitator for a settle attempt.
  *
  * @param success     true if the payment succeeded
- * @param network     identifier of the blockchain network, or null
+ * @param network     identifier of the blockchain network
  * @param transaction blockchain transaction hash of the settled payment, or null
  * @param errorReason error message from the facilitator, or null
  * @param payer       payer address, or null
@@ -33,5 +33,7 @@ public record SettleResponse(
         @Nullable String errorReason,
 
         @Schema(description = "Payer address, or null if error", example = "0x1234abcd...", nullable = true)
-        @Nullable String payer) {
+        @Nullable String payer
+
+) {
 }

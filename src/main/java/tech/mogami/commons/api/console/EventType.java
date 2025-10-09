@@ -56,9 +56,10 @@ public enum EventType {
      *
      * @return the actor (X402_SERVER or X402_FACILITATOR)
      */
+    @SuppressWarnings("unused")
     public Actor actor() {
         if (StringUtils.startsWithIgnoreCase(this.name(), "X402_SERVER")) {
-            return Actor.X402_SERVER;
+            return Actor.X402_RESOURCE_SERVER;
         } else if (StringUtils.startsWithIgnoreCase(this.name(), "X402_FACILITATOR")) {
             return Actor.X402_FACILITATOR;
         } else {

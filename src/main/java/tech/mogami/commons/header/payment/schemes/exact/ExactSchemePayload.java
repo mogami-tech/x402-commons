@@ -32,7 +32,9 @@ public record ExactSchemePayload(
         @Valid
         @NotNull(message = "{validation.exactSchemePayload.authorization.required}")
         @Schema(description = "Authorization parameters required to reconstruct the signed message")
-        Authorization authorization) {
+        Authorization authorization
+
+) {
 
     /**
      * Authorization parameters required to reconstruct the messaged signed for the transferWithAuthorization operation.
@@ -74,7 +76,9 @@ public record ExactSchemePayload(
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.nonce.required}")
             @Schema(description = "Unique nonce to prevent replay of the authorization", example = "0xdeadbeefcafebabe12345678abcdef12")
-            String nonce) {
+            String nonce
+
+    ) {
     }
 
     /**
