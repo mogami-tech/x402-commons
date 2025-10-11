@@ -1,14 +1,18 @@
 package tech.mogami.commons.api.console;
 
 /**
- * The actor.
+ * Protocol Components.
  */
+@SuppressWarnings("unused")
 public enum Actor {
 
-    /** The x402 server. */
-    X402_SERVER,
+    /** Any application or agent that requests access to protected resources. */
+    X402_CLIENT,
 
-    /** The x402 facilitator. */
+    /** A service that requires payment for access to protected resources (APIs, content, data, etc.). */
+    X402_RESOURCE_SERVER,
+
+    /** A service that handles payment verification and blockchain settlement. */
     X402_FACILITATOR
 
 }

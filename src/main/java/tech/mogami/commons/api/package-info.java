@@ -1,5 +1,5 @@
 /**
- * API objects.
+ * API.
  */
 package tech.mogami.commons.api;
 

@@ -56,7 +56,9 @@ public record PaymentPayload(
                 @JsonSubTypes.Type(value = ExactSchemePayload.class, name = "exact")
         })
         @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", oneOf = {ExactSchemePayload.class})
-        Object payload) {
+        Object payload
+
+) {
 
     /**
      * Get the nonce from the payload.

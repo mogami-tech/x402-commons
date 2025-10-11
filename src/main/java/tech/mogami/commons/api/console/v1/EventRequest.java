@@ -14,7 +14,7 @@ import java.time.Instant;
 /**
  * An even represents a x402 event captured by the x402 server or the x402 facilitator.
  *
- * @param type         The type of the event, such as PAYMENT_RECEIVED, PAYMENT_SENT, etc.
+ * @param type         The type of the event, such as X402_SERVER_URL_ACCESS_REQUEST or X402_SERVER_PAYMENT_VERIFY_REQUEST...
  * @param nonce        Unique nonce that can be used to trace the payment.
  * @param payload      Event payload in JSON format.
  * @param errorMessage A specific error message, if any.
@@ -22,7 +22,7 @@ import java.time.Instant;
  */
 @Builder
 @Jacksonized
-@Schema(description = "An even represents a x402 event captured by the x402 server or the x402 facilitator")
+@Schema(description = "An EventRequest represents a x402 event captured by the resource server or the facilitator")
 @SuppressWarnings("unused")
 public record EventRequest(
 
@@ -38,7 +38,7 @@ public record EventRequest(
         @Schema(description = "Event payload in JSON format", example = "{\"transactionHash\":\"0x1234567890abcdef\",\"status\":\"success\"}")
         String payload,
 
-        @Schema(description = "A specific error message, if any", example = "Connexion to blockchain node failed")
+        @Schema(description = "A specific error message, if any", example = "Insufficient fund")
         @Nullable String errorMessage,
 
         @NotNull(message = "{validation.console.event.timestamp.required}")

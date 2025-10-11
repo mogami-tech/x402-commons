@@ -15,9 +15,10 @@ import java.util.Optional;
 
 /**
  * Exact scheme payload.
+ * It uses EIP-3009 (Transfer with Authorization) to enable gasless transfers of specific amounts of ERC-20 tokens.
  *
- * @param signature     the signature of the EIP-3009 transferWithAuthorization operation.
- * @param authorization parameters required to reconstruct the messaged signed for the transferWithAuthorization operation.
+ * @param signature     EIP-712 signature for authorization (transferWithAuthorization).
+ * @param authorization EIP-3009 authorization parameters.
  */
 @Builder(toBuilder = true)
 @Jacksonized
@@ -26,19 +27,21 @@ import java.util.Optional;
 public record ExactSchemePayload(
 
         @NotBlank(message = "{validation.exactSchemePayload.signature.required}")
-        @Schema(description = "Signature of the EIP-3009 transferWithAuthorization operation", example = "0xabcdef1234567890...")
+        @Schema(description = "EIP-712 signature for authorization (transferWithAuthorization)", example = "0xabcdef1234567890...")
         String signature,
 
         @Valid
         @NotNull(message = "{validation.exactSchemePayload.authorization.required}")
-        @Schema(description = "Authorization parameters required to reconstruct the signed message")
-        Authorization authorization) {
+        @Schema(description = "EIP-3009 authorization parameters")
+        Authorization authorization
+
+) {
 
     /**
      * Authorization parameters required to reconstruct the messaged signed for the transferWithAuthorization operation.
      *
-     * @param from        the address of the sender
-     * @param to          the address of the recipient
+     * @param from        Payer's wallet address
+     * @param to          Recipient's wallet address
      * @param value       the number of tokens to be transferred
      * @param validAfter  the timestamp after which the authorization is isValid
      * @param validBefore the timestamp before which the authorization is isValid
@@ -51,12 +54,12 @@ public record ExactSchemePayload(
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.from.required}")
             @BlockchainAddress(message = "{validation.exactSchemePayload.authorization.from.invalid}")
-            @Schema(description = "Ethereum address of the token sender", example = "0x2980bc24bBFB34DE1BBC91479Cb712ffbCE02F73")
+            @Schema(description = "Payer's wallet address", example = "0x2980bc24bBFB34DE1BBC91479Cb712ffbCE02F73")
             String from,
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.to.required}")
             @BlockchainAddress(message = "{validation.exactSchemePayload.authorization.to.invalid}")
-            @Schema(description = "Ethereum address of the token recipient", example = "0x1234567890abcdef1234567890abcdef12345678")
+            @Schema(description = "Recipient's wallet address", example = "0x1234567890abcdef1234567890abcdef12345678")
             String to,
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.value.required}")
@@ -74,7 +77,9 @@ public record ExactSchemePayload(
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.nonce.required}")
             @Schema(description = "Unique nonce to prevent replay of the authorization", example = "0xdeadbeefcafebabe12345678abcdef12")
-            String nonce) {
+            String nonce
+
+    ) {
     }
 
     /**

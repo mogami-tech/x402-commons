@@ -19,7 +19,9 @@ import java.util.List;
 public record SupportedResponse(
 
         @Schema(description = "List of supported payment kinds (x402 version, scheme, and network)")
-        @Singular List<SupportedKind> kinds) {
+        @Singular List<SupportedKind> kinds
+
+) {
 
     /**
      * Single pair the facilitator can handle.
@@ -41,7 +43,9 @@ public record SupportedResponse(
             String scheme,
 
             @Schema(description = "Blockchain network supported", example = "base-sepolia")
-            String network) {
+            String network
+
+    ) {
     }
 
 }

@@ -40,11 +40,11 @@ public enum EventType {
     X402_SERVER_PAYMENT_SETTLE_REQUEST,
 
     /** The facilitator receives a /settle HTTP request from the x402 server. */
-    @Schema(description = "The facilitator receives a /settle HTTP request from the x402 server.")
+    @Schema(description = "The facilitator receives a /settle HTTP request from the x402 server")
     X402_FACILITATOR_SETTLE_REQUEST,
 
     /** The facilitator sends a response to the x402 server after processing the /settle request. */
-    @Schema(description = "The facilitator sends a response to the x402 server after processing the /settle request.")
+    @Schema(description = "The facilitator sends a response to the x402 server after processing the /settle request")
     X402_FACILITATOR_SETTLE_RESPONSE,
 
     /** The x402 server receives the response from the facilitator server. */
@@ -56,9 +56,10 @@ public enum EventType {
      *
      * @return the actor (X402_SERVER or X402_FACILITATOR)
      */
+    @SuppressWarnings("unused")
     public Actor actor() {
         if (StringUtils.startsWithIgnoreCase(this.name(), "X402_SERVER")) {
-            return Actor.X402_SERVER;
+            return Actor.X402_RESOURCE_SERVER;
         } else if (StringUtils.startsWithIgnoreCase(this.name(), "X402_FACILITATOR")) {
             return Actor.X402_FACILITATOR;
         } else {

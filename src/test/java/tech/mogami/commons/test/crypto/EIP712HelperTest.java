@@ -40,9 +40,9 @@ import static tech.mogami.commons.test.BaseTestData.TEST_SERVER_WALLET_ADDRESS_1
 @DisplayName("EIP-712 helper Tests")
 public class EIP712HelperTest {
 
-    String expectedSignature = "0x7d9463e2c7c98e33c08747882521be88cc02443a8c46f3a1f5b51ae8d1bdd9581fa41ab35c1cebfe70a79471640a1bde9ffadd377e38d708b5ca6a38b30300f61b";
+    final String expectedSignature = "0x7d9463e2c7c98e33c08747882521be88cc02443a8c46f3a1f5b51ae8d1bdd9581fa41ab35c1cebfe70a79471640a1bde9ffadd377e38d708b5ca6a38b30300f61b";
 
-    PaymentRequirements paymentRequirements = PaymentRequirements.builder()
+    final PaymentRequirements paymentRequirements = PaymentRequirements.builder()
             .scheme(EXACT_SCHEME.name())
             .network(BASE_SEPOLIA.name())
             .maxAmountRequired("10000")
@@ -53,7 +53,7 @@ public class EIP712HelperTest {
             .extra(EXACT_SCHEME_PARAMETER_VERSION, "2")
             .build();
 
-    PaymentPayload paymentPayload = PaymentPayload.builder()
+    final PaymentPayload paymentPayload = PaymentPayload.builder()
             .x402Version(X402_SUPPORTED_VERSION_BY_MOGAMI.version())
             .scheme(EXACT_SCHEME.name())
             .network(BASE_SEPOLIA.name())

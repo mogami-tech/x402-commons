@@ -10,5 +10,8 @@ import lombok.Builder;
 @Builder
 @SuppressWarnings("unused")
 public record Stablecoin(
-        String name) {
+
+        String name
+
+) {
 }

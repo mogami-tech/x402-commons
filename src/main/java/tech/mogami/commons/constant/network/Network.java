@@ -3,7 +3,7 @@ package tech.mogami.commons.constant.network;
 import lombok.Builder;
 
 /**
- * Represents a network in the Mogami Commons library.
+ * Represents a network.
  * This is a marker record for network-related constants and configurations.
  *
  * @param name        the name of the network (example: "base-sepolia" or "ethereum-mainnet")
