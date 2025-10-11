@@ -94,7 +94,8 @@ public enum X402Error {
             Map.entry(INVALID_X402_VERSION.code, INVALID_X402_VERSION),
             Map.entry(INVALID_TRANSACTION_STATE.code, INVALID_TRANSACTION_STATE),
             Map.entry(UNEXPECTED_VERIFY_ERROR.code, UNEXPECTED_VERIFY_ERROR),
-            Map.entry(UNEXPECTED_SETTLE_ERROR.code, UNEXPECTED_SETTLE_ERROR)
+            Map.entry(UNEXPECTED_SETTLE_ERROR.code, UNEXPECTED_SETTLE_ERROR),
+            Map.entry(UNKNOWN.code, UNKNOWN)
     );
 
     /** Error code. */

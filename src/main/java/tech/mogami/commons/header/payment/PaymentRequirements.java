@@ -81,7 +81,7 @@ public record PaymentRequirements(
         @Schema(description = "Contract asset address", example = "0xABCDEF1234567890...")
         String asset,
 
-        @Schema(description = "Extra scheme-specific information. For `exact` on EVM: should contain asset `name` and `version`.", example = "{\"name\": \"USDC\", \"version\": \"2\"}")
+        @Schema(description = "Extra scheme-specific information. For `exact` on EVM: should contain asset `name` and `version`", example = "{\"name\": \"USDC\", \"version\": \"2\"}")
         @Singular("extra") Map<String, String> extra
 
 ) {

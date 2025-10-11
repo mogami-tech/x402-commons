@@ -11,7 +11,7 @@ public class X402ErrorTest {
 
     @Test
     void errorCodeList() {
-        assertThat(X402Error.ALL_X402_ERRORS).hasSize(15);
+        assertThat(X402Error.ALL_X402_ERRORS).hasSize(16);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class X402ErrorTest {
                     assertThat(code.getDefaultMessage()).isEqualTo("Client does not have enough tokens to complete the payment");
                 });
         // Existing value (not all lower case).
-        assertThat(X402Error.fromCode("insuffiCIENT_funds"))
+        assertThat(X402Error.fromCode("insufficient_FUNDS"))
                 .satisfies(code -> {
                     assertThat(code.getCode()).isEqualTo("insufficient_funds");
                     assertThat(code.getDefaultMessage()).isEqualTo("Client does not have enough tokens to complete the payment");

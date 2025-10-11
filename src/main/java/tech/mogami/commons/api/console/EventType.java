@@ -40,11 +40,11 @@ public enum EventType {
     X402_SERVER_PAYMENT_SETTLE_REQUEST,
 
     /** The facilitator receives a /settle HTTP request from the x402 server. */
-    @Schema(description = "The facilitator receives a /settle HTTP request from the x402 server.")
+    @Schema(description = "The facilitator receives a /settle HTTP request from the x402 server")
     X402_FACILITATOR_SETTLE_REQUEST,
 
     /** The facilitator sends a response to the x402 server after processing the /settle request. */
-    @Schema(description = "The facilitator sends a response to the x402 server after processing the /settle request.")
+    @Schema(description = "The facilitator sends a response to the x402 server after processing the /settle request")
     X402_FACILITATOR_SETTLE_RESPONSE,
 
     /** The x402 server receives the response from the facilitator server. */
