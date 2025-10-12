@@ -3,6 +3,7 @@ package tech.mogami.commons.test.crypto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
+import tech.mogami.commons.constant.network.Networks;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.mogami.commons.constant.network.Networks.BASE_MAINNET;
@@ -10,6 +11,13 @@ import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 
 @DisplayName("Network Tests")
 public class NetworkTest {
+
+    @Test
+    @DisplayName("Networks count")
+    void testNetworksCount() {
+        // There should be exactly 2 networks defined
+        assertThat(Networks.ALL_NETWORKS.size()).isEqualTo(2);
+    }
 
     @Test
     @DisplayName("Testing defaultRpcUrl and rpcUrls")

@@ -44,7 +44,7 @@ public class Networks {
             .build();
 
     /** List of all networks. */
-    private static final List<Network> ALL_NETWORKS = List.of(BASE_SEPOLIA, BASE_MAINNET);
+    public static final List<Network> ALL_NETWORKS = List.of(BASE_SEPOLIA, BASE_MAINNET);
 
     /** Map of networks by name. */
     private static final Map<String, Network> NETWORKS_BY_NAME = ALL_NETWORKS.stream()

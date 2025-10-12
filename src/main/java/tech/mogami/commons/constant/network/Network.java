@@ -3,6 +3,8 @@ package tech.mogami.commons.constant.network;
 import lombok.Builder;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Optional;
+
 /**
  * Represents a network.
  * This is a marker record for network-related constants and configurations.
@@ -46,13 +48,9 @@ public record Network(
      * @return the RPC URL as a string
      */
     public String rpcUrl() {
-        final String environmentVariableName = ENV_PREFIX + StringUtils.replaceIgnoreCase(name.toUpperCase(), "-", "_");
-        final String environmentVariableValue = System.getenv(environmentVariableName);
-        if (StringUtils.isBlank(environmentVariableValue)) {
-            return defaultRpcUrl;
-        } else {
-            return environmentVariableValue;
-        }
+        return Optional.ofNullable(System.getenv(ENV_PREFIX + name.toUpperCase().replace("-", "_")))
+                .filter(StringUtils::isNotBlank)
+                .orElse(defaultRpcUrl);
     }
 
 }
