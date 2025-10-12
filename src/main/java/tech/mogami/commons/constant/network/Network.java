@@ -26,7 +26,7 @@ public record Network(
 ) {
 
     /** Environment variable prefix for RPC URLs. */
-    private static final String ENV_PREFIX = "RPC_URL_";
+    private static final String ENVIRONMENT_PREFIX = "RPC_URL_";
 
     /**
      * Default constructor with validation.
@@ -48,7 +48,7 @@ public record Network(
      * @return the RPC URL as a string
      */
     public String rpcUrl() {
-        return Optional.ofNullable(System.getenv(ENV_PREFIX + name.toUpperCase().replace("-", "_")))
+        return Optional.ofNullable(System.getenv(ENVIRONMENT_PREFIX + name.toUpperCase().replace("-", "_")))
                 .filter(StringUtils::isNotBlank)
                 .orElse(defaultRpcUrl);
     }
