@@ -7,7 +7,7 @@
     <!-- Project information ======================================================================================= -->
     <groupId>tech.mogami.commons</groupId>
     <artifactId>mogami-x402-commons</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <name>Mogami x402 commons</name>
     <description>Provides core classes, enums, constants, and API definitions required to implement the x402 protocol
@@ -73,12 +73,13 @@
         <swagger.version>2.2.38</swagger.version>
 
         <!-- Test dependencies  -->
-        <junit-jupiter.version>6.0.0</junit-jupiter.version>
+        <junit-jupiter.version>5.10.2</junit-jupiter.version>
+        <junit-pionner.version>2.3.0</junit-pionner.version>
         <assertj.version>3.27.6</assertj.version>
 
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
-        <maven.puppycrawl.checkstyle.version>12.0.0</maven.puppycrawl.checkstyle.version>
+        <maven.puppycrawl.checkstyle.version>12.0.1</maven.puppycrawl.checkstyle.version>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
@@ -168,6 +169,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit-pioneer</groupId>
+            <artifactId>junit-pioneer</artifactId>
+            <version>${junit-pionner.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
@@ -217,6 +224,10 @@
                     </dependency>
                 </dependencies>
                 <configuration>
+                    <argLine>
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                    </argLine>
                     <reportFormat>plain</reportFormat>
                     <consoleOutputReporter>
                         <disable>true</disable>

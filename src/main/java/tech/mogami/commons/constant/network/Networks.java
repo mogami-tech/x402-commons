@@ -17,20 +17,13 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
 public class Networks {
 
-    /** Unknown network. */
-    public static final Network UNKNOWN = Network.builder()
-            .name("unknown")
-            .displayName("Unknown Network")
-            .chainId(0)
-            .isTestnet(true)
-            .build();
-
-    /** Base Sepolia network. */
+    /** Base sepolia network. */
     public static final Network BASE_SEPOLIA = Network.builder()
             .name("base-sepolia")
             .displayName("Base Sepolia Testnet")
             .chainId(84532)
             .isTestnet(true)
+            .defaultRpcUrl("https://sepolia.base.org")
             .build();
 
     /** Base mainnet network. */
@@ -39,10 +32,11 @@ public class Networks {
             .displayName("Base Mainnet")
             .chainId(8453)
             .isTestnet(false)
+            .defaultRpcUrl("https://mainnet.base.org")
             .build();
 
     /** List of all networks. */
-    private static final List<Network> ALL_NETWORKS = List.of(BASE_SEPOLIA, BASE_MAINNET);
+    public static final List<Network> ALL_NETWORKS = List.of(BASE_SEPOLIA, BASE_MAINNET);
 
     /** Map of networks by name. */
     private static final Map<String, Network> NETWORKS_BY_NAME = ALL_NETWORKS.stream()
