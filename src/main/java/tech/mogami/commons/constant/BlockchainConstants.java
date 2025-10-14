@@ -21,6 +21,9 @@ public class BlockchainConstants {
     /** Number of Wei in one Gwei. */
     public static final BigInteger GWEI_IN_WEI = BigInteger.valueOf(1_000_000_000L);
 
+    /** Default gas limit for transactions. */
+    public static final BigInteger DEFAULT_GAS_LIMIT = BigInteger.valueOf(120_000);
+
     /** Default maximum fee per gas. */
     public static final BigInteger DEFAULT_MAXIMUM_FEE_PER_GAS = BigInteger.valueOf(2_000_000_000L);
 
