@@ -17,15 +17,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
 public class Networks {
 
-    /** Unknown network. */
-    public static final Network UNKNOWN = Network.builder()
-            .name("unknown")
-            .displayName("Unknown Network")
-            .chainId(-1)
-            .isTestnet(true)
-            .build();
-
-    /** Base Sepolia network. */
+    /** Base sepolia network. */
     public static final Network BASE_SEPOLIA = Network.builder()
             .name("base-sepolia")
             .displayName("Base Sepolia Testnet")

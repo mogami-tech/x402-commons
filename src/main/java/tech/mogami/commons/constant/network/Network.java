@@ -36,7 +36,10 @@ public record Network(
             throw new IllegalArgumentException("Network name can't be null");
         }
         if (chainId == 0) {
-            throw new IllegalArgumentException("chainId can't be zero");
+            throw new IllegalArgumentException("Chain Id can't be zero");
+        }
+        if (StringUtils.isBlank(defaultRpcUrl)) {
+            throw new IllegalArgumentException("Default rpc Url can't be blank");
         }
     }
 
