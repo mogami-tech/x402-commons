@@ -33,9 +33,6 @@ public class BaseTestData {
     /** Server (seller) address number 2 private key - index(6). */
     public static final String TEST_SERVER_WALLET_ADDRESS_2_PRIVATE_KEY = "0x37b8c69095c9247fce67b1b9bdfd30a5d364216a2f84a8a02a37725359ca9d9b";
 
-    /** Asset contract address. */
-    public static final String TEST_ASSET_CONTRACT_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
-
     /** Client 1 client ID. */
     public static final String CLIENT_1_CLIENT_ID = "11111111-1111-1111-1111-111111111111";
 
@@ -44,5 +41,14 @@ public class BaseTestData {
 
     /** Client 2 tenant API key. */
     public static final String CLIENT_1_TENANT_API_KEY = "cJNKTeIMnUUqj6qhK2c8sg2iggZ4FbBSnUCcJ4UgxWcdEaeO3KbXk4hz0s6jZIC1";
+
+    /** Production: facilitator address. */
+    public static final String PRODUCTION_FACILITATOR_WALLET_ADDRESS = "0xFE0920A0a7f0f8a1Ec689146c30C3BBef439bF8A";
+
+    /** Production: address test n°1. */
+    public static final String PRODUCTION_ADDRESS_1_WALLET_ADDRESS = "0x375605671ddA2d461E333Cfa51F5b53763E8C585";
+
+    /** Production: address test n°2. */
+    public static final String PRODUCTION_ADDRESS_2_WALLET_ADDRESS = "0x2306e12F56e45E698bFAfa9c5E7D4e77cDEb4d06";
 
 }
