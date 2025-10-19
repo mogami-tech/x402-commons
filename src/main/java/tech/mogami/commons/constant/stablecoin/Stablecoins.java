@@ -20,6 +20,7 @@ public class Stablecoins {
     /** USDC. */
     public static final Stablecoin USDC = Stablecoin.builder()
             .name("USDC")
+            .symbol("USDC")
             .build();
 
     /** List of all stablecoins. */
@@ -29,6 +30,13 @@ public class Stablecoins {
     private static final Map<String, Stablecoin> STABLECOINS_BY_NAME = ALL_STABLECOINS.stream()
             .collect(Collectors.toUnmodifiableMap(
                     stablecoin -> StringUtils.lowerCase(stablecoin.name()),
+                    Function.identity()
+            ));
+
+    /** Map of stablecoins by symbol. */
+    public static final Map<String, Stablecoin> STABLECOINS_BY_SYMBOL = ALL_STABLECOINS.stream()
+            .collect(Collectors.toUnmodifiableMap(
+                    stablecoin -> StringUtils.lowerCase(stablecoin.symbol()),
                     Function.identity()
             ));
 
@@ -42,6 +50,18 @@ public class Stablecoins {
         return Optional.ofNullable(name)
                 .map(String::toLowerCase)
                 .map(STABLECOINS_BY_NAME::get);
+    }
+
+    /**
+     * Find a stablecoin by its symbol.
+     *
+     * @param symbol the symbol of the stablecoin
+     * @return an Optional containing the stablecoin if found, or empty if not found
+     */
+    public static Optional<Stablecoin> findBySymbol(@Nullable final String symbol) {
+        return Optional.ofNullable(symbol)
+                .map(String::toLowerCase)
+                .map(STABLECOINS_BY_SYMBOL::get);
     }
 
 }
