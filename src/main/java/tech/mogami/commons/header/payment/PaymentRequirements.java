@@ -1,5 +1,6 @@
 package tech.mogami.commons.header.payment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,8 +15,11 @@ import tech.mogami.commons.validator.BlockchainAddress;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
 
+import java.math.BigInteger;
 import java.util.Map;
 import java.util.Optional;
+
+import static java.math.BigInteger.ZERO;
 
 /**
  * Payment requirement returned to the client when he tries to access a resource.
@@ -85,6 +89,27 @@ public record PaymentRequirements(
         @Singular("extra") Map<String, String> extra
 
 ) {
+
+    /**
+     * Get the maximum amount required as a BigInteger.
+     *
+     * @return the maximum amount required to be converted to BigInteger
+     */
+    @JsonIgnore
+    public BigInteger maxAmountRequiredAsBigInteger() {
+        if (StringUtils.isBlank(maxAmountRequired)) {
+            return ZERO;
+        }
+        try {
+            BigInteger value = new BigInteger(maxAmountRequired.trim());
+            if (value.signum() < 0) {
+                throw new IllegalArgumentException("maxAmountRequired cannot be negative: " + maxAmountRequired);
+            }
+            return value;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid maxAmountRequired: '" + maxAmountRequired + "'", e);
+        }
+    }
 
     /**
      * Get an extra value by its key.
