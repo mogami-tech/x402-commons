@@ -10,9 +10,9 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static tech.mogami.commons.constant.asset.Assets.USDC;
 import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
 import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
-import static tech.mogami.commons.constant.stablecoin.Stablecoins.USDC;
 
 /**
  * Existing {@link Network}.
@@ -28,8 +28,8 @@ public class Networks {
             .chainId(84532)
             .isTestnet(true)
             .defaultRpcUrl("https://sepolia.base.org")
-            .usdc(Network.Asset.builder()
-                    .stablecoin(USDC)
+            .usdc(Network.DeployedAsset.builder()
+                    .asset(USDC)
                     .displayName("USDC")
                     .contractAddress(BASE_SEPOLIA_USDC_CONTRACT)
                     .decimals(6)
@@ -43,8 +43,8 @@ public class Networks {
             .chainId(8453)
             .isTestnet(false)
             .defaultRpcUrl("https://mainnet.base.org")
-            .usdc(Network.Asset.builder()
-                    .stablecoin(USDC)
+            .usdc(Network.DeployedAsset.builder()
+                    .asset(USDC)
                     .displayName("USD Coin")
                     .contractAddress(BASE_MAINNET_USDC_CONTRACT)
                     .decimals(6)

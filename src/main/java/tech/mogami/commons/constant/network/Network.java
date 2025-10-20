@@ -2,7 +2,7 @@ package tech.mogami.commons.constant.network;
 
 import lombok.Builder;
 import org.apache.commons.lang3.StringUtils;
-import tech.mogami.commons.constant.stablecoin.Stablecoin;
+import tech.mogami.commons.constant.asset.Asset;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -30,7 +30,7 @@ public record Network(
         int chainId,
         boolean isTestnet,
         String defaultRpcUrl,
-        Asset usdc
+        DeployedAsset usdc
 ) {
 
     /** Environment variable prefix for RPC URLs. */
@@ -39,14 +39,14 @@ public record Network(
     /**
      * Represents an asset (token) deployed on a given network.
      *
-     * @param stablecoin      the stablecoin information (e.g., USDC)
+     * @param asset           the asset information (e.g., USDC)
      * @param displayName     the display name of the USDC token on a specific (e.g., "USD Coin")
      * @param contractAddress the contract address of the USDC token on the network
      * @param decimals        the number of decimals used by the USDC token (e.g., 6)
      */
     @Builder
-    public record Asset(
-            Stablecoin stablecoin,
+    public record DeployedAsset(
+            Asset asset,
             String displayName,
             String contractAddress,
             int decimals
@@ -61,9 +61,6 @@ public record Network(
         public BigDecimal toAtomic(final BigDecimal amount) {
             if (amount == null) {
                 return ZERO;
-            }
-            if (amount.signum() < 0) {
-                throw new IllegalArgumentException("Amount cannot be negative: " + amount);
             }
             return amount.multiply(TEN.pow(decimals)).setScale(0, DOWN);
         }

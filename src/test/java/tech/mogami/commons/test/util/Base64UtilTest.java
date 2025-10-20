@@ -39,9 +39,7 @@ public class Base64UtilTest {
     void shouldThrowOnInvalidBase64Input() {
         var invalidBase64 = "@#%!not-base64";
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            Base64Util.decode(invalidBase64);
-        });
+        assertThrows(IllegalArgumentException.class, () -> Base64Util.decode(invalidBase64));
     }
 
 }
