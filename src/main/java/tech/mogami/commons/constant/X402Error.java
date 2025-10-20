@@ -24,7 +24,7 @@ public enum X402Error {
     INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALID_BEFORE("invalid_exact_evm_payload_authorization_valid_before",
             "Payment authorization has expired (after validBefore timestamp)"),
 
-    /** Payment amount is insufficient for the required payment. */
+    /** The payment amount is insufficient for the required payment. */
     INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE("invalid_exact_evm_payload_authorization_value",
             "Payment amount is insufficient for the required payment"),
 
@@ -32,7 +32,7 @@ public enum X402Error {
     INVALID_EXACT_EVM_PAYLOAD_SIGNATURE("invalid_exact_evm_payload_signature",
             "Payment authorization signature is invalid or improperly signed"),
 
-    /** Recipient address does not match payment requirements. */
+    /** The recipient address does not match payment requirements. */
     INVALID_EXACT_EVM_PAYLOAD_RECIPIENT_MISMATCH("invalid_exact_evm_payload_recipient_mismatch",
             "Recipient address does not match payment requirements"),
 
@@ -52,7 +52,7 @@ public enum X402Error {
     INVALID_SCHEME("invalid_scheme",
             "Specified payment scheme is not supported"),
 
-    /** Payment scheme is not supported by the facilitator. */
+    /** The payment scheme is not supported by the facilitator. */
     UNSUPPORTED_SCHEME("unsupported_scheme",
             "Payment scheme is not supported by the facilitator"),
 
@@ -68,7 +68,7 @@ public enum X402Error {
     UNEXPECTED_VERIFY_ERROR("unexpected_verify_error",
             "Unexpected error occurred during payment verification"),
 
-    /** Unexpected error occurred during payment settlement. */
+    /** Unexpected error occurred during the payment settlement. */
     UNEXPECTED_SETTLE_ERROR("unexpected_settle_error",
             "Unexpected error occurred during payment settlement"),
 

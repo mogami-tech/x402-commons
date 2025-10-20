@@ -11,8 +11,6 @@ import lombok.Builder;
 @Builder
 @SuppressWarnings("unused")
 public record Scheme(
-
         String name
-
 ) {
 }

@@ -20,26 +20,11 @@ import static tech.mogami.commons.test.BaseTestData.TEST_SERVER_WALLET_ADDRESS_1
 
 /**
  * Tests for the EIP-712 helper class.
- * {
- * "x402Version": 1,
- * "scheme": "exact",
- * "network": "base-sepolia",
- * "payload": {
- * "signature": "0xde533856d81c76984a8dbc8d563bbb6d6d4ca36ce6c4d6e8cf315de3bfc14ab26d6bcdc37549aeed78bf92e39d5180268f8f399a4ffb816cfbf500823882b6001c",
- * "authorization": {
- * "from": "0x2980bc24bBFB34DE1BBC91479Cb712ffbCE02F73",
- * "to": "0x7553F6FA4Fb62986b64f79aEFa1fB93ea64A22b1",
- * "value": "10000",
- * "validAfter": "1748534647",
- * "validBefore": "1748534767",
- * "nonce": "0x9b750f5097972d82c02ac371278b83ecf3ca3be8387db59e664eb38c98f97a3d"
- * }
- * }
- * }
  */
 @DisplayName("EIP-712 helper Tests")
 public class EIP712HelperTest {
 
+    @SuppressWarnings("SpellCheckingInspection")
     final String expectedSignature = "0x7d9463e2c7c98e33c08747882521be88cc02443a8c46f3a1f5b51ae8d1bdd9581fa41ab35c1cebfe70a79471640a1bde9ffadd377e38d708b5ca6a38b30300f61b";
 
     final PaymentRequirements paymentRequirements = PaymentRequirements.builder()
