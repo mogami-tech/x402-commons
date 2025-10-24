@@ -46,6 +46,16 @@ public record SupportedResponse(
             String network
 
     ) {
+
+        /**
+         * Returns a formatted string representation of the SupportedKind.
+         *
+         * @return formatted string
+         */
+        public String toFormattedString() {
+            return "%s / %s".formatted(network, scheme);
+        }
+
     }
 
 }
