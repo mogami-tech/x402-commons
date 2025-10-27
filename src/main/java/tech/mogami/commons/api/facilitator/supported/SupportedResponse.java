@@ -1,5 +1,6 @@
 package tech.mogami.commons.api.facilitator.supported;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Singular;
@@ -52,6 +53,7 @@ public record SupportedResponse(
          *
          * @return formatted string
          */
+        @JsonIgnore
         public String toFormattedString() {
             return "%s / %s".formatted(network, scheme);
         }
