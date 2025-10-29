@@ -1,4 +1,4 @@
-package tech.mogami.commons.api.console;
+package tech.mogami.commons.constant;
 
 /**
  * Protocol Components.
