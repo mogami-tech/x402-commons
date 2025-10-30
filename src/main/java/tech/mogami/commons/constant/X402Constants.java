@@ -19,7 +19,7 @@ public class X402Constants {
     public static final String X402_X_PAYMENT_RESPONSE = "X-PAYMENT-RESPONSE";
 
     /** X402 payment required message. */
-    public static final String X402_PAYMENT_REQUIRED_MESSAGE = "Payment required";
+    public static final String X402_PAYMENT_REQUIRED_MESSAGE = "X-PAYMENT header is required";
 
     /** Default payment timeout in seconds. */
     public static final int X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS = 60;
