@@ -1,11 +1,13 @@
 package tech.mogami.commons.header.payment;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.deserializer.ForceStringDeserializer;
 import tech.mogami.commons.validator.X402Version;
 
 import java.util.List;
@@ -33,6 +35,7 @@ public record PaymentRequired(
         @Schema(description = "List of acceptable payment methods (e.g., different schemes/networks/assets)")
         List<PaymentRequirements> accepts,
 
+        @JsonDeserialize(using = ForceStringDeserializer.class)
         @Schema(description = "Optional error message indicating why payment is required")
         @Nullable String error
 

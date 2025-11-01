@@ -1,6 +1,7 @@
 package tech.mogami.commons.header.payment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,7 @@ import static java.math.BigInteger.ZERO;
  * @param resource          URL of resource to pay for
  * @param description       Description of the resource
  * @param mimeType          MIME type of the resource (e.g., application/json)
+ * @param outputSchema      Optional schema describing the structure or metadata of the protected resource output
  * @param payTo             Address to pay value to
  * @param maxTimeoutSeconds Maximum time in seconds for the resource server to respond (e.g., 60)
  * @param asset             Address of the EIP-3009 compliant ERC20 contract (example: an ERC20 contract address).
@@ -69,6 +71,9 @@ public record PaymentRequirements(
 
         @Schema(description = "MIME type of the resource", example = "application/json")
         @Nullable String mimeType,
+
+        @Schema(description = "Optional schema describing the structure or metadata of the protected resource output")
+        @Nullable JsonNode outputSchema,
 
         @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.payTo.invalid}")
