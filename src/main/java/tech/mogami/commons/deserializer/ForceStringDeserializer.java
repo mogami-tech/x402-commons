@@ -13,8 +13,8 @@ import java.io.IOException;
 public final class ForceStringDeserializer extends JsonDeserializer<String> {
 
     @Override
-    public String deserialize(final JsonParser p, final DeserializationContext ctxt) throws IOException {
-        JsonNode node = p.readValueAsTree();
+    public String deserialize(final JsonParser parser, final DeserializationContext context) throws IOException {
+        JsonNode node = parser.readValueAsTree();
         if (node.isTextual()) {
             return node.asText();
         }
