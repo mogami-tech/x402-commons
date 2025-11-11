@@ -3,6 +3,7 @@ package tech.mogami.commons.constant.network;
 import lombok.Builder;
 import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.constant.asset.Asset;
+import tech.mogami.commons.constant.blockchain.Blockchain;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import static java.math.RoundingMode.DOWN;
  * Represents a network.
  * This is a marker record for network-related constants and configurations.
  *
+ * @param blockchain    the blockchain to which the network belongs
  * @param name          the name of the network (example: "base-sepolia" or "ethereum-mainnet")
  * @param displayName   a user-friendly display name for the network
  * @param chainId       the unique identifier for the network
@@ -25,6 +27,7 @@ import static java.math.RoundingMode.DOWN;
 @Builder
 @SuppressWarnings("unused")
 public record Network(
+        Blockchain blockchain,
         String name,
         String displayName,
         int chainId,

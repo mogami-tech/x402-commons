@@ -11,6 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static tech.mogami.commons.constant.asset.Assets.USDC;
+import static tech.mogami.commons.constant.blockchain.Blockchains.BASE;
 import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
 import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
@@ -23,6 +24,7 @@ public class Networks {
 
     /** Base sepolia network. */
     public static final Network BASE_SEPOLIA = Network.builder()
+            .blockchain(BASE)
             .name("base-sepolia")
             .displayName("Base Sepolia Testnet")
             .chainId(84532)
@@ -38,6 +40,7 @@ public class Networks {
 
     /** Base mainnet network. */
     public static final Network BASE_MAINNET = Network.builder()
+            .blockchain(BASE)
             .name("base")
             .displayName("Base Mainnet")
             .chainId(8453)
