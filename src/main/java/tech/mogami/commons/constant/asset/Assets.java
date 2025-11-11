@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static tech.mogami.commons.constant.asset.AssetType.STABLECOIN;
+
 /**
  * Existing {@link Asset}.
  */
@@ -21,6 +23,7 @@ public class Assets {
     public static final Asset USDC = Asset.builder()
             .name("USDC")
             .symbol("USDC")
+            .type(STABLECOIN)
             .build();
 
     /** List of all assets. */
