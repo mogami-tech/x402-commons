@@ -36,4 +36,10 @@ public class BlockchainConstants {
             .maximumPriorityFeePerGas(DEFAULT_MAXIMUM_PRIORITY_FEE_PER_GAS)
             .build();
 
+    /** Atomic amount type precision. */
+    public static final int ATOMIC_AMOUNT_TYPE_PRECISION = 78;
+
+    /** Atomic amount type scale. */
+    public static final int ATOMIC_AMOUNT_TYPE_SCALE = 0;
+
 }
