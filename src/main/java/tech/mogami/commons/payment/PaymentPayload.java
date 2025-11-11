@@ -1,4 +1,4 @@
-package tech.mogami.commons.header.payment;
+package tech.mogami.commons.payment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -10,15 +10,15 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
-import tech.mogami.commons.header.payment.schemes.exact.ExactSchemePayload;
+import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
 import tech.mogami.commons.validator.X402Version;
 
 import java.util.Optional;
 
-import static tech.mogami.commons.header.payment.PaymentConstants.SCHEME_PARAMETER;
-import static tech.mogami.commons.header.payment.schemes.Schemes.EXACT_SCHEME;
+import static tech.mogami.commons.payment.PaymentConstants.SCHEME_PARAMETER;
+import static tech.mogami.commons.payment.schemes.Schemes.EXACT_SCHEME;
 
 /**
  * Payment payload (included as the X-PAYMENT header in base64 encoded JSON).

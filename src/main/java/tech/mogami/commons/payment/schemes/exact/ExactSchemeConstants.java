@@ -1,4 +1,4 @@
-package tech.mogami.commons.header.payment.schemes.exact;
+package tech.mogami.commons.payment.schemes.exact;
 
 import lombok.experimental.UtilityClass;
 

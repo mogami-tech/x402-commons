@@ -3,7 +3,7 @@ package tech.mogami.commons.test.util;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.api.facilitator.verify.VerifyResponse;
-import tech.mogami.commons.header.payment.PaymentPayload;
+import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.util.JsonUtil;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

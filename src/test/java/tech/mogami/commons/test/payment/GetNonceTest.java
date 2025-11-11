@@ -3,11 +3,11 @@ package tech.mogami.commons.test.payment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.api.facilitator.verify.VerifyRequest;
-import tech.mogami.commons.header.payment.PaymentPayload;
-import tech.mogami.commons.header.payment.schemes.exact.ExactSchemePayload;
+import tech.mogami.commons.payment.PaymentPayload;
+import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tech.mogami.commons.header.payment.schemes.Schemes.EXACT_SCHEME;
+import static tech.mogami.commons.payment.schemes.Schemes.EXACT_SCHEME;
 
 @DisplayName("Get nonce test")
 public class GetNonceTest {

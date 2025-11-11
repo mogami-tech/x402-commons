@@ -7,8 +7,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
-import tech.mogami.commons.header.payment.PaymentPayload;
-import tech.mogami.commons.header.payment.PaymentRequirements;
+import tech.mogami.commons.payment.PaymentPayload;
+import tech.mogami.commons.payment.PaymentRequirements;
 import tech.mogami.commons.validator.X402Version;
 
 import java.util.Optional;

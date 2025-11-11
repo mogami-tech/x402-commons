@@ -1,4 +1,4 @@
-package tech.mogami.commons.header.payment;
+package tech.mogami.commons.payment;
 
 import lombok.experimental.UtilityClass;
 

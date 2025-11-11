@@ -1,4 +1,4 @@
-package tech.mogami.commons.header.payment.schemes.exact;
+package tech.mogami.commons.payment.schemes.exact;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
