@@ -15,6 +15,12 @@ public class BlockchainConstants {
     /** Blockchain address length. */
     public static final int BLOCKCHAIN_ADDRESS_LENGTH = 42;
 
+    /** Blockchain shorten prefix length. */
+    public static final int BLOCKCHAIN_ADDRESS_SHORTEN_PREFIX_LENGTH = 5;
+
+    /** Blockchain shorten suffix length. */
+    public static final int BLOCKCHAIN_ADDRESS_SHORTEN_SUFFIX_LENGTH = 3;
+
     /** Blockchain address prefix. */
     public static final String BLOCKCHAIN_ADDRESS_PREFIX = "0x";
 
