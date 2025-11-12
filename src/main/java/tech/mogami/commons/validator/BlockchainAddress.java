@@ -24,7 +24,7 @@ public @interface BlockchainAddress {
      *
      * @return message
      */
-    String message();
+    String message() default "{tech.mogami.commons.validator.BlockchainAddress.message}";
 
     /**
      * Groups.
