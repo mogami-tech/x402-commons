@@ -74,4 +74,31 @@ public record PaymentPayload(
         return Optional.empty();
     }
 
+    /**
+     * Get the from address from the payload.
+     *
+     * @return the from address if available
+     */
+    @JsonIgnore
+    public Optional<String> getFromAddress() {
+        // Exact scheme.
+        if (StringUtils.equalsIgnoreCase(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {
+            if (exactPayload.authorization() != null) {
+                return Optional.of(exactPayload.authorization().from());
+            }
+        }
+        return Optional.empty();
+    }
+
+    @JsonIgnore
+    public Optional<String> getToAddress() {
+        // Exact scheme.
+        if (StringUtils.equalsIgnoreCase(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {
+            if (exactPayload.authorization() != null) {
+                return Optional.of(exactPayload.authorization().to());
+            }
+        }
+        return Optional.empty();
+    }
+
 }
