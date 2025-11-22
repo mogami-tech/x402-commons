@@ -2,6 +2,7 @@ package tech.mogami.commons.test.payment;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tech.mogami.commons.api.facilitator.settle.SettleRequest;
 import tech.mogami.commons.api.facilitator.verify.VerifyRequest;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
@@ -37,6 +38,46 @@ public class GetFromAddressTest {
 
         // From address is here.
         assertThat(VerifyRequest.builder()
+                .paymentPayload(PaymentPayload.builder()
+                        .scheme(EXACT_SCHEME.name())
+                        .payload(ExactSchemePayload.builder()
+                                .authorization(ExactSchemePayload.Authorization.builder()
+                                        .from("0x2980bc24bBFB34DE1BBC91479Cb712ffbCE02F73")
+                                        .build())
+                                .build())
+                        .build())
+                .build()
+                .getFromAddress())
+                .isPresent()
+                .get()
+                .isEqualTo("0x2980bc24bBFB34DE1BBC91479Cb712ffbCE02F73");
+    }
+
+    @Test
+    @DisplayName("Get from address on /settle request")
+    public void testGetFromAddressOnSettleRequest() {
+        // Empty paymentPayload in PaymentPayload.
+        assertThat(SettleRequest.builder()
+                .build()
+                .getFromAddress()).isEmpty();
+
+        // Empty payload in PaymentPayload.
+        assertThat(SettleRequest.builder()
+                .paymentPayload(PaymentPayload.builder().build())
+                .build()
+                .getFromAddress()).isEmpty();
+
+        // Empty authorization in payload in PaymentPayload.
+        assertThat(SettleRequest.builder()
+                .paymentPayload(PaymentPayload.builder()
+                        .payload(ExactSchemePayload.builder()
+                                .authorization(ExactSchemePayload.Authorization.builder().build()))
+                        .build())
+                .build()
+                .getFromAddress()).isEmpty();
+
+        // From address is here.
+        assertThat(SettleRequest.builder()
                 .paymentPayload(PaymentPayload.builder()
                         .scheme(EXACT_SCHEME.name())
                         .payload(ExactSchemePayload.builder()

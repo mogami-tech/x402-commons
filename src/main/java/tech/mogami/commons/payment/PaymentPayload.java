@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
-import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
@@ -18,7 +17,6 @@ import tech.mogami.commons.validator.X402Version;
 import java.util.Optional;
 
 import static tech.mogami.commons.payment.PaymentConstants.SCHEME_PARAMETER;
-import static tech.mogami.commons.payment.schemes.Schemes.EXACT_SCHEME;
 
 /**
  * Payment payload (included as the X-PAYMENT header in base64 encoded JSON).
@@ -67,8 +65,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getNonce() {
-        // Exact scheme.
-        if (StringUtils.equalsIgnoreCase(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {
+        if (payload instanceof ExactSchemePayload exactPayload) {
             return exactPayload.getNonce();
         }
         return Optional.empty();
@@ -81,22 +78,21 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getFromAddress() {
-        // Exact scheme.
-        if (StringUtils.equalsIgnoreCase(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {
-            if (exactPayload.authorization() != null) {
-                return Optional.of(exactPayload.authorization().from());
-            }
+        if (payload instanceof ExactSchemePayload exactPayload && exactPayload.authorization() != null) {
+            return Optional.ofNullable(exactPayload.authorization().from());
         }
         return Optional.empty();
     }
 
+    /**
+     * Get the to address from the payload.
+     *
+     * @return the to address if available
+     */
     @JsonIgnore
     public Optional<String> getToAddress() {
-        // Exact scheme.
-        if (StringUtils.equalsIgnoreCase(EXACT_SCHEME.name(), scheme) && payload instanceof ExactSchemePayload exactPayload) {
-            if (exactPayload.authorization() != null) {
-                return Optional.of(exactPayload.authorization().to());
-            }
+        if (payload instanceof ExactSchemePayload exactPayload && exactPayload.authorization() != null) {
+            return Optional.ofNullable(exactPayload.authorization().to());
         }
         return Optional.empty();
     }

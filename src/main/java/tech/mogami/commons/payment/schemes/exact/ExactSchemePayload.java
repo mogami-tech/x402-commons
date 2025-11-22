@@ -89,10 +89,10 @@ public record ExactSchemePayload(
      */
     @JsonIgnore
     public Optional<String> getNonce() {
-        if (authorization == null) {
-            return Optional.empty();
-        } else {
+        if (authorization != null) {
             return Optional.ofNullable(StringUtils.trimToNull(authorization.nonce()));
+        } else {
+            return Optional.empty();
         }
     }
 

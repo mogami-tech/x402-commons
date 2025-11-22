@@ -45,11 +45,35 @@ public record SettleRequest(
 
     /**
      * Get the nonce from the payload.
+     *
+     * @return the nonce if present
      */
     @JsonIgnore
     public Optional<String> getNonce() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getNonce);
+    }
+
+    /**
+     * Get the from address from the payload.
+     *
+     * @return the from address if present
+     */
+    @JsonIgnore
+    public Optional<String> getFromAddress() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getFromAddress);
+    }
+
+    /**
+     * Get the to address from the payload.
+     *
+     * @return the to address if present
+     */
+    @JsonIgnore
+    public Optional<String> getToAddress() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getToAddress);
     }
 
 }
