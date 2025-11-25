@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import tech.mogami.commons.api.facilitator.RequestCommonData;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequirements;
 import tech.mogami.commons.validator.X402Version;
@@ -40,50 +41,46 @@ public record VerifyRequest(
         @Valid
         @NotNull(message = "{validation.verifyRequest.paymentRequirements.required}")
         @Schema(description = "Payment requirements as provided by the server")
-        PaymentRequirements paymentRequirements) {
+        PaymentRequirements paymentRequirements
 
-    /**
-     * Get the nonce from the payload.
-     *
-     * @return the nonce if present
-     */
+) implements RequestCommonData {
+
+    @Override
     @JsonIgnore
     public Optional<String> getNonce() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getNonce);
     }
 
-    /**
-     * Get the from address from the payload.
-     *
-     * @return the from address if present
-     */
+    @Override
     @JsonIgnore
     public Optional<String> getFromAddress() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getFromAddress);
     }
 
-    /**
-     * Get the to address from the payload.
-     *
-     * @return the to address if present
-     */
+    @Override
     @JsonIgnore
     public Optional<String> getToAddress() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getToAddress);
     }
 
-    /**
-     * Get the amount from the payload.
-     *
-     * @return the amount if present
-     */
+    @Override
     @JsonIgnore
     public Optional<BigInteger> getAmount() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getAmount);
+    }
+
+    @Override
+    @JsonIgnore
+    public Optional<String> getAssetContract() {
+        return Optional.ofNullable(paymentRequirements)
+                .stream()
+                // TODO What if there are multiple asset contracts?
+                .findFirst()
+                .map(PaymentRequirements::asset);
     }
 
 }
