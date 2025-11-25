@@ -100,6 +100,11 @@ public record PaymentPayload(
         return extract(ExactSchemePayload::getAmount);
     }
 
+    @JsonIgnore
+    public Optional<String> getNetwork() {
+        return Optional.ofNullable(network);
+    }
+
     /**
      * Generic extractor for ExactSchemePayload fields.
      *

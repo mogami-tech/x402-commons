@@ -1,5 +1,7 @@
 package tech.mogami.commons.api.facilitator;
 
+import tech.mogami.commons.constant.network.Network;
+
 import java.math.BigInteger;
 import java.util.Optional;
 
@@ -42,5 +44,12 @@ public interface RequestCommonData {
      * @return the asset contract if present
      */
     Optional<String> getAssetContract();
+
+    /**
+     * Get the network from the payload.
+     *
+     * @return the network if present
+     */
+    Optional<Network> getNetwork();
 
 }

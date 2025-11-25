@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.api.facilitator.RequestCommonData;
+import tech.mogami.commons.constant.network.Network;
+import tech.mogami.commons.constant.network.Networks;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequirements;
 import tech.mogami.commons.validator.X402Version;
@@ -81,6 +83,13 @@ public record VerifyRequest(
                 // TODO What if there are multiple asset contracts?
                 .findFirst()
                 .map(PaymentRequirements::asset);
+    }
+
+    @Override
+    public Optional<Network> getNetwork() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getNetwork)
+                .flatMap(Networks::findByName);
     }
 
 }
