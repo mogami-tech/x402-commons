@@ -14,7 +14,9 @@ import tech.mogami.commons.validator.Network;
 import tech.mogami.commons.validator.Scheme;
 import tech.mogami.commons.validator.X402Version;
 
+import java.math.BigInteger;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static tech.mogami.commons.payment.PaymentConstants.SCHEME_PARAMETER;
 
@@ -65,10 +67,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getNonce() {
-        if (payload instanceof ExactSchemePayload exactPayload) {
-            return exactPayload.getNonce();
-        }
-        return Optional.empty();
+        return extract(ExactSchemePayload::getNonce);
     }
 
     /**
@@ -78,10 +77,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getFromAddress() {
-        if (payload instanceof ExactSchemePayload exactPayload && exactPayload.authorization() != null) {
-            return Optional.ofNullable(exactPayload.authorization().from());
-        }
-        return Optional.empty();
+        return extract(ExactSchemePayload::getFromAddress);
     }
 
     /**
@@ -91,10 +87,32 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getToAddress() {
-        if (payload instanceof ExactSchemePayload exactPayload && exactPayload.authorization() != null) {
-            return Optional.ofNullable(exactPayload.authorization().to());
-        }
-        return Optional.empty();
+        return extract(ExactSchemePayload::getToAddress);
+    }
+
+    /**
+     * Get the amount from the payload.
+     *
+     * @return the amount if available
+     */
+    @JsonIgnore
+    public Optional<BigInteger> getAmount() {
+        return extract(ExactSchemePayload::getAmount);
+    }
+
+    /**
+     * Generic extractor for ExactSchemePayload fields.
+     *
+     * @param extractor extractor function
+     * @param <T>       type of the extracted value
+     * @return the extracted value if available
+     */
+    private <T> Optional<T> extract(Function<ExactSchemePayload, Optional<T>> extractor) {
+        return Optional.ofNullable(payload)
+                .flatMap(payload -> switch (payload) {
+                    case ExactSchemePayload exactPayload -> extractor.apply(exactPayload);
+                    default -> Optional.empty();
+                });
     }
 
 }

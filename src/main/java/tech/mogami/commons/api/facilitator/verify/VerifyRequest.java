@@ -11,6 +11,7 @@ import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequirements;
 import tech.mogami.commons.validator.X402Version;
 
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -72,6 +73,17 @@ public record VerifyRequest(
     public Optional<String> getToAddress() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getToAddress);
+    }
+
+    /**
+     * Get the amount from the payload.
+     *
+     * @return the amount if present
+     */
+    @JsonIgnore
+    public Optional<BigInteger> getAmount() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getAmount);
     }
 
 }

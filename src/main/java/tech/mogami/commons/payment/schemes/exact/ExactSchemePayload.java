@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
 
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -94,6 +95,54 @@ public record ExactSchemePayload(
         } else {
             return Optional.empty();
         }
+    }
+
+    /**
+     * Get the from address from the payload.
+     *
+     * @return the from address if available
+     */
+    @JsonIgnore
+    public Optional<String> getFromAddress() {
+        if (authorization != null) {
+            return Optional.ofNullable(StringUtils.trimToNull(authorization.from()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Get the to address from the payload.
+     *
+     * @return the to address if available
+     */
+    @JsonIgnore
+    public Optional<String> getToAddress() {
+        if (authorization != null) {
+            return Optional.ofNullable(StringUtils.trimToNull(authorization.to()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Get the amount from the payload.
+     *
+     * @return the amount if available
+     */
+    @JsonIgnore
+    public Optional<java.math.BigInteger> getAmount() {
+        if (authorization != null) {
+            final String stringValue = StringUtils.trimToNull(authorization.value());
+            if (stringValue != null) {
+                try {
+                    return Optional.of(new BigInteger(stringValue));
+                } catch (NumberFormatException e) {
+                    return Optional.empty();
+                }
+            }
+        }
+        return Optional.empty();
     }
 
 }
