@@ -81,5 +81,4 @@ public class GetNetworkTest {
                 .isEqualTo("base-sepolia");
     }
 
-
 }

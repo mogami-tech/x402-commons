@@ -100,6 +100,11 @@ public record PaymentPayload(
         return extract(ExactSchemePayload::getAmount);
     }
 
+    /**
+     * Get the asset contract from the payload.
+     *
+     * @return the asset contract if available
+     */
     @JsonIgnore
     public Optional<String> getNetwork() {
         return Optional.ofNullable(network);
@@ -112,9 +117,9 @@ public record PaymentPayload(
      * @param <T>       type of the extracted value
      * @return the extracted value if available
      */
-    private <T> Optional<T> extract(Function<ExactSchemePayload, Optional<T>> extractor) {
+    private <T> Optional<T> extract(final Function<ExactSchemePayload, Optional<T>> extractor) {
         return Optional.ofNullable(payload)
-                .flatMap(payload -> switch (payload) {
+                .flatMap(p -> switch (p) {
                     case ExactSchemePayload exactPayload -> extractor.apply(exactPayload);
                     default -> Optional.empty();
                 });
