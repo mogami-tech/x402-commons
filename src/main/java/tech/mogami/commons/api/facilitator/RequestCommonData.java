@@ -32,11 +32,11 @@ public interface RequestCommonData {
     Optional<String> getToAddress();
 
     /**
-     * Get the amount from the payload.
+     * Get the asset amount from the payload.
      *
-     * @return the amount if present
+     * @return the asset amount if present
      */
-    Optional<BigInteger> getAmount();
+    Optional<BigInteger> getAssetAmount();
 
     /**
      * Get the asset contract from the payload.

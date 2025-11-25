@@ -11,8 +11,8 @@ import java.math.BigInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Get amount test")
-public class GetAmountTest {
+@DisplayName("Get asset amount test")
+public class GetAssetAmountTest {
 
     @Test
     @DisplayName("Get amount on /verify request")
@@ -20,14 +20,14 @@ public class GetAmountTest {
         // Empty paymentPayload in VerifyRequest.
         assertThat(VerifyRequest.builder()
                 .build()
-                .getAmount()).isEmpty();
+                .getAssetAmount()).isEmpty();
 
         // Empty payload in PaymentPayload in VerifyRequest.
         assertThat(VerifyRequest.builder()
                 .paymentPayload(PaymentPayload.builder()
                         .build())
                 .build()
-                .getAmount()).isEmpty();
+                .getAssetAmount()).isEmpty();
 
         // Empty authorization in payload in PaymentPayload in VerifyRequest.
         assertThat(VerifyRequest.builder()
@@ -36,7 +36,7 @@ public class GetAmountTest {
                                 .authorization(ExactSchemePayload.Authorization.builder().build()))
                         .build())
                 .build()
-                .getAmount()).isEmpty();
+                .getAssetAmount()).isEmpty();
 
         // The amount is present.
         assertThat(VerifyRequest.builder()
@@ -48,7 +48,7 @@ public class GetAmountTest {
                                 .build())
                         .build())
                 .build()
-                .getAmount())
+                .getAssetAmount())
                 .isPresent()
                 .get().isEqualTo(BigInteger.valueOf(12345L));
     }
@@ -59,14 +59,14 @@ public class GetAmountTest {
         // Empty paymentPayload in SettleRequest.
         assertThat(SettleRequest.builder()
                 .build()
-                .getAmount()).isEmpty();
+                .getAssetAmount()).isEmpty();
 
         // Empty payload in PaymentPayload in SettleRequest.
         assertThat(SettleRequest.builder()
                 .paymentPayload(PaymentPayload.builder()
                         .build())
                 .build()
-                .getAmount()).isEmpty();
+                .getAssetAmount()).isEmpty();
 
         // Empty authorization in payload in PaymentPayload in SettleRequest.
         assertThat(SettleRequest.builder()
@@ -75,7 +75,7 @@ public class GetAmountTest {
                                 .authorization(ExactSchemePayload.Authorization.builder().build()))
                         .build())
                 .build()
-                .getAmount()).isEmpty();
+                .getAssetAmount()).isEmpty();
 
         // The amount is present.
         assertThat(SettleRequest.builder()
@@ -87,7 +87,7 @@ public class GetAmountTest {
                                 .build())
                         .build())
                 .build()
-                .getAmount())
+                .getAssetAmount())
                 .isPresent()
                 .get().isEqualTo(BigInteger.valueOf(67890L));
     }

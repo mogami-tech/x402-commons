@@ -70,7 +70,7 @@ public record SettleRequest(
 
     @Override
     @JsonIgnore
-    public Optional<BigInteger> getAmount() {
+    public Optional<BigInteger> getAssetAmount() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getAmount);
     }
