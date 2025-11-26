@@ -106,7 +106,7 @@ public record PaymentPayload(
      * @return the asset contract if available
      */
     @JsonIgnore
-    public Optional<String> getNetwork() {
+    public Optional<String> getNetworkName() {
         return Optional.ofNullable(network);
     }
 

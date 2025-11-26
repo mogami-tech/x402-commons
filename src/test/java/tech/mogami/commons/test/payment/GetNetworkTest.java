@@ -17,13 +17,13 @@ public class GetNetworkTest {
         // Empty paymentPayload in VerifyRequest.
         assertThat(VerifyRequest.builder()
                 .build()
-                .getNetworkDetails()).isEmpty();
+                .getNetwork()).isEmpty();
 
         // Empty paymentPayload in VerifyRequest.
         assertThat(VerifyRequest.builder()
                 .paymentPayload(PaymentPayload.builder().build())
                 .build()
-                .getNetworkDetails()).isEmpty();
+                .getNetwork()).isEmpty();
 
         // Invalid network in paymentPayload in VerifyRequest.
         assertThat(VerifyRequest.builder()
@@ -31,7 +31,7 @@ public class GetNetworkTest {
                         .network("invalid")
                         .build())
                 .build()
-                .getNetworkDetails()).isEmpty();
+                .getNetwork()).isEmpty();
 
         // The network is present.
         assertThat(VerifyRequest.builder()
@@ -39,7 +39,7 @@ public class GetNetworkTest {
                         .network("BASE")
                         .build())
                 .build()
-                .getNetworkDetails())
+                .getNetwork())
                 .isPresent()
                 .get()
                 .extracting("chainId")
@@ -52,13 +52,13 @@ public class GetNetworkTest {
         // Empty verifyRequest.
         assertThat(SettleRequest.builder()
                 .build()
-                .getNetworkDetails()).isEmpty();
+                .getNetwork()).isEmpty();
 
         // Empty paymentPayload in SettleRequest.
         assertThat(SettleRequest.builder()
                 .paymentPayload(PaymentPayload.builder().build())
                 .build()
-                .getNetworkDetails()).isEmpty();
+                .getNetwork()).isEmpty();
 
         // Invalid network in paymentPayload in SettleRequest.
         assertThat(SettleRequest.builder()
@@ -66,7 +66,7 @@ public class GetNetworkTest {
                         .network("invalid")
                         .build())
                 .build()
-                .getNetworkDetails()).isEmpty();
+                .getNetwork()).isEmpty();
 
         // The network is present.
         assertThat(SettleRequest.builder()
@@ -74,7 +74,7 @@ public class GetNetworkTest {
                         .network("Base-SePolia")
                         .build())
                 .build()
-                .getNetworkDetails())
+                .getNetwork())
                 .isPresent()
                 .get()
                 .extracting("name")

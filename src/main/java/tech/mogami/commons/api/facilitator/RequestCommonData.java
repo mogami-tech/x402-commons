@@ -50,6 +50,6 @@ public interface RequestCommonData {
      *
      * @return the network if present
      */
-    Optional<Network> getNetworkDetails();
+    Optional<Network> getNetwork();
 
 }
