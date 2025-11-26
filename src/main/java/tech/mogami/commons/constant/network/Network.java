@@ -95,7 +95,20 @@ public record Network(
             if (StringUtils.isBlank(atomicValue)) {
                 return ZERO;
             }
-            return new BigDecimal(atomicValue).divide(TEN.pow(decimals), decimals, DOWN);
+            return fromAtomic(new BigDecimal(atomicValue));
+        }
+
+        /**
+         * Converts an atomic BigDecimal value to its human-readable BigDecimal representation.
+         *
+         * @param atomicValue the atomic value as BigDecimal (e.g., 100000 for USDC with 6 decimals)
+         * @return the human-readable amount as BigDecimal (e.g., 0.10 USDC)
+         */
+        public BigDecimal fromAtomic(final BigDecimal atomicValue) {
+            if (atomicValue == null) {
+                return ZERO;
+            }
+            return atomicValue.divide(TEN.pow(decimals), decimals, DOWN);
         }
 
     }
