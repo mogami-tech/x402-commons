@@ -85,6 +85,7 @@ public record SettleRequest(
                 .map(PaymentRequirements::asset);
     }
 
+    @JsonIgnore
     @Override
     public Optional<Network> getNetwork() {
         return Optional.ofNullable(paymentPayload)
