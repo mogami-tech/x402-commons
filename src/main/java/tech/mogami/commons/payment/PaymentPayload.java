@@ -101,16 +101,6 @@ public record PaymentPayload(
     }
 
     /**
-     * Get the asset contract from the payload.
-     *
-     * @return the asset contract if available
-     */
-    @JsonIgnore
-    public Optional<String> getNetworkName() {
-        return Optional.ofNullable(network);
-    }
-
-    /**
      * Generic extractor for ExactSchemePayload fields.
      *
      * @param extractor extractor function

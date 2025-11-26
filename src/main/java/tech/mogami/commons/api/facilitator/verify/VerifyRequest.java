@@ -89,7 +89,7 @@ public record VerifyRequest(
     @JsonIgnore
     public Optional<Network> getNetwork() {
         return Optional.ofNullable(paymentPayload)
-                .flatMap(PaymentPayload::getNetworkName)
+                .map(PaymentPayload::network)
                 .flatMap(Networks::findByName);
     }
 
