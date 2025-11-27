@@ -6,6 +6,7 @@ import tech.mogami.commons.constant.asset.Asset;
 import tech.mogami.commons.constant.blockchain.Blockchain;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 import static java.math.BigDecimal.TEN;
@@ -99,6 +100,19 @@ public record Network(
         }
 
         /**
+         * Converts an atomic BigInteger value to its human-readable BigDecimal representation.
+         *
+         * @param atomicValue the atomic value as BigInteger (e.g., 100000 for USDC with 6 decimals)
+         * @return the human-readable amount as BigDecimal (e.g., 0.10 USDC)
+         */
+        public BigDecimal fromAtomic(final BigInteger atomicValue) {
+            if (atomicValue == null) {
+                return ZERO;
+            }
+            return new BigDecimal(atomicValue).divide(TEN.pow(decimals), decimals, DOWN);
+        }
+
+        /**
          * Converts an atomic BigDecimal value to its human-readable BigDecimal representation.
          *
          * @param atomicValue the atomic value as BigDecimal (e.g., 100000 for USDC with 6 decimals)
@@ -139,6 +153,25 @@ public record Network(
         return Optional.ofNullable(System.getenv(ENVIRONMENT_PREFIX + name.toUpperCase().replace("-", "_")))
                 .filter(StringUtils::isNotBlank)
                 .orElse(defaultRpcUrl);
+    }
+
+    /**
+     * Finds a deployed asset by its contract address.
+     *
+     * @param contractAddress the contract address of the asset
+     * @return an Optional containing the DeployedAsset if found, or empty if not found
+     */
+    public Optional<DeployedAsset> findDeployedAsset(final String contractAddress) {
+        if (StringUtils.isBlank(contractAddress)) {
+            return Optional.empty();
+        }
+
+        // Passing all deployed assets here when more are added
+        if (StringUtils.equalsIgnoreCase(contractAddress, usdc.contractAddress())) {
+            return Optional.of(usdc);
+        } else {
+            return Optional.empty();
+        }
     }
 
 }
