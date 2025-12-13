@@ -10,8 +10,15 @@ import lombok.Builder;
 @Builder
 @SuppressWarnings("unused")
 public record X402Version(
+        int version) {
 
-        int version
+    /**
+     * Get the canonical string representation of the version.
+     *
+     * @return the canonical string representation
+     */
+    public String canonical() {
+        return Integer.toString(version);
+    }
 
-) {
 }

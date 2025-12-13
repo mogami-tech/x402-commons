@@ -51,4 +51,12 @@ public class X402VersionsTest {
                 .isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("canonical()")
+    void testCanonical() {
+        for (X402Version version : ALL_X402_VERSIONS) {
+            assertThat(version.canonical()).isEqualTo(Integer.toString(version.version()));
+        }
+    }
+
 }
