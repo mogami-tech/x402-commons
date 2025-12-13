@@ -54,7 +54,10 @@ public class X402Versions {
      * @param version the version number
      * @return an Optional containing the X402 version if found, or empty if not found
      */
-    public static Optional<X402Version> findByVersion(final int version) {
+    public static Optional<X402Version> findByVersion(final Integer version) {
+        if (version == null) {
+            return Optional.empty();
+        }
         return Optional.ofNullable(ALL_X402_VERSIONS_BY_VERSION.get(version));
     }
 

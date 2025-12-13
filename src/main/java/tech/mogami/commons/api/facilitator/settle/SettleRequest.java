@@ -10,6 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.api.facilitator.RequestCommonData;
 import tech.mogami.commons.constant.network.Network;
 import tech.mogami.commons.constant.network.Networks;
+import tech.mogami.commons.constant.version.X402Versions;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequirements;
 import tech.mogami.commons.validator.X402Version;
@@ -46,6 +47,11 @@ public record SettleRequest(
         PaymentRequirements paymentRequirements
 
 ) implements RequestCommonData {
+
+    @Override
+    public Optional<tech.mogami.commons.constant.version.X402Version> getX402Version() {
+        return X402Versions.findByVersion(x402Version);
+    }
 
     @Override
     @JsonIgnore
