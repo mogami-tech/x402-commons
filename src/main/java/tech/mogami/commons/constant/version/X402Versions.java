@@ -43,4 +43,18 @@ public class X402Versions {
         return Optional.ofNullable(X402_SUPPORTED_VERSIONS_BY_VERSION.get(version));
     }
 
+    /**
+     * Find a X402 version by its version string.
+     *
+     * @param version the version string
+     * @return an Optional containing the X402 version if found, or empty if not found or invalid
+     */
+    public static Optional<X402Version> findByVersion(final String version) {
+        try {
+            return findByVersion(Integer.parseInt(version));
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+    }
+
 }
