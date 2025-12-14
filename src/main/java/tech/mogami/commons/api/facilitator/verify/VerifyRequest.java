@@ -49,6 +49,7 @@ public record VerifyRequest(
 ) implements RequestCommonData {
 
     @Override
+    @JsonIgnore
     public Optional<tech.mogami.commons.constant.version.X402Version> getX402Version() {
         return X402Versions.findByVersion(x402Version);
     }

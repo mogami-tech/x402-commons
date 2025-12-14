@@ -40,7 +40,7 @@ public class JsonUtil {
         try {
             return MAPPER.readValue(json, type);
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException("Error while loading JSON: ", e);
+            throw new IllegalArgumentException("Error while loading JSON: " + e.getMessage(), e);
         }
     }
 
@@ -55,7 +55,7 @@ public class JsonUtil {
         try {
             return MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("Error while writing JSON: ", e);
+            throw new IllegalStateException("Error while writing JSON: " + e.getMessage(), e);
         }
     }
 
@@ -70,7 +70,7 @@ public class JsonUtil {
         try {
             return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("Error while writing pretty JSON: ", e);
+            throw new IllegalStateException("Error while writing pretty JSON: " + e.getMessage(), e);
         }
     }
 
