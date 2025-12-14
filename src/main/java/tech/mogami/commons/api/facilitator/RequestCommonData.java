@@ -16,7 +16,7 @@ public interface RequestCommonData {
      *
      * @return the X402 version if present
      */
-    Optional<X402Version> getX402Version();
+    Optional<X402Version> getVersion();
 
     /**
      * Get the nonce from the payload.

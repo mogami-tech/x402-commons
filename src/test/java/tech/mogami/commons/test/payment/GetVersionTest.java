@@ -18,17 +18,17 @@ public class GetVersionTest {
         // Empty paymentPayload in VerifyRequest.
         assertThat(VerifyRequest.builder()
                 .build()
-                .getX402Version()).isEmpty();
+                .getVersion()).isEmpty();
 
         // With value.
         assertThat(VerifyRequest.builder()
                 .x402Version(1)
                 .build()
-                .getX402Version()).hasValue(V1);
+                .getVersion()).hasValue(V1);
         assertThat(VerifyRequest.builder()
                 .x402Version(2)
                 .build()
-                .getX402Version()).hasValue(V2);
+                .getVersion()).hasValue(V2);
     }
 
     @Test
@@ -43,11 +43,11 @@ public class GetVersionTest {
         assertThat(SettleRequest.builder()
                 .x402Version(1)
                 .build()
-                .getX402Version()).hasValue(V1);
+                .getVersion()).hasValue(V1);
         assertThat(SettleRequest.builder()
                 .x402Version(2)
                 .build()
-                .getX402Version()).hasValue(V2);
+                .getVersion()).hasValue(V2);
     }
 
 }

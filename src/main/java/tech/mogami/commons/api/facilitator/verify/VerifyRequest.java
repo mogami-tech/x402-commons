@@ -50,7 +50,7 @@ public record VerifyRequest(
 
     @Override
     @JsonIgnore
-    public Optional<tech.mogami.commons.constant.version.X402Version> getX402Version() {
+    public Optional<tech.mogami.commons.constant.version.X402Version> getVersion() {
         return X402Versions.findByVersion(x402Version);
     }
 
