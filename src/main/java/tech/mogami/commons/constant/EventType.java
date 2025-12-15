@@ -7,7 +7,7 @@ import tech.mogami.commons.api.facilitator.settle.SettleRequest;
 import tech.mogami.commons.api.facilitator.settle.SettleResponse;
 import tech.mogami.commons.api.facilitator.verify.VerifyRequest;
 import tech.mogami.commons.api.facilitator.verify.VerifyResponse;
-import tech.mogami.commons.header.payment.PaymentPayload;
+import tech.mogami.commons.payment.PaymentPayload;
 
 /**
  * Event types for x402 server and facilitator interactions.

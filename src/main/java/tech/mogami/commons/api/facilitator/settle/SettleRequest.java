@@ -7,10 +7,15 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
-import tech.mogami.commons.header.payment.PaymentPayload;
-import tech.mogami.commons.header.payment.PaymentRequirements;
+import tech.mogami.commons.api.facilitator.RequestCommonData;
+import tech.mogami.commons.constant.network.Network;
+import tech.mogami.commons.constant.network.Networks;
+import tech.mogami.commons.constant.version.X402Versions;
+import tech.mogami.commons.payment.PaymentPayload;
+import tech.mogami.commons.payment.PaymentRequirements;
 import tech.mogami.commons.validator.X402Version;
 
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -41,15 +46,58 @@ public record SettleRequest(
         @Schema(description = "Payment requirements as provided by the server")
         PaymentRequirements paymentRequirements
 
-) {
+) implements RequestCommonData {
 
-    /**
-     * Get the nonce from the payload.
-     */
+    @Override
+    @JsonIgnore
+    public Optional<tech.mogami.commons.constant.version.X402Version> getVersion() {
+        return X402Versions.findByVersion(x402Version);
+    }
+
+    @Override
     @JsonIgnore
     public Optional<String> getNonce() {
         return Optional.ofNullable(paymentPayload)
                 .flatMap(PaymentPayload::getNonce);
+    }
+
+    @Override
+    @JsonIgnore
+    public Optional<String> getFromAddress() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getFromAddress);
+    }
+
+    @Override
+    @JsonIgnore
+    public Optional<String> getToAddress() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getToAddress);
+    }
+
+    @Override
+    @JsonIgnore
+    public Optional<BigInteger> getAssetAmount() {
+        return Optional.ofNullable(paymentPayload)
+                .flatMap(PaymentPayload::getAmount);
+    }
+
+    @Override
+    @JsonIgnore
+    public Optional<String> getAssetContract() {
+        return Optional.ofNullable(paymentRequirements)
+                .stream()
+                // TODO What if there are multiple asset contracts?
+                .findFirst()
+                .map(PaymentRequirements::asset);
+    }
+
+    @JsonIgnore
+    @Override
+    public Optional<Network> getNetwork() {
+        return Optional.ofNullable(paymentPayload)
+                .map(PaymentPayload::network)
+                .flatMap(Networks::findByName);
     }
 
 }

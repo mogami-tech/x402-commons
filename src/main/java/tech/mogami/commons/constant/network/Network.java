@@ -3,8 +3,10 @@ package tech.mogami.commons.constant.network;
 import lombok.Builder;
 import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.constant.asset.Asset;
+import tech.mogami.commons.constant.blockchain.Blockchain;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 import static java.math.BigDecimal.TEN;
@@ -15,6 +17,7 @@ import static java.math.RoundingMode.DOWN;
  * Represents a network.
  * This is a marker record for network-related constants and configurations.
  *
+ * @param blockchain    the blockchain to which the network belongs
  * @param name          the name of the network (example: "base-sepolia" or "ethereum-mainnet")
  * @param displayName   a user-friendly display name for the network
  * @param chainId       the unique identifier for the network
@@ -25,6 +28,7 @@ import static java.math.RoundingMode.DOWN;
 @Builder
 @SuppressWarnings("unused")
 public record Network(
+        Blockchain blockchain,
         String name,
         String displayName,
         int chainId,
@@ -92,7 +96,33 @@ public record Network(
             if (StringUtils.isBlank(atomicValue)) {
                 return ZERO;
             }
+            return fromAtomic(new BigDecimal(atomicValue));
+        }
+
+        /**
+         * Converts an atomic BigInteger value to its human-readable BigDecimal representation.
+         *
+         * @param atomicValue the atomic value as BigInteger (e.g., 100000 for USDC with 6 decimals)
+         * @return the human-readable amount as BigDecimal (e.g., 0.10 USDC)
+         */
+        public BigDecimal fromAtomic(final BigInteger atomicValue) {
+            if (atomicValue == null) {
+                return ZERO;
+            }
             return new BigDecimal(atomicValue).divide(TEN.pow(decimals), decimals, DOWN);
+        }
+
+        /**
+         * Converts an atomic BigDecimal value to its human-readable BigDecimal representation.
+         *
+         * @param atomicValue the atomic value as BigDecimal (e.g., 100000 for USDC with 6 decimals)
+         * @return the human-readable amount as BigDecimal (e.g., 0.10 USDC)
+         */
+        public BigDecimal fromAtomic(final BigDecimal atomicValue) {
+            if (atomicValue == null) {
+                return ZERO;
+            }
+            return atomicValue.divide(TEN.pow(decimals), decimals, DOWN);
         }
 
     }
@@ -123,6 +153,25 @@ public record Network(
         return Optional.ofNullable(System.getenv(ENVIRONMENT_PREFIX + name.toUpperCase().replace("-", "_")))
                 .filter(StringUtils::isNotBlank)
                 .orElse(defaultRpcUrl);
+    }
+
+    /**
+     * Finds a deployed asset by its contract address.
+     *
+     * @param contractAddress the contract address of the asset
+     * @return an Optional containing the DeployedAsset if found, or empty if not found
+     */
+    public Optional<DeployedAsset> findDeployedAsset(final String contractAddress) {
+        if (StringUtils.isBlank(contractAddress)) {
+            return Optional.empty();
+        }
+
+        // Passing all deployed assets here when more are added
+        if (StringUtils.equalsIgnoreCase(contractAddress, usdc.contractAddress())) {
+            return Optional.of(usdc);
+        } else {
+            return Optional.empty();
+        }
     }
 
 }

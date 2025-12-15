@@ -1,4 +1,4 @@
-package tech.mogami.commons.header.payment;
+package tech.mogami.commons.payment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;

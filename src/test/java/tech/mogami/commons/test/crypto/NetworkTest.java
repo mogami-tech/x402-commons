@@ -8,6 +8,8 @@ import tech.mogami.commons.constant.network.Networks;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.mogami.commons.constant.network.Networks.BASE_MAINNET;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
+import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
 @DisplayName("Network Tests")
 public class NetworkTest {
@@ -41,6 +43,28 @@ public class NetworkTest {
         // Base mainnet
         assertThat(BASE_MAINNET.defaultRpcUrl()).isEqualTo("https://mainnet.base.org");
         assertThat(BASE_MAINNET.rpcUrl()).isEqualTo("https://custom-url-base.org");
+    }
+
+    @Test
+    @DisplayName("Testing deployed asset conversion")
+    void testDeployedAssetConversion() {
+        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_SEPOLIA_USDC_CONTRACT))
+                .isPresent()
+                .get()
+                .satisfies(deployedAsset -> {
+                    assertThat(deployedAsset.asset().symbol()).isEqualTo("USDC");
+                    assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_SEPOLIA_USDC_CONTRACT);
+                });
+        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_MAINNET_USDC_CONTRACT)).isEmpty();
+
+        assertThat(BASE_MAINNET.findDeployedAsset(BASE_MAINNET_USDC_CONTRACT))
+                .isPresent()
+                .get()
+                .satisfies(deployedAsset -> {
+                    assertThat(deployedAsset.asset().symbol()).isEqualTo("USDC");
+                    assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_MAINNET_USDC_CONTRACT);
+                });
+        assertThat(BASE_MAINNET.findDeployedAsset(BASE_SEPOLIA_USDC_CONTRACT)).isEmpty();
     }
 
 }

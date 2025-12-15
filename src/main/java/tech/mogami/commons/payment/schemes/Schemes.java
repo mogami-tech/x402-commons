@@ -1,4 +1,4 @@
-package tech.mogami.commons.header.payment.schemes;
+package tech.mogami.commons.payment.schemes;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;

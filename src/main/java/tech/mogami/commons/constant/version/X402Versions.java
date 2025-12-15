@@ -20,11 +20,26 @@ public class X402Versions {
             .version(1)
             .build();
 
+    /** X402 version 2. */
+    public static final X402Version V2 = X402Version.builder()
+            .version(2)
+            .build();
+
     /** X402 currently supported by Mogami. */
     public static final X402Version X402_SUPPORTED_VERSION_BY_MOGAMI = V1;
 
-    /** List of X402 suppoerted version. */
+    /** List of all X402 versions. */
+    public static final List<X402Version> ALL_X402_VERSIONS = List.of(V1, V2);
+
+    /** List of X402 supported version. */
     public static final List<X402Version> X402_SUPPORTED_VERSIONS = List.of(V1);
+
+    /** Map of all X402 versions by version number. */
+    private static final Map<Integer, X402Version> ALL_X402_VERSIONS_BY_VERSION = ALL_X402_VERSIONS.stream()
+            .collect(Collectors.toUnmodifiableMap(
+                    X402Version::version,
+                    Function.identity()
+            ));
 
     /** Map of X402 versions by version number. */
     private static final Map<Integer, X402Version> X402_SUPPORTED_VERSIONS_BY_VERSION = X402_SUPPORTED_VERSIONS.stream()
@@ -39,8 +54,25 @@ public class X402Versions {
      * @param version the version number
      * @return an Optional containing the X402 version if found, or empty if not found
      */
-    public static Optional<X402Version> findByVersion(final int version) {
-        return Optional.ofNullable(X402_SUPPORTED_VERSIONS_BY_VERSION.get(version));
+    public static Optional<X402Version> findByVersion(final Integer version) {
+        if (version == null) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(ALL_X402_VERSIONS_BY_VERSION.get(version));
+    }
+
+    /**
+     * Find a X402 version by its version string.
+     *
+     * @param version the version string
+     * @return an Optional containing the X402 version if found, or empty if not found or invalid
+     */
+    public static Optional<X402Version> findByVersion(final String version) {
+        try {
+            return findByVersion(Integer.parseInt(version));
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
     }
 
 }
