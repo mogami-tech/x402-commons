@@ -99,9 +99,11 @@ public enum X402Error {
     );
 
     /** Error code. */
+    @Getter
     private final String code;
 
     /** Error default message. */
+    @Getter
     private final String defaultMessage;
 
     /**
