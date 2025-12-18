@@ -2,8 +2,9 @@ name: Deploy snapshot to Maven Central
 
 on:
   push:
-    tags-ignore:
-      - '*'
+    branches:
+      - development
+      - 'feature/**'
 
 jobs:
 
