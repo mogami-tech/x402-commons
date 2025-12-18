@@ -77,7 +77,7 @@ public record PaymentRequirements(
 
         @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.payTo.invalid}")
-        @Schema(description = "Address to which payment should be made", example = "0x1234abcd...")
+        @Schema(description = "Address to which payment should be made", example = "0x1234...")
         String payTo,
 
         @NotNull(message = "{validation.paymentRequirements.maxTimeoutSeconds.required}")

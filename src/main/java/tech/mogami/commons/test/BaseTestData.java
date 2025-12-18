@@ -3,7 +3,7 @@ package tech.mogami.commons.test;
 /**
  * Test data.
  */
-@SuppressWarnings({"HideUtilityClassConstructor", "unused", "SpellCheckingInspection"})
+@SuppressWarnings({"HideUtilityClassConstructor", "unused"})
 public class BaseTestData {
 
     /** Test mnemonic phrase. */

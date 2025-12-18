@@ -9,6 +9,7 @@ import java.util.Optional;
 /**
  * Request common data interface for retrieving common payment data.
  */
+@SuppressWarnings("unused")
 public interface RequestCommonData {
 
     /**

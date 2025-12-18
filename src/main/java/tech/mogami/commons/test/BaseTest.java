@@ -18,7 +18,7 @@ import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXA
 /**
  * Base test.
  */
-@SuppressWarnings({"unused", "SpellCheckingInspection"})
+@SuppressWarnings({"unused"})
 public class BaseTest extends BaseTestData {
 
     /**

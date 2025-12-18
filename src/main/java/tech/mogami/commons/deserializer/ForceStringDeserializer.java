@@ -10,6 +10,7 @@ import java.io.IOException;
 /**
  * A custom deserializer that forces the deserialization of JSON values into Strings.
  */
+@SuppressWarnings("unused")
 public final class ForceStringDeserializer extends JsonDeserializer<String> {
 
     @Override

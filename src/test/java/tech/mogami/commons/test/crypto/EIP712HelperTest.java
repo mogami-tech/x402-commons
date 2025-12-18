@@ -24,7 +24,6 @@ import static tech.mogami.commons.test.BaseTestData.TEST_SERVER_WALLET_ADDRESS_1
 @DisplayName("EIP-712 helper Tests")
 public class EIP712HelperTest {
 
-    @SuppressWarnings("SpellCheckingInspection")
     final String expectedSignature = "0x7d9463e2c7c98e33c08747882521be88cc02443a8c46f3a1f5b51ae8d1bdd9581fa41ab35c1cebfe70a79471640a1bde9ffadd377e38d708b5ca6a38b30300f61b";
 
     final PaymentRequirements paymentRequirements = PaymentRequirements.builder()
