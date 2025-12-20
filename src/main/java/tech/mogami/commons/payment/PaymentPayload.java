@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
-import tech.mogami.commons.validator.X402Version;
+import tech.mogami.commons.validator.ExistingX402Version;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -35,7 +35,7 @@ import static tech.mogami.commons.payment.schemes.Schemes.SCHEME_PARAMETER;
 public record PaymentPayload(
 
         @NotNull(message = "{validation.paymentPayload.x402Version.required}")
-        @X402Version(message = "{validation.paymentPayload.x402Version.invalid}")
+        @ExistingX402Version(message = "{validation.paymentPayload.x402Version.invalid}")
         @Schema(description = "Version of the x402 payment protocol", example = "2")
         Integer x402Version,
 

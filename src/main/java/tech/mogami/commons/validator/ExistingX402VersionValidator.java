@@ -5,9 +5,9 @@ import jakarta.validation.ConstraintValidatorContext;
 import tech.mogami.commons.constant.version.X402Versions;
 
 /**
- * Validator for the {@link X402Version} annotation.
+ * Validator for the {@link ExistingX402Version} annotation.
  */
-public class X402VersionValidator implements ConstraintValidator<X402Version, Integer> {
+public class ExistingX402VersionValidator implements ConstraintValidator<ExistingX402Version, Integer> {
 
     @Override
     public final boolean isValid(final Integer version, final ConstraintValidatorContext constraintValidatorContext) {

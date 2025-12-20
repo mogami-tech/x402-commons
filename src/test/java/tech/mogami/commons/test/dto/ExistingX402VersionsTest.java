@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static tech.mogami.commons.constant.version.X402Versions.ALL_X402_VERSIONS;
 
 @DisplayName("X402 versions tests")
-public class X402VersionsTest {
+public class ExistingX402VersionsTest {
 
     @Test
     @DisplayName("Test existing versions")

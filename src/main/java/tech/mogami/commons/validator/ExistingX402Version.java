@@ -14,10 +14,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * X402Version annotation.
  */
 @Documented
-@Constraint(validatedBy = X402VersionValidator.class)
+@Constraint(validatedBy = ExistingX402VersionValidator.class)
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
-public @interface X402Version {
+public @interface ExistingX402Version {
 
     /**
      * Message to show when the validation fails.

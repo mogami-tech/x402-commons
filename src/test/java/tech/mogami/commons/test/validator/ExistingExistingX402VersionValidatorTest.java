@@ -3,18 +3,18 @@ package tech.mogami.commons.test.validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tech.mogami.commons.validator.X402VersionValidator;
+import tech.mogami.commons.validator.ExistingX402VersionValidator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("X402 version validator tests")
-public class X402VersionValidatorTest {
+public class ExistingExistingX402VersionValidatorTest {
 
-    X402VersionValidator validator;
+    ExistingX402VersionValidator validator;
 
     @BeforeEach
     void setUp() {
-        validator = new X402VersionValidator();
+        validator = new ExistingX402VersionValidator();
     }
 
     @Test

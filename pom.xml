@@ -64,6 +64,9 @@
         <!-- Core JSON & Validation -->
         <jackson.version>2.20.1</jackson.version>
         <jakarta.validation.version>3.1.1</jakarta.validation.version>
+        <hibernate.validator.version>8.0.3.Final</hibernate.validator.version>
+        <tomcat-embed-el.version>10.1.23</tomcat-embed-el.version>
+        <jakarta.el.version>6.0.1</jakarta.el.version>
 
         <!-- Crypto & Blockchain -->
         <web3j.crypto.version>4.14.0</web3j.crypto.version>
@@ -123,9 +126,24 @@
             <version>${commons-codec.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
+        </dependency>
+        <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>${jakarta.validation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>${jakarta.el.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-el</artifactId>
+            <version>${tomcat-embed-el.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
