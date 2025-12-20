@@ -26,13 +26,13 @@ public record SettleResponse(
         @Schema(description = "Identifier of the blockchain network", example = "base-sepolia")
         String network,
 
-        @Schema(description = "Blockchain transaction hash of the settled payment, or null if error", example = "0xabc123...", nullable = true)
+        @Schema(description = "Blockchain transaction hash of the settled payment, or null if error", example = "0x123...", nullable = true)
         @Nullable String transaction,
 
         @Schema(description = "Error message from the facilitator, or null if success", example = "invalid_payload", nullable = true)
         @Nullable String errorReason,
 
-        @Schema(description = "Address of the payer's wallet, or null if error", example = "0x1234abcd...", nullable = true)
+        @Schema(description = "Address of the payer's wallet, or null if error", example = "0x1234...", nullable = true)
         @Nullable String payer
 
 ) {

@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
 public class Schemes {
 
+    /** Scheme parameter: the parameter used to specify the payment scheme in headers. */
+    public static final String SCHEME_PARAMETER = "scheme";
+
     /** Exact scheme. */
     public static final Scheme EXACT_SCHEME = Scheme.builder()
             .name("exact")

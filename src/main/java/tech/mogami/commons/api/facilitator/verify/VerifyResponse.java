@@ -8,9 +8,9 @@ import org.jspecify.annotations.Nullable;
 /**
  * Verify response returned by the x402 facilitator for a verification attempt.
  *
- * @param isValid       verification status
- * @param invalidReason reason why the verification failed
- * @param payer         payer address
+ * @param isValid       Indicates whether the payment authorization is valid
+ * @param invalidReason Reason for invalidity (omitted if valid)
+ * @param payer         Address of the payer's wallet
  */
 @Builder
 @Jacksonized
@@ -18,13 +18,13 @@ import org.jspecify.annotations.Nullable;
 @SuppressWarnings("unused")
 public record VerifyResponse(
 
-        @Schema(description = "Is the request valid ?", example = "true")
+        @Schema(description = "Indicates whether the payment authorization is valid", example = "true")
         boolean isValid,
 
-        @Schema(description = "Reason why the verification failed, or null if valid", example = "invalid_payload", nullable = true)
+        @Schema(description = "Reason for invalidity (omitted if valid)", example = "invalid_payload", nullable = true)
         @Nullable String invalidReason,
 
-        @Schema(description = "Payer address, or null if not applicable", example = "0x1234abcd...", nullable = true)
+        @Schema(description = "Address of the payer's wallet", example = "0x1234...", nullable = true)
         @Nullable String payer
 
 ) {

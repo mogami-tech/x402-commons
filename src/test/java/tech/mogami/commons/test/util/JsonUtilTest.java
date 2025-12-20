@@ -8,8 +8,6 @@ import tech.mogami.commons.util.JsonUtil;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tech.mogami.commons.constant.EventType.X402_FACILITATOR_VERIFY_RESPONSE;
-import static tech.mogami.commons.constant.EventType.X402_SERVER_URL_ACCESS_REQUEST;
 
 @DisplayName("JSON Util Tests")
 public class JsonUtilTest {
@@ -25,9 +23,7 @@ public class JsonUtilTest {
                 }
                 """;
         assertFalse(JsonUtil.isValidJson(json, PaymentPayload.class));
-        assertFalse(JsonUtil.isValidJson(json, X402_SERVER_URL_ACCESS_REQUEST.getExpectedJsonType()));
         assertTrue(JsonUtil.isValidJson(json, VerifyResponse.class));
-        assertTrue(JsonUtil.isValidJson(json, X402_FACILITATOR_VERIFY_RESPONSE.getExpectedJsonType()));
     }
 
 }

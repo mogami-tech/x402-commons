@@ -65,7 +65,7 @@ public record ExactSchemePayload(
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.value.required}")
             @BigIntegerString(message = "{validation.exactSchemePayload.authorization.value.invalid}")
-            @Schema(description = "Token amount to be transferred (as string representing uint256)", example = "1000000000000000000")
+            @Schema(description = "Payment amount in atomic units (as string representing uint256)", example = "1000000000000000000")
             String value,
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.validAfter.required}")
@@ -77,7 +77,7 @@ public record ExactSchemePayload(
             String validBefore,
 
             @NotBlank(message = "{validation.exactSchemePayload.authorization.nonce.required}")
-            @Schema(description = "Unique nonce to prevent replay of the authorization", example = "0xdeadbeefcafebabe12345678abcdef12")
+            @Schema(description = "32-byte random nonce to prevent replay attacks", example = "0xdeadbeefcafebabe12345678abcdef12")
             String nonce
 
     ) {

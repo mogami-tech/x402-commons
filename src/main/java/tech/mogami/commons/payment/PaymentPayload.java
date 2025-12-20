@@ -5,28 +5,27 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
-import tech.mogami.commons.validator.Network;
-import tech.mogami.commons.validator.Scheme;
 import tech.mogami.commons.validator.X402Version;
 
 import java.math.BigInteger;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static tech.mogami.commons.payment.PaymentConstants.SCHEME_PARAMETER;
+import static tech.mogami.commons.payment.schemes.Schemes.SCHEME_PARAMETER;
 
 /**
- * Payment payload (included as the X-PAYMENT header in base64 encoded JSON).
+ * Payment payload.
  *
  * @param x402Version version of the x402 payment protocol
- * @param scheme      scheme is the scheme value of the accepted `paymentRequirements` the client is using to pay
- * @param network     network is the network id of the accepted `paymentRequirements` the client is using to pay
+ * @param resource    Resource requiring payment
  * @param payload     payload is scheme dependent
+ * @param extensions  Protocol extensions data
  */
 @Builder(toBuilder = true)
 @Jacksonized
@@ -36,18 +35,17 @@ public record PaymentPayload(
 
         @NotNull(message = "{validation.paymentPayload.x402Version.required}")
         @X402Version(message = "{validation.paymentPayload.x402Version.invalid}")
-        @Schema(description = "Version of the x402 payment protocol", example = "1")
+        @Schema(description = "Version of the x402 payment protocol", example = "2")
         Integer x402Version,
 
-        @NotBlank(message = "{validation.paymentPayload.scheme.required}")
-        @Scheme(message = "{validation.paymentPayload.scheme.invalid}")
-        @Schema(description = "Scheme used to pay", example = "exact")
-        String scheme,
+        @Valid
+        @Schema(description = "Resource requiring payment", nullable = true)
+        @Nullable PaymentResource resource,
 
-        @NotBlank(message = "{validation.paymentPayload.network.required}")
-        @Network(message = "{validation.paymentPayload.network.invalid}")
-        @Schema(description = "Network used to pay", example = "base-sepolia")
-        String network,
+        @Valid
+        @NotNull(message = "{validation.paymentRequired.accepts.required}")
+        @Schema(description = "PaymentRequirements object indicating the payment method chosen")
+        PaymentRequirements accepted,
 
         @Valid
         @NotNull(message = "{validation.paymentPayload.payload.required}")
@@ -56,7 +54,10 @@ public record PaymentPayload(
                 @JsonSubTypes.Type(value = ExactSchemePayload.class, name = "exact")
         })
         @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", oneOf = {ExactSchemePayload.class})
-        Object payload
+        Object payload,
+
+        @Schema(description = "Protocol extensions data", nullable = true)
+        @Nullable Map<String, Object> extensions
 
 ) {
 

@@ -1,6 +1,5 @@
 package tech.mogami.commons.constant.version;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 
 /**
@@ -18,7 +17,6 @@ public record X402Version(
      *
      * @return the canonical string representation
      */
-    @JsonIgnore
     public String canonical() {
         return Integer.toString(version);
     }

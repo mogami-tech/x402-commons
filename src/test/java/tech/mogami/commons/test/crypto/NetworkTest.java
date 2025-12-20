@@ -8,8 +8,8 @@ import tech.mogami.commons.constant.network.Networks;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.mogami.commons.constant.network.Networks.BASE_MAINNET;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
-import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
-import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
 @DisplayName("Network Tests")
 public class NetworkTest {
@@ -30,6 +30,19 @@ public class NetworkTest {
         // Base mainnet
         assertThat(BASE_MAINNET.defaultRpcUrl()).isEqualTo("https://mainnet.base.org");
         assertThat(BASE_MAINNET.rpcUrl()).isEqualTo("https://mainnet.base.org");
+    }
+
+    @Test
+    @DisplayName("NetworkId")
+    void testNetworkId() {
+        assertThat(BASE_SEPOLIA.networkId()).isEqualTo("eip155:84532");
+        assertThat(BASE_MAINNET.networkId()).isEqualTo("eip155:8453");
+
+        // Search
+        assertThat(Networks.findByNetworkId("eip155:84532")).isPresent().get().isEqualTo(BASE_SEPOLIA);
+        assertThat(Networks.findByNetworkId("EIP155:84532")).isPresent().get().isEqualTo(BASE_SEPOLIA);
+        assertThat(Networks.findByNetworkId("eip155:8453")).isPresent().get().isEqualTo(BASE_MAINNET);
+        assertThat(Networks.findByNetworkId("eip155:845")).isEmpty();
     }
 
     @Test

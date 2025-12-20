@@ -7,6 +7,7 @@ import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Supported response for GET /supported.
@@ -20,9 +21,37 @@ import java.util.List;
 public record SupportedResponse(
 
         @Schema(description = "List of supported payment kinds (x402 version, scheme, and network)")
-        @Singular List<SupportedKind> kinds
+        @Singular List<SupportedKind> kinds,
+
+        @Schema(description = "List of extension identifiers implemented by the facilitator", example = "[]")
+        @Singular List<String> extensions,
+
+        @Schema(description = "Map of CAIP-2 patterns to public signer addresses",
+                example = """
+                        {
+                          "eip155:*": ["0x1234567890abcdef1234567890abcdef12345678"],
+                          "solana:*": ["CKPKJWNdJEqa81x7CkZ14BVPiY6y16Sxs7owznqtWYp5"]
+                        }
+                        """
+        )
+        Map<String, List<String>> signers
 
 ) {
+
+    /**
+     * Constructor.
+     */
+    public SupportedResponse {
+        if (kinds == null) {
+            kinds = List.of();
+        }
+        if (extensions == null) {
+            extensions = List.of();
+        }
+        if (signers == null) {
+            signers = Map.of();
+        }
+    }
 
     /**
      * Single pair the facilitator can handle.
@@ -37,14 +66,17 @@ public record SupportedResponse(
     @SuppressWarnings("unused")
     public record SupportedKind(
 
-            @Schema(description = "x402 protocol version supported", example = "1")
-            int x402Version,
+            @Schema(description = "x402 protocol version supported", example = "2")
+            Integer x402Version,
 
             @Schema(description = "Scheme identifier", example = "exact")
             String scheme,
 
-            @Schema(description = "Blockchain network supported", example = "base-sepolia")
-            String network
+            @Schema(description = "Blockchain network identifier in CAIP-2 format", example = "eip155:84532")
+            String network,
+
+            @Schema(description = "Additional scheme-specific configuration", nullable = true)
+            Map<String, Object> extra
 
     ) {
 

@@ -1,4 +1,4 @@
-package tech.mogami.commons.payment;
+package tech.mogami.commons.constant;
 
 /**
  * Payment status.

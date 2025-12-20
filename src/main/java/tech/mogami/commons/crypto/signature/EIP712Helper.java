@@ -1,5 +1,6 @@
 package tech.mogami.commons.crypto.signature;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.experimental.UtilityClass;
@@ -102,13 +103,14 @@ public class EIP712Helper {
      * @param paymentsRequirements the payment requirements containing network and scheme information
      * @param paymentPayload       the payment payload containing authorization details
      * @return the JSON string representation of the typed data
-     * @throws Exception if an error occurs during JSON creation
+     * @throws JsonProcessingException if an error occurs during JSON processing
      */
     private static String buildTypedDataJson(final PaymentRequirements paymentsRequirements,
-                                             final PaymentPayload paymentPayload) throws Exception {
+                                             final PaymentPayload paymentPayload) throws JsonProcessingException {
         final ObjectMapper mapper = new ObjectMapper();
 
         // Validate inputs =============================================================================================
+        // TODO Change this
         Network network = Networks.findByName(paymentsRequirements.network())
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported network: " + paymentsRequirements.network()));
 

@@ -2,7 +2,7 @@ package tech.mogami.commons.payment;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
@@ -11,14 +11,17 @@ import tech.mogami.commons.deserializer.ForceStringDeserializer;
 import tech.mogami.commons.validator.X402Version;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Reply when an access request is made to a x402 protected URL.
  *
- * @param x402Version Version of the x402 payment protocol
+ * @param x402Version version of the x402 payment protocol
+ * @param error       Message from the resource server to the client to communicate errors in processing payment
+ * @param resource    Resource requiring payment
  * @param accepts     List of payment requirements that the resource server accepts.
  *                    A resource server may accept on multiple chains or in multiple currencies.
- * @param error       Message from the resource server to the client to communicate errors in processing payment
+ * @param extensions  Protocol extensions data
  */
 @Builder
 @Jacksonized
@@ -26,18 +29,26 @@ import java.util.List;
 @SuppressWarnings("unused")
 public record PaymentRequired(
 
-        @NotBlank(message = "{validation.paymentRequired.x402Version.required}")
-        @X402Version(message = "{validation.paymentRequired.x402Version.invalid}")
-        @Schema(description = "x402 protocol version used for the payment requirement", example = "1")
+        @NotNull(message = "{validation.paymentPayload.x402Version.required}")
+        @X402Version(message = "{validation.paymentPayload.x402Version.invalid}")
+        @Schema(description = "Version of the x402 payment protocol", example = "2")
         Integer x402Version,
+
+        @JsonDeserialize(using = ForceStringDeserializer.class)
+        @Schema(description = "Human-readable error message explaining why payment is required", example = "Payment required to access this resource", nullable = true)
+        @Nullable String error,
+
+        @Valid
+        @NotNull(message = "{validation.paymentRequired.resource.required}")
+        @Schema(description = "Resource requiring payment")
+        PaymentResource resource,
 
         @NotNull(message = "{validation.paymentRequired.accepts.required}")
         @Schema(description = "List of acceptable payment methods (e.g., different schemes/networks/assets)")
         List<PaymentRequirements> accepts,
 
-        @JsonDeserialize(using = ForceStringDeserializer.class)
-        @Schema(description = "Optional error message indicating why payment is required")
-        @Nullable String error
+        @Schema(description = "Protocol extensions data", nullable = true)
+        @Nullable Map<String, Object> extensions
 
 ) {
 }

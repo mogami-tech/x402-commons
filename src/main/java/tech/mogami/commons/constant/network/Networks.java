@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 import static tech.mogami.commons.constant.asset.Assets.USDC;
 import static tech.mogami.commons.constant.blockchain.Blockchains.BASE;
-import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
-import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
 /**
  * Existing {@link Network}.
@@ -57,6 +57,13 @@ public class Networks {
     /** List of all networks. */
     public static final List<Network> ALL_NETWORKS = List.of(BASE_SEPOLIA, BASE_MAINNET);
 
+    /** Map of networks by networkId (CAIP-2). */
+    private static final Map<String, Network> NETWORKS_BY_ID = ALL_NETWORKS.stream()
+            .collect(Collectors.toUnmodifiableMap(
+                    network -> StringUtils.lowerCase(network.networkId()),
+                    Function.identity()
+            ));
+
     /** Map of networks by name. */
     private static final Map<String, Network> NETWORKS_BY_NAME = ALL_NETWORKS.stream()
             .collect(Collectors.toUnmodifiableMap(
@@ -65,7 +72,19 @@ public class Networks {
             ));
 
     /**
-     * Find a network by its name.
+     * Find a network by its networkId (CAIP-2, e.g. "eip155:8453").
+     *
+     * @param networkId the network id
+     * @return an Optional containing the network if found, or empty if not found
+     */
+    public static Optional<Network> findByNetworkId(@Nullable final String networkId) {
+        return Optional.ofNullable(networkId)
+                .map(StringUtils::lowerCase)
+                .map(NETWORKS_BY_ID::get);
+    }
+
+    /**
+     * Find a network by its name (e.g. "base-sepolia").
      *
      * @param name the name of the network
      * @return an Optional containing the network if found, or empty if not found

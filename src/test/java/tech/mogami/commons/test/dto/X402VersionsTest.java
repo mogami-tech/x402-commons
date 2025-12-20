@@ -26,7 +26,7 @@ public class X402VersionsTest {
         assertThat(X402Versions.X402_SUPPORTED_VERSIONS.size()).isEqualTo(1);
         assertThat(X402Versions.X402_SUPPORTED_VERSIONS)
                 .extracting(X402Version::version)
-                .containsExactlyInAnyOrder(1);
+                .containsExactlyInAnyOrder(2);
     }
 
     @Test

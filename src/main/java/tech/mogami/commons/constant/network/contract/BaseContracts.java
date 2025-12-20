@@ -1,4 +1,4 @@
-package tech.mogami.commons.constant.network.base;
+package tech.mogami.commons.constant.network.contract;
 
 import lombok.experimental.UtilityClass;
 

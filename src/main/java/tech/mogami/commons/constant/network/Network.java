@@ -2,6 +2,8 @@ package tech.mogami.commons.constant.network;
 
 import lombok.Builder;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
+import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.constant.asset.Asset;
 import tech.mogami.commons.constant.blockchain.Blockchain;
 
@@ -31,7 +33,7 @@ public record Network(
         Blockchain blockchain,
         String name,
         String displayName,
-        int chainId,
+        long chainId,
         boolean isTestnet,
         String defaultRpcUrl,
         DeployedAsset usdc
@@ -62,7 +64,7 @@ public record Network(
          * @param amount the human-readable amount (e.g., 0.10 USDC)
          * @return the atomic representation as a string (e.g., "100000" for 0.10 USDC with 6 decimals)
          */
-        public BigDecimal toAtomic(final BigDecimal amount) {
+        public BigDecimal toAtomic(@Nullable final BigDecimal amount) {
             if (amount == null) {
                 return ZERO;
             }
@@ -143,6 +145,15 @@ public record Network(
     }
 
     /**
+     * Returns the CAIP-2 / x402 network identifier (e.g. "eip155:8453").
+     *
+     * @return the network identifier
+     */
+    public String networkId() {
+        return StringUtils.lowerCase(blockchain.namespace()) + ":" + chainId;
+    }
+
+    /**
      * Retrieves the RPC URL for the network.
      * It first checks for an environment variable specific to the network's name.
      * If not found, it falls back to the default RPC URL.
@@ -161,13 +172,13 @@ public record Network(
      * @param contractAddress the contract address of the asset
      * @return an Optional containing the DeployedAsset if found, or empty if not found
      */
-    public Optional<DeployedAsset> findDeployedAsset(final String contractAddress) {
+    public Optional<DeployedAsset> findDeployedAsset(@Nullable final String contractAddress) {
         if (StringUtils.isBlank(contractAddress)) {
             return Optional.empty();
         }
 
         // Passing all deployed assets here when more are added
-        if (StringUtils.equalsIgnoreCase(contractAddress, usdc.contractAddress())) {
+        if (Strings.CI.equals(contractAddress, usdc.contractAddress())) {
             return Optional.of(usdc);
         } else {
             return Optional.empty();
