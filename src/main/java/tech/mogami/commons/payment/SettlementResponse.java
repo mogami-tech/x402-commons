@@ -5,6 +5,12 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Response returned after settlement processing.
+ *
+ * @param success     Indicates whether the payment settlement was successful
+ * @param errorReason Error reason if settlement failed (omitted if successful)
+ * @param payer       Address of the payer's wallet
+ * @param transaction Blockchain transaction hash of the settled payment, or null if error
+ * @param network     Blockchain network identifier in CAIP-2 format
  */
 @SuppressWarnings("unused")
 public record SettlementResponse(

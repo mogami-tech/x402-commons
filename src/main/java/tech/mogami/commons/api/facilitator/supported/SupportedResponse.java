@@ -12,7 +12,9 @@ import java.util.Map;
 /**
  * Supported response for GET /supported.
  *
- * @param kinds list of supported (scheme, network) pairs
+ * @param kinds      list of supported (scheme, network) pairs
+ * @param extensions list of supported extension identifiers
+ * @param signers    map of CAIP-2 patterns to public signer addresses
  */
 @Builder
 @Jacksonized
@@ -59,6 +61,7 @@ public record SupportedResponse(
      * @param x402Version x402 version
      * @param scheme      the scheme used for the payment
      * @param network     the network used for the payment
+     * @param extra       additional scheme-specific configuration
      */
     @Builder
     @Jacksonized

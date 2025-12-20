@@ -24,6 +24,7 @@ import static tech.mogami.commons.payment.schemes.Schemes.SCHEME_PARAMETER;
  *
  * @param x402Version version of the x402 payment protocol
  * @param resource    Resource requiring payment
+ * @param accepted    PaymentRequirements object indicating the payment method chosen
  * @param payload     payload is scheme dependent
  * @param extensions  Protocol extensions data
  */
