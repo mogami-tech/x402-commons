@@ -36,11 +36,11 @@ public class BaseTest extends BaseTestData {
     }
 
     /**
-     * Get sample encoded payment required with invalid JSON (empty).
+     * Get empty JSON.
      *
-     * @return the sample encoded payment required with invalid JSON
+     * @return just {}
      */
-    protected String getSampleEncodedPaymentRequiredWithInvalidJson() {
+    protected String getEmptyJson() {
         return "ewoKfQ==";
     }
 
@@ -60,6 +60,15 @@ public class BaseTest extends BaseTestData {
      */
     protected String getSampleEncodedPaymentPayloadWithoutAccepts() {
         return "ewogICJ4NDAyVmVyc2lvbiI6IDIsCiAgImVycm9yIjogIlBBWU1FTlQtU0lHTkFUVVJFIGhlYWRlciBpcyByZXF1aXJlZCIsCiAgInJlc291cmNlIjogewogICAgInVybCI6ICJodHRwczovL2FwaS5leGFtcGxlLmNvbS9wcmVtaXVtLWRhdGEiLAogICAgImRlc2NyaXB0aW9uIjogIkFjY2VzcyB0byBwcmVtaXVtIG1hcmtldCBkYXRhIiwKICAgICJtaW1lVHlwZSI6ICJhcHBsaWNhdGlvbi9qc29uIgogIH0KfQ==";
+    }
+
+    /**
+     * Get sample encoded payment response.
+     *
+     * @return the sample encoded payment response
+     */
+    protected String getSampleEncodedPaymentResponse() {
+        return "eyJzdWNjZXNzIjpmYWxzZSwiZXJyb3JSZWFzb24iOiJpbnN1ZmZpY2llbnRfZnVuZHMiLCJ0cmFuc2FjdGlvbiI6IiIsIm5ldHdvcmsiOiJlaXAxNTU6ODQ1MzIiLCJwYXllciI6IjB4ODU3YjA2NTE5RTkxZTNBNTQ1Mzg3OTFiRGJiMEUyMjM3M2UzNmI2NiJ9";
     }
 
     /**
