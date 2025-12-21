@@ -110,8 +110,7 @@ public class EIP712Helper {
         final ObjectMapper mapper = new ObjectMapper();
 
         // Validate inputs =============================================================================================
-        // TODO Change this
-        Network network = Networks.findByName(paymentsRequirements.network())
+        Network network = Networks.findByNetworkId(paymentsRequirements.network())
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported network: " + paymentsRequirements.network()));
 
         // Build the EIP-712 typed-data JSON (domain + message) ========================================================

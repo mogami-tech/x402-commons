@@ -28,7 +28,7 @@ public class EIP712HelperTest {
 
     final PaymentRequirements paymentRequirements = PaymentRequirements.builder()
             .scheme(EXACT_SCHEME.name())
-            .network(BASE_SEPOLIA.name())
+            .network(BASE_SEPOLIA.networkId())
             .amount("10000")
             //.resource("http://localhost/weather")
             .payTo(TEST_SERVER_WALLET_ADDRESS_1)
