@@ -17,21 +17,21 @@ public class X402Constants {
      * Mechanism: HTTP 402 status code with PAYMENT-REQUIRED header.
      * Data Format: Base64-encoded {@link PaymentRequired} schema in header.
      */
-    public static final String X402_PAYMENT_REQUIRED_HEADER = "PAYMENT-REQUIRED";
+    public static final String X402_PAYMENT_REQUIRED_HEADER = "payment-required";
 
     /**
      * Clients send payment data using the PAYMENT-SIGNATURE HTTP header (Client → Server).
      * Mechanism: PAYMENT-SIGNATURE header containing base64-encoded JSON.
      * Data Format: Base64-encoded {@link PaymentPayload} schema.
      */
-    public static final String X402_PAYMENT_SIGNATURE_HEADER = "PAYMENT-SIGNATURE";
+    public static final String X402_PAYMENT_SIGNATURE_HEADER = "payment-signature";
 
     /**
      * Servers communicate payment settlement results using the PAYMENT-RESPONSE header (Server → Client).
      * Mechanism: PAYMENT-RESPONSE header containing base64-encoded JSON.
      * Data Format: Base64-encoded {@link SettlementResponse} schema.
      */
-    public static final String X402_PAYMENT_RESPONSE_HEADER = "PAYMENT-RESPONSE";
+    public static final String X402_PAYMENT_RESPONSE_HEADER = "payment-response";
 
     /** X402 payment required message. */
     public static final String X402_PAYMENT_REQUIRED_MESSAGE = "PAYMENT-SIGNATURE header is required";
