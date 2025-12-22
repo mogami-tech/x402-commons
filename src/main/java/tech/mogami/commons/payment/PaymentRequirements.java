@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Strings;
 import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
@@ -116,8 +115,8 @@ public record PaymentRequirements(
      * <p>
      * Compatibility rules:
      * - scheme, network, asset, payTo must match
-     * - paid amount must be >= required amount
-     * - timeout must be <= maxTimeoutSeconds
+     * - paid amount must be superior required amount
+     * - timeout must be inferior to maxTimeoutSeconds
      * - extra values required by this instance must be present and equal in the other instance
      *
      * @param other the payment requirements to check against
@@ -126,16 +125,16 @@ public record PaymentRequirements(
     @JsonIgnore
     public boolean isCompatibleWith(@Nullable final PaymentRequirements other) {
         return other != null
-                && Strings.CI.equals(scheme, other.scheme())
-                && Strings.CI.equals(network, other.network())
-                && Strings.CI.equals(asset, other.asset())
-                && Strings.CI.equals(payTo, other.payTo())
+                && StringUtils.equalsIgnoreCase(scheme, other.scheme())
+                && StringUtils.equalsIgnoreCase(network, other.network())
+                && StringUtils.equalsIgnoreCase(asset, other.asset())
+                && StringUtils.equalsIgnoreCase(payTo, other.payTo())
                 && other.amountAsBigInteger().compareTo(amountAsBigInteger()) >= 0
                 && other.maxTimeoutSeconds() <= maxTimeoutSeconds
                 && (extra == null || extra.isEmpty()
                 || (other.extra() != null
                 && extra.entrySet().stream()
-                .allMatch(e -> Strings.CI.equals(
+                .allMatch(e -> StringUtils.equalsIgnoreCase(
                         e.getValue(),
                         other.extra().get(e.getKey())
                 ))));

@@ -2,7 +2,6 @@ package tech.mogami.commons.constant.network;
 
 import lombok.Builder;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Strings;
 import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.constant.asset.Asset;
 import tech.mogami.commons.constant.blockchain.Blockchain;
@@ -176,7 +175,7 @@ public record Network(
         }
 
         // Passing all deployed assets here when more are added
-        if (Strings.CI.equals(contractAddress, usdc.contractAddress())) {
+        if (StringUtils.equalsIgnoreCase(contractAddress, usdc.contractAddress())) {
             return Optional.of(usdc);
         } else {
             return Optional.empty();
