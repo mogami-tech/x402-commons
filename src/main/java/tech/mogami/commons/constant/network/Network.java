@@ -19,13 +19,13 @@ import static java.math.RoundingMode.DOWN;
  * Represents a network.
  * This is a marker record for network-related constants and configurations.
  *
- * @param blockchain    the blockchain to which the network belongs
- * @param name          the name of the network (example: "base-sepolia" or "ethereum-mainnet")
- * @param displayName   a user-friendly display name for the network
- * @param chainId       the unique identifier for the network
- * @param isTestnet     indicates whether the network is a testnet
- * @param defaultRpcUrl the default RPC URL for connecting to the network
- * @param usdc          the USDC asset deployed on the network
+ * @param blockchain       the blockchain to which the network belongs
+ * @param name             the name of the network (example: "base-sepolia" or "ethereum-mainnet")
+ * @param displayName      a user-friendly display name for the network
+ * @param networkReference CAIP-2 reference (chainId, genesis hash, etc.)
+ * @param isTestnet        indicates whether the network is a testnet
+ * @param defaultRpcUrl    the default RPC URL for connecting to the network
+ * @param usdc             the USDC asset deployed on the network
  */
 @Builder
 @SuppressWarnings("unused")
@@ -33,7 +33,7 @@ public record Network(
         Blockchain blockchain,
         String name,
         String displayName,
-        long chainId,
+        String networkReference,
         boolean isTestnet,
         String defaultRpcUrl,
         DeployedAsset usdc
@@ -136,21 +136,19 @@ public record Network(
         if (name == null) {
             throw new IllegalArgumentException("Network name can't be null");
         }
-        if (chainId == 0) {
-            throw new IllegalArgumentException("Chain Id can't be zero");
-        }
         if (StringUtils.isBlank(defaultRpcUrl)) {
             throw new IllegalArgumentException("Default rpc Url can't be blank");
         }
     }
 
     /**
-     * Returns the CAIP-2 / x402 network identifier (e.g. "eip155:8453").
-     *
-     * @return the network identifier
+     * Canonical CAIP-2 network identifier.
+     * Examples:
+     * - eip155:8453
+     * - solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1
      */
     public String networkId() {
-        return StringUtils.lowerCase(blockchain.namespace()) + ":" + chainId;
+        return blockchain.namespace().toLowerCase() + ":" + networkReference;
     }
 
     /**

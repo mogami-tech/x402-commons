@@ -47,8 +47,8 @@ public record PaymentRequired(
         @Schema(description = "Human-readable error message explaining why payment is required", example = "Payment required to access this resource", nullable = true)
         @Nullable String error,
 
-        @JsonProperty(required = true)
         @Valid
+        @JsonProperty(required = true)
         @NotNull(message = "{validation.paymentRequired.resource.required}")
         @Schema(description = "Resource requiring payment", requiredMode = REQUIRED)
         PaymentResource resource,
@@ -58,7 +58,7 @@ public record PaymentRequired(
         @Schema(description = "List of acceptable payment methods (e.g., different schemes/networks/assets)", requiredMode = REQUIRED)
         List<PaymentRequirements> accepts,
 
-        @Schema(description = "Protocol extensions data", nullable = true)
+        @Schema(description = "Protocol extensions data")
         @Nullable Map<String, Object> extensions
 
 ) {

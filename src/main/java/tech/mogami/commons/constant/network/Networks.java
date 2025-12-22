@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import static tech.mogami.commons.constant.asset.Assets.USDC;
 import static tech.mogami.commons.constant.blockchain.Blockchains.BASE;
+import static tech.mogami.commons.constant.blockchain.Blockchains.SOLANA;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
@@ -27,7 +28,7 @@ public class Networks {
             .blockchain(BASE)
             .name("base-sepolia")
             .displayName("Base Sepolia Testnet")
-            .chainId(84532)
+            .networkReference("84532")
             .isTestnet(true)
             .defaultRpcUrl("https://sepolia.base.org")
             .usdc(Network.DeployedAsset.builder()
@@ -43,7 +44,7 @@ public class Networks {
             .blockchain(BASE)
             .name("base")
             .displayName("Base Mainnet")
-            .chainId(8453)
+            .networkReference("8453")
             .isTestnet(false)
             .defaultRpcUrl("https://mainnet.base.org")
             .usdc(Network.DeployedAsset.builder()
@@ -54,8 +55,41 @@ public class Networks {
                     .build())
             .build();
 
+    /** Solana devnet network. */
+    public static final Network SOLANA_DEVNET = Network.builder()
+            .blockchain(SOLANA)
+            .name("solana-devnet")
+            .displayName("Solana Devnet")
+            .networkReference("4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY")
+            .isTestnet(true)
+            .defaultRpcUrl("https://api.devnet.solana.com")
+            .build();
+
+    /** Solana testnet network. */
+    public static final Network SOLANA_TESTNET = Network.builder()
+            .blockchain(SOLANA)
+            .name("solana-testnet")
+            .displayName("Solana Testnet")
+            .networkReference("8E9rvCKLFQia2Y35HXjjpWzj8weVo44K")
+            .isTestnet(true)
+            .defaultRpcUrl("https://api.testnet.solana.com")
+            .build();
+
+    /** Solana mainnet network. */
+    public static final Network SOLANA_MAINNET = Network.builder()
+            .blockchain(SOLANA)
+            .name("solana")
+            .displayName("Solana Mainnet")
+            .networkReference("EtWTRABZaYq6iMfeYKouRu166VU2xqa1")
+            .isTestnet(false)
+            .defaultRpcUrl("https://api.mainnet-beta.solana.com")
+            .build();
+
     /** List of all networks. */
-    public static final List<Network> ALL_NETWORKS = List.of(BASE_SEPOLIA, BASE_MAINNET);
+    public static final List<Network> ALL_NETWORKS = List.of(
+            BASE_SEPOLIA, BASE_MAINNET,
+            SOLANA_DEVNET, SOLANA_TESTNET, SOLANA_MAINNET
+    );
 
     /** Map of networks by networkId (CAIP-2). */
     private static final Map<String, Network> NETWORKS_BY_ID = ALL_NETWORKS.stream()

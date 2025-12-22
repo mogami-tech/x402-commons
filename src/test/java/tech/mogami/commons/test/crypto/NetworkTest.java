@@ -18,7 +18,7 @@ public class NetworkTest {
     @DisplayName("Networks count")
     void testNetworksCount() {
         // There should be exactly 2 networks defined
-        assertThat(Networks.ALL_NETWORKS.size()).isEqualTo(2);
+        assertThat(Networks.ALL_NETWORKS.size()).isEqualTo(5);
     }
 
     @Test

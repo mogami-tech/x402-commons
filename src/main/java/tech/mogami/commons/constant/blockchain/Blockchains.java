@@ -28,8 +28,15 @@ public class Blockchains {
             .displayName("Base")
             .build();
 
+    /** Solana blockchain. */
+    public static final Blockchain SOLANA = Blockchain.builder()
+            .namespace("solana")
+            .name("solana")
+            .displayName("Solana")
+            .build();
+
     /** List of all blockchains. */
-    public static final List<Blockchain> ALL_BLOCKCHAINS = List.of(ETHEREUM, BASE);
+    public static final List<Blockchain> ALL_BLOCKCHAINS = List.of(ETHEREUM, BASE, SOLANA);
 
     /** Map of blockchains by name. */
     private static final Map<String, Blockchain> BLOCKCHAINS_BY_NAME = ALL_BLOCKCHAINS.stream()
