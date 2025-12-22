@@ -63,6 +63,7 @@ public class Networks {
             .networkReference("4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY")
             .isTestnet(true)
             .defaultRpcUrl("https://api.devnet.solana.com")
+            // TODO define USDC on Solana devnet
             .build();
 
     /** Solana testnet network. */
@@ -73,6 +74,7 @@ public class Networks {
             .networkReference("8E9rvCKLFQia2Y35HXjjpWzj8weVo44K")
             .isTestnet(true)
             .defaultRpcUrl("https://api.testnet.solana.com")
+            // TODO define USDC on Solana testnet
             .build();
 
     /** Solana mainnet network. */
@@ -83,6 +85,7 @@ public class Networks {
             .networkReference("EtWTRABZaYq6iMfeYKouRu166VU2xqa1")
             .isTestnet(false)
             .defaultRpcUrl("https://api.mainnet-beta.solana.com")
+            // TODO define USDC on Solana mainnet
             .build();
 
     /** List of all networks. */
