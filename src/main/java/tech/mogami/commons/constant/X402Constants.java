@@ -34,7 +34,7 @@ public class X402Constants {
     public static final String X402_PAYMENT_RESPONSE_HEADER = "payment-response";
 
     /** X402 payment required message. */
-    public static final String X402_PAYMENT_REQUIRED_MESSAGE = "PAYMENT-SIGNATURE header is required";
+    public static final String X402_PAYMENT_REQUIRED_MESSAGE = "Payment required";
 
     /** Default payment timeout in seconds. */
     public static final int X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS = 60;
