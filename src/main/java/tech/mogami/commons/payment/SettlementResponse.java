@@ -11,11 +11,12 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 /**
  * Response returned after settlement processing.
  *
- * @param success     Indicates whether the payment settlement was successful
- * @param errorReason Error reason if settlement failed (omitted if successful)
- * @param payer       Address of the payer's wallet
- * @param transaction Blockchain transaction hash of the settled payment, or null if error
- * @param network     Blockchain network identifier in CAIP-2 format
+ * @param success      Indicates whether the payment settlement was successful
+ * @param errorReason  Error reason if settlement failed (omitted if successful)
+ * @param payer        Address of the payer's wallet
+ * @param transaction  Blockchain transaction hash of the settled payment, or null if error
+ * @param network      Blockchain network identifier in CAIP-2 format
+ * @param requirements Payment requirements used for the settlement (TODO Not in the specs! Suppress this.)
  */
 @Builder
 @Jacksonized
@@ -39,7 +40,10 @@ public record SettlementResponse(
 
         @JsonProperty(required = true)
         @Schema(description = "Blockchain network identifier in CAIP-2 format", example = "eip155:84532", requiredMode = REQUIRED)
-        String network
+        String network,
+
+        // TODO Not in the specs! Suppress this.
+        PaymentRequirements requirements
 
 ) {
 }
