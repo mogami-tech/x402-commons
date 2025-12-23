@@ -107,4 +107,29 @@ public class X402HeaderUtil {
         return paymentPayload;
     }
 
+    /**
+     * Encodes the PaymentPayload into a base64 string.
+     *
+     * @param paymentPayload The PaymentPayload.
+     * @return The encoded string.
+     */
+    public String encodePaymentPayload(final PaymentPayload paymentPayload) {
+        // Check violations.
+        Set<ConstraintViolation<PaymentPayload>> violations = ValidationUtil.findViolations(paymentPayload);
+        if (!violations.isEmpty()) {
+            throw new InvalidX402HeaderException("Invalid payment payload object");
+        }
+
+        // Transform to JSON.
+        final String json;
+        try {
+            json = JsonUtil.toJson(paymentPayload);
+        } catch (RuntimeException e) {
+            throw new InvalidX402HeaderException("Unable to serialize payment payload", e);
+        }
+
+        // Return encoded in base64.
+        return Base64Util.encode(json);
+    }
+
 }

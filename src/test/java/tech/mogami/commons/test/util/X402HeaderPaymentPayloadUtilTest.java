@@ -4,6 +4,7 @@ import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
+import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.test.BaseTest;
 import tech.mogami.commons.util.X402HeaderUtil;
@@ -66,6 +67,18 @@ public class X402HeaderPaymentPayloadUtilTest extends BaseTest {
                                 AssertionsForClassTypes.assertThat(p.authorization().nonce()).isEqualTo("0xf3746613c2d920b5fdabc0856f2aeb2d4f88ee6037b8cc5d04a71a4462f13480");
                             });
                 });
+    }
+
+    @Test
+    @DisplayName("encodePaymentPayload()")
+    void encodePaymentPayload() {
+        assertThatThrownBy(() -> X402HeaderUtil.encodePaymentPayload(PaymentPayload.builder().build()))
+                .isInstanceOf(InvalidX402HeaderException.class)
+                .hasMessageContaining("Invalid payment payload object");
+
+
+        String encodedPayload = X402HeaderUtil.encodePaymentPayload(getSamplePaymentPayload());
+        assertThat(encodedPayload).isEqualTo(getSampleEncodedPaymentPayload());
     }
 
 }
