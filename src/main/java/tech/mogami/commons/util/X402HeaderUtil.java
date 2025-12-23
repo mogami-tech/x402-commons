@@ -67,8 +67,7 @@ public class X402HeaderUtil {
         try {
             json = JsonUtil.toJson(paymentRequired);
         } catch (RuntimeException e) {
-            throw new InvalidX402HeaderException(
-                    "Unable to serialize " + X402_PAYMENT_REQUIRED_HEADER + " payload", e);
+            throw new InvalidX402HeaderException("Unable to serialize " + X402_PAYMENT_REQUIRED_HEADER + " payload", e);
         }
 
         // Return encoded in base64.
