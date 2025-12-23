@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import lombok.experimental.UtilityClass;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
 import tech.mogami.commons.exception.InvalidX402PaymentRequiredException;
+import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequired;
 
 import java.util.Set;
@@ -72,6 +73,38 @@ public class X402HeaderUtil {
 
         // Return encoded in base64.
         return Base64Util.encode(json);
+    }
+
+    /**
+     * Decodes the PaymentPayload from the given encoded payload.
+     *
+     * @param encodedPayload The encoded payload.
+     * @return The PaymentPayload.
+     */
+    public PaymentPayload decodePaymentPayload(final String encodedPayload) {
+        // We decode it.
+        final String decodedPaymentPayload;
+        try {
+            decodedPaymentPayload = Base64Util.decode(encodedPayload);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidX402HeaderException("Invalid base64 payment payload header", e);
+        }
+
+        // We transform the encoded value into a PaymentPayload object.
+        final PaymentPayload paymentPayload;
+        try {
+            paymentPayload = JsonUtil.fromJson(decodedPaymentPayload, PaymentPayload.class);
+        } catch (final IllegalArgumentException e) {
+            throw new InvalidX402HeaderException("Invalid x402 payment payload", e);
+        }
+
+        // We validate the PaymentPayload object.
+        Set<ConstraintViolation<PaymentPayload>> violations = ValidationUtil.findViolations(paymentPayload);
+        if (!violations.isEmpty()) {
+            throw new InvalidX402HeaderException("Invalid payment payload object");
+        }
+
+        return paymentPayload;
     }
 
 }

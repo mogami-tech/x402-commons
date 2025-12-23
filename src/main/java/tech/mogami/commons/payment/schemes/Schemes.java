@@ -3,6 +3,7 @@ package tech.mogami.commons.payment.schemes;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 
 import java.util.List;
 import java.util.Map;
@@ -21,8 +22,9 @@ public class Schemes {
     public static final String SCHEME_PARAMETER = "scheme";
 
     /** Exact scheme. */
-    public static final Scheme EXACT_SCHEME = Scheme.builder()
+    public static final Scheme EXACT_SCHEME = Scheme.<ExactSchemePayload>builder()
             .name("exact")
+            .payloadClass(ExactSchemePayload.class)
             .build();
 
     /** All schemes. */

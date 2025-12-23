@@ -19,8 +19,8 @@ import static tech.mogami.commons.payment.schemes.Schemes.EXACT_SCHEME;
 import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
 import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 
-@DisplayName("x402 header Util Tests")
-public class X402HeaderUtilTest extends BaseTest {
+@DisplayName("x402 header PaymentRequired Util Tests")
+public class X402HeaderPaymentRequiredUtilTest extends BaseTest {
 
     @Test
     @DisplayName("decodePaymentRequired()")

@@ -1,16 +1,16 @@
 package tech.mogami.commons.exception;
 
 /**
- * Exception thrown when an x402 header is invalid.
+ * Exception thrown when a x402 payload is invalid.
  */
-public final class InvalidX402HeaderException extends X402Exception {
+public final class InvalidX402Payload extends X402Exception {
 
     /**
      * Constructor.
      *
      * @param message the exception message
      */
-    public InvalidX402HeaderException(final String message) {
+    public InvalidX402Payload(final String message) {
         super(message);
     }
 
@@ -20,7 +20,7 @@ public final class InvalidX402HeaderException extends X402Exception {
      * @param message the exception message
      * @param cause   the root cause
      */
-    public InvalidX402HeaderException(final String message, final Throwable cause) {
+    public InvalidX402Payload(final String message, final Throwable cause) {
         super(message, cause);
     }
 

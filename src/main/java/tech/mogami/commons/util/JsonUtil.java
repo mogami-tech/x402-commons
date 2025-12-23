@@ -48,6 +48,18 @@ public class JsonUtil {
     }
 
     /**
+     * Convert an object to another type.
+     *
+     * @param object the object to convert
+     * @param type   the class type to convert the object to
+     * @param <T>    the type of the object to return
+     * @return the converted object of the specified type
+     */
+    public <T> T convertValue(final Object object, final Class<T> type) {
+        return MAPPER.convertValue(object, type);
+    }
+
+    /**
      * Convert an object to a JSON string.
      *
      * @param value the object to serialize (nullable)
