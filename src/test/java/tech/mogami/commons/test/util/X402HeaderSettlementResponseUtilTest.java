@@ -3,7 +3,7 @@ package tech.mogami.commons.test.util;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
-import tech.mogami.commons.test.BaseTest;
+import tech.mogami.commons.test.BaseMogamiTest;
 import tech.mogami.commons.util.X402HeaderUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 
 @DisplayName("x402 header SettlementResponse Util Tests")
-public class X402HeaderSettlementResponseUtilTest extends BaseTest {
+public class X402HeaderSettlementResponseUtilTest extends BaseMogamiTest {
 
     @Test
     @DisplayName("decodeSettlementResponse()")

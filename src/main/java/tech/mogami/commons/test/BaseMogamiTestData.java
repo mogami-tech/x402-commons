@@ -4,7 +4,7 @@ package tech.mogami.commons.test;
  * Test data.
  */
 @SuppressWarnings({"HideUtilityClassConstructor", "unused"})
-public class BaseTestData {
+public class BaseMogamiTestData {
 
     /** Test mnemonic phrase. */
     public static final String TEST_MNEMONIC = "slice joke drink glove ice brown erosion frown census talk topic entire size pair safe";

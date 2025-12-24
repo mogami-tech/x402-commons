@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
 import tech.mogami.commons.exception.InvalidX402PaymentRequiredException;
 import tech.mogami.commons.payment.PaymentRequired;
-import tech.mogami.commons.test.BaseTest;
+import tech.mogami.commons.test.BaseMogamiTest;
 import tech.mogami.commons.util.X402HeaderUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +20,7 @@ import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXA
 import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 
 @DisplayName("x402 header PaymentRequired Util Tests")
-public class X402HeaderPaymentRequiredUtilTest extends BaseTest {
+public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {
 
     @Test
     @DisplayName("decodePaymentRequired()")

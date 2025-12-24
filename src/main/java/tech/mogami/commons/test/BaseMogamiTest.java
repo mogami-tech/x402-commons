@@ -12,7 +12,7 @@ import java.util.Map;
  * Base test.
  */
 @SuppressWarnings({"unused", "magicnumber"})
-public class BaseTest extends BaseTestData {
+public class BaseMogamiTest extends BaseMogamiTestData {
 
     /**
      * Get default properties.
