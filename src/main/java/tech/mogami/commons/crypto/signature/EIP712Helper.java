@@ -117,7 +117,7 @@ public class EIP712Helper {
         ObjectNode domain = mapper.createObjectNode();
         domain.put("name", paymentsRequirements.extra().get(EXACT_SCHEME_PARAMETER_NAME));
         domain.put("version", paymentsRequirements.extra().get(EXACT_SCHEME_PARAMETER_VERSION));
-        domain.put("chainId", network.networkReference());
+        domain.put("chainId", network.chainId());
         domain.put("verifyingContract", paymentsRequirements.asset());
 
         ExactSchemePayload exactSchemePayload = (ExactSchemePayload) paymentPayload.payload();

@@ -141,6 +141,15 @@ public record Network(
     }
 
     /**
+     * Retrieves the chain ID or network reference.
+     *
+     * @return the chain ID or network reference as a string
+     */
+    public String chainId() {
+        return networkReference;
+    }
+
+    /**
      * Canonical CAIP-2 network identifier.
      * Examples:
      * - eip155:8453

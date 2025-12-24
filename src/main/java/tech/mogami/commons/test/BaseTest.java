@@ -3,6 +3,7 @@ package tech.mogami.commons.test;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequirements;
 import tech.mogami.commons.payment.PaymentResource;
+import tech.mogami.commons.payment.SettlementResponse;
 import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 
 import java.util.Map;
@@ -124,6 +125,29 @@ public class BaseTest extends BaseTestData {
      */
     protected String getSampleEncodedPaymentResponse() {
         return "eyJzdWNjZXNzIjpmYWxzZSwiZXJyb3JSZWFzb24iOiJpbnN1ZmZpY2llbnRfZnVuZHMiLCJ0cmFuc2FjdGlvbiI6IiIsIm5ldHdvcmsiOiJlaXAxNTU6ODQ1MzIiLCJwYXllciI6IjB4ODU3YjA2NTE5RTkxZTNBNTQ1Mzg3OTFiRGJiMEUyMjM3M2UzNmI2NiJ9";
+    }
+
+    /**
+     * Get sample settlement response.
+     *
+     * @return the sample settlement response
+     */
+    protected String getSampleEncodedSettlementResponse() {
+        return "eyJzdWNjZXNzIjp0cnVlLCJ0cmFuc2FjdGlvbiI6IjB4MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWYxMjM0NTY3ODkwYWJjZGVmMTIzNDU2Nzg5MGFiY2RlZiIsIm5ldHdvcmsiOiJlaXAxNTU6ODQ1MzIiLCJwYXllciI6IjB4ODU3YjA2NTE5RTkxZTNBNTQ1Mzg3OTFiRGJiMEUyMjM3M2UzNmI2NiJ9";
+    }
+
+    /**
+     * Get sample settlement response.
+     *
+     * @return the sample settlement response
+     */
+    protected SettlementResponse getSampleSettlementResponse() {
+        return SettlementResponse.builder()
+                .success(true)
+                .transaction("0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef")
+                .network("eip155:84532")
+                .payer("0x857b06519E91e3A54538791bDbb0E22373e36b66")
+                .build();
     }
 
 }

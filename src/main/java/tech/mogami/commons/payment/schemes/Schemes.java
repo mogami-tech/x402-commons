@@ -22,7 +22,7 @@ public class Schemes {
     public static final String SCHEME_PARAMETER = "scheme";
 
     /** Exact scheme. */
-    public static final Scheme EXACT_SCHEME = Scheme.<ExactSchemePayload>builder()
+    public static final Scheme EXACT_SCHEME = Scheme.builder()
             .name("exact")
             .payloadClass(ExactSchemePayload.class)
             .build();
