@@ -35,15 +35,13 @@ public class EIP712HelperTest {
             .extra(EXACT_SCHEME_PARAMETER_VERSION, "2")
             .build();
 
-    final ExactSchemePayload exactSchemePayload = ExactSchemePayload.builder()
-            .authorization(ExactSchemePayload.Authorization.builder()
-                    .from(TEST_CLIENT_WALLET_ADDRESS_1)
-                    .to(TEST_SERVER_WALLET_ADDRESS_1)
-                    .value("10000")
-                    .validAfter("1748534647")
-                    .validBefore("1748534767")
-                    .nonce("0x9b750f5097972d82c02ac371278b83ecf3ca3be8387db59e664eb38c98f97a3d")
-                    .build())
+    final ExactSchemePayload.Authorization exactSchemePayloadAuthorization = ExactSchemePayload.Authorization.builder()
+            .from(TEST_CLIENT_WALLET_ADDRESS_1)
+            .to(TEST_SERVER_WALLET_ADDRESS_1)
+            .value("10000")
+            .validAfter("1748534647")
+            .validBefore("1748534767")
+            .nonce("0x9b750f5097972d82c02ac371278b83ecf3ca3be8387db59e664eb38c98f97a3d")
             .build();
 
     @Test
@@ -52,7 +50,7 @@ public class EIP712HelperTest {
         assertThat(EIP712Helper.sign(
                 Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY),
                 paymentRequirements,
-                exactSchemePayload))
+                exactSchemePayloadAuthorization))
                 .isEqualTo(expectedSignature);
     }
 
@@ -62,7 +60,7 @@ public class EIP712HelperTest {
         assertThat(EIP712Helper.verify(
                 expectedSignature,
                 paymentRequirements,
-                exactSchemePayload,
+                exactSchemePayloadAuthorization,
                 Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY).getAddress()))
                 .isTrue();
     }
