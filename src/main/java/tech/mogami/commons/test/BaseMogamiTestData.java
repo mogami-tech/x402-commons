@@ -51,4 +51,10 @@ public class BaseMogamiTestData {
     /** Production: address test n°2. */
     public static final String PRODUCTION_ADDRESS_2_WALLET_ADDRESS = "0x2306e12F56e45E698bFAfa9c5E7D4e77cDEb4d06";
 
+    /** Wallet with no funds. */
+    public static final String EMPTY_WALLET_ADDRESS = "0x7b66Eb4d76c80C53D683059923B7D213F25C2627";
+
+    /** Wallet with no funds private key. */
+    public static final String EMPTY_WALLET_ADDRESS_PRIVATE_KEY = "0xbe35b3b0a1f47d963d9f5d35ca0b94e397add9385fb6fa742b737589cf3ccce0";
+
 }
