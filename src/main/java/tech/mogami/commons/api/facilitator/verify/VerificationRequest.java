@@ -10,7 +10,7 @@ import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequirements;
 
 /**
- * Request to verify a payment.
+ * Request to settle a payment.
  *
  * @param paymentPayload      payment payload
  * @param paymentRequirements payment requirements
@@ -19,7 +19,7 @@ import tech.mogami.commons.payment.PaymentRequirements;
 @Jacksonized
 @Schema(description = "Request to verify a payment")
 @SuppressWarnings("unused")
-public record VerifyRequest(
+public record VerificationRequest(
 
         @Valid
         @NotNull(message = "{validation.verifyRequest.paymentPayload.required}")

@@ -2,7 +2,7 @@ package tech.mogami.commons.test.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tech.mogami.commons.api.facilitator.verify.VerifyResponse;
+import tech.mogami.commons.api.facilitator.verify.VerificationResponse;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.util.JsonUtil;
 
@@ -23,7 +23,7 @@ public class JsonUtilTest {
                 }
                 """;
         assertFalse(JsonUtil.isValidJson(json, PaymentPayload.class));
-        assertTrue(JsonUtil.isValidJson(json, VerifyResponse.class));
+        assertTrue(JsonUtil.isValidJson(json, VerificationResponse.class));
     }
 
 }

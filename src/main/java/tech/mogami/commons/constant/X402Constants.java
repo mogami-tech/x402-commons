@@ -1,9 +1,9 @@
 package tech.mogami.commons.constant;
 
 import lombok.experimental.UtilityClass;
+import tech.mogami.commons.api.facilitator.settle.SettlementResponse;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequired;
-import tech.mogami.commons.payment.SettlementResponse;
 
 /**
  * X402 constants.

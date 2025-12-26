@@ -1,10 +1,11 @@
-package tech.mogami.commons.payment;
+package tech.mogami.commons.api.facilitator.settle;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.payment.PaymentRequirements;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 

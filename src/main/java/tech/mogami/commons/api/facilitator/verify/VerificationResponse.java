@@ -6,7 +6,7 @@ import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Verify response returned by the x402 facilitator for a verification attempt.
+ * Response returned after verification processing.
  *
  * @param isValid       Indicates whether the payment authorization is valid
  * @param invalidReason Reason for invalidity (omitted if valid)
@@ -14,9 +14,9 @@ import org.jspecify.annotations.Nullable;
  */
 @Builder
 @Jacksonized
-@Schema(description = "Verify response returned by the x402 facilitator for a verification attempt")
+@Schema(description = "Response returned after verification processing")
 @SuppressWarnings("unused")
-public record VerifyResponse(
+public record VerificationResponse(
 
         @Schema(description = "Indicates whether the payment authorization is valid", example = "true")
         boolean isValid,

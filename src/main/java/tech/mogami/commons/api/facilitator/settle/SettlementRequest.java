@@ -19,7 +19,7 @@ import tech.mogami.commons.payment.PaymentRequirements;
 @Jacksonized
 @Schema(description = "Request to settle a payment")
 @SuppressWarnings("unused")
-public record SettleRequest(
+public record SettlementRequest(
 
         @Valid
         @NotNull(message = "{validation.settleRequest.paymentPayload.required}")
