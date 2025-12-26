@@ -136,10 +136,8 @@ public record PaymentPayload(
      */
     private <T> Optional<T> extract(final Function<ExactSchemePayload, Optional<T>> extractor) {
         return Optional.ofNullable(payload)
-                .flatMap(p -> switch (p) {
-                    case ExactSchemePayload exactPayload -> extractor.apply(exactPayload);
-                    default -> Optional.empty();
-                });
+                .map(p -> JsonUtil.convertValue(p, ExactSchemePayload.class))
+                .flatMap(extractor);
     }
 
 }
