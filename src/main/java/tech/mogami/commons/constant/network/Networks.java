@@ -23,7 +23,7 @@ import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_S
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
 public class Networks {
 
-    /** Base sepolia network. */
+    /** Base sepolia network (eip155:84532). */
     public static final Network BASE_SEPOLIA = Network.builder()
             .blockchain(BASE)
             .name("base-sepolia")
@@ -39,7 +39,7 @@ public class Networks {
                     .build())
             .build();
 
-    /** Base mainnet network. */
+    /** Base mainnet network (eip155:8453). */
     public static final Network BASE_MAINNET = Network.builder()
             .blockchain(BASE)
             .name("base")
