@@ -36,7 +36,7 @@ public record SupportedResponse(
                         }
                         """
         )
-        Map<String, List<String>> signers
+        @Singular Map<String, List<String>> signers
 
 ) {
 
