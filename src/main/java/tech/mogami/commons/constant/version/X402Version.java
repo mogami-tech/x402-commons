@@ -21,4 +21,13 @@ public record X402Version(
         return Integer.toString(version);
     }
 
+    /**
+     * Get the label representation of the version.
+     *
+     * @return the label representation
+     */
+    public String label() {
+        return "V" + version;
+    }
+
 }

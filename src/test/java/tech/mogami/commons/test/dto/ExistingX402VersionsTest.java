@@ -6,6 +6,7 @@ import tech.mogami.commons.constant.version.X402Version;
 import tech.mogami.commons.constant.version.X402Versions;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
 import static tech.mogami.commons.constant.version.X402Versions.ALL_X402_VERSIONS;
 
 @DisplayName("X402 versions tests")
@@ -25,8 +26,11 @@ public class ExistingX402VersionsTest {
     void testSupportedVersions() {
         assertThat(X402Versions.X402_SUPPORTED_VERSIONS.size()).isEqualTo(1);
         assertThat(X402Versions.X402_SUPPORTED_VERSIONS)
-                .extracting(X402Version::version)
-                .containsExactlyInAnyOrder(2);
+                .extracting(
+                        X402Version::version,
+                        X402Version::canonical,
+                        X402Version::label)
+                .containsExactly(tuple(2, "2", "V2"));
     }
 
     @Test
