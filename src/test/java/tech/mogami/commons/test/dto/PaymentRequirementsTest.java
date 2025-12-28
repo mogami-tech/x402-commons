@@ -17,7 +17,7 @@ public class PaymentRequirementsTest {
         PaymentRequirements required = PaymentRequirements.builder()
                 .scheme("exact")
                 .network("eip155:84532")
-                .amount("1000")
+                .amount("1500")
                 .asset("0xABCDEF")
                 .payTo("0xPAYEE")
                 .maxTimeoutSeconds(60)
