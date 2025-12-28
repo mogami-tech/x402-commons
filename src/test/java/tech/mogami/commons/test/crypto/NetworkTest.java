@@ -6,6 +6,7 @@ import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import tech.mogami.commons.constant.network.Networks;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.mogami.commons.constant.network.Networks.BASE_MAINNET;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
@@ -78,6 +79,23 @@ public class NetworkTest {
                     assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_MAINNET_USDC_CONTRACT);
                 });
         assertThat(BASE_MAINNET.findDeployedAsset(BASE_SEPOLIA_USDC_CONTRACT)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Testing isEvm() and chainId()")
+    void testIsEvmAndChainId() {
+        // Both Base networks are EVM-compatible
+        assertThat(BASE_SEPOLIA.isEvm()).isTrue();
+        assertThat(BASE_SEPOLIA.chainId()).isEqualTo(84532L);
+
+        assertThat(BASE_MAINNET.isEvm()).isTrue();
+        assertThat(BASE_MAINNET.chainId()).isEqualTo(8453L);
+
+        // Test on Solana.
+        assertThat(Networks.SOLANA_MAINNET.isEvm()).isFalse();
+        assertThatThrownBy(Networks.SOLANA_MAINNET::chainId)
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessage("chainId is only available for EVM-compatible blockchains");
     }
 
 }

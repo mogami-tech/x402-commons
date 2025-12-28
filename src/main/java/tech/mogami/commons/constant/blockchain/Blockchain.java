@@ -35,4 +35,13 @@ public record Blockchain(
         }
     }
 
+    /**
+     * Checks if the blockchain is an EVM-compatible blockchain.
+     *
+     * @return true if the blockchain is EVM-compatible, false otherwise
+     */
+    public boolean isEvm() {
+        return "eip155".equalsIgnoreCase(namespace);
+    }
+
 }

@@ -141,12 +141,28 @@ public record Network(
     }
 
     /**
+     * Checks if the network's blockchain is EVM-compatible.
+     *
+     * @return true if the blockchain is EVM-compatible, false otherwise
+     */
+    public boolean isEvm() {
+        return blockchain.isEvm();
+    }
+
+    /**
      * Retrieves the chain ID or network reference.
      *
      * @return the chain ID or network reference as a string
      */
-    public String chainId() {
-        return networkReference;
+    public long chainId() {
+        if (!isEvm()) {
+            throw new UnsupportedOperationException("chainId is only available for EVM-compatible blockchains");
+        }
+        try {
+            return Long.parseLong(networkReference);
+        } catch (NumberFormatException e) {
+            throw new IllegalStateException("Invalid EVM chainId: " + networkReference, e);
+        }
     }
 
     /**
