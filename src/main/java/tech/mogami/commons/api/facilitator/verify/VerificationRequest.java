@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import tech.mogami.commons.api.facilitator.PaymentContext;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequirements;
 
@@ -31,6 +32,5 @@ public record VerificationRequest(
         @Schema(description = "Payment requirements as provided by the server")
         PaymentRequirements paymentRequirements
 
-) {
-
+) implements PaymentContext {
 }

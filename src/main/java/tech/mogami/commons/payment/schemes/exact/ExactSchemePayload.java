@@ -101,11 +101,9 @@ public record ExactSchemePayload(
      */
     @JsonIgnore
     public Optional<String> getNonce() {
-        if (authorization != null) {
-            return Optional.ofNullable(StringUtils.trimToNull(authorization.nonce()));
-        } else {
-            return Optional.empty();
-        }
+        return Optional.ofNullable(authorization)
+                .map(Authorization::nonce)
+                .map(StringUtils::trimToNull);
     }
 
     /**
@@ -115,11 +113,9 @@ public record ExactSchemePayload(
      */
     @JsonIgnore
     public Optional<String> getFromAddress() {
-        if (authorization != null) {
-            return Optional.ofNullable(StringUtils.trimToNull(authorization.from()));
-        } else {
-            return Optional.empty();
-        }
+        return Optional.ofNullable(authorization)
+                .map(Authorization::from)
+                .map(StringUtils::trimToNull);
     }
 
     /**
@@ -129,11 +125,9 @@ public record ExactSchemePayload(
      */
     @JsonIgnore
     public Optional<String> getToAddress() {
-        if (authorization != null) {
-            return Optional.ofNullable(StringUtils.trimToNull(authorization.to()));
-        } else {
-            return Optional.empty();
-        }
+        return Optional.ofNullable(authorization)
+                .map(Authorization::to)
+                .map(StringUtils::trimToNull);
     }
 
     /**
@@ -142,7 +136,7 @@ public record ExactSchemePayload(
      * @return the amount if available
      */
     @JsonIgnore
-    public Optional<java.math.BigInteger> getAmount() {
+    public Optional<BigInteger> getAmount() {
         if (authorization != null) {
             final String stringValue = StringUtils.trimToNull(authorization.value());
             if (stringValue != null) {

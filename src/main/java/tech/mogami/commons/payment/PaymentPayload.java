@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.constant.version.X402Version;
+import tech.mogami.commons.constant.version.X402Versions;
 import tech.mogami.commons.exception.InvalidX402Scheme;
 import tech.mogami.commons.payment.schemes.Scheme;
 import tech.mogami.commons.payment.schemes.Schemes;
@@ -63,6 +65,16 @@ public record PaymentPayload(
         @Nullable Map<String, Object> extensions
 
 ) {
+
+    /**
+     * Get the X402Version enum corresponding to the x402Version field.
+     *
+     * @return the X402Version enum if found
+     */
+    @JsonIgnore
+    public Optional<X402Version> getX402Version() {
+        return X402Versions.findByVersion(x402Version);
+    }
 
     /**
      * Get the scheme from the accepted payment requirements.

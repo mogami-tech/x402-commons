@@ -1,0 +1,259 @@
+package tech.mogami.commons.test.dto;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import tech.mogami.commons.api.facilitator.PaymentContext;
+import tech.mogami.commons.api.facilitator.verify.VerificationRequest;
+import tech.mogami.commons.payment.PaymentPayload;
+import tech.mogami.commons.payment.PaymentRequirements;
+import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
+
+import java.math.BigInteger;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
+import static tech.mogami.commons.constant.version.X402Versions.V2;
+
+@DisplayName("PaymentContext DTO Test")
+public class PaymentContextTest {
+
+    @Test
+    @DisplayName("getVersion()")
+    void testGetVersion() {
+        // No payload.
+        PaymentContext p = VerificationRequest.builder().build();
+        assertThat(p.getVersion()).isEmpty();
+
+        // With payload but no version.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().build())
+                .build();
+        assertThat(p.getVersion()).isEmpty();
+
+        // With payload and invalid version.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().x402Version(0).build())
+                .build();
+        assertThat(p.getVersion()).isEmpty();
+
+        // With payload and valid version.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().x402Version(2).build())
+                .build();
+        assertThat(p.getVersion()).isPresent();
+        assertThat(p.getVersion().get()).isEqualTo(V2);
+        assertThat(p.getPaymentId()).isEmpty();
+        assertThat(p.getFrom()).isEmpty();
+        assertThat(p.getTo()).isEmpty();
+        assertThat(p.getAssetAmount()).isEmpty();
+        assertThat(p.getAssetContract()).isEmpty();
+        assertThat(p.getNetwork()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("getPaymentId()")
+    void testGetPaymentId() {
+        // No payload.
+        PaymentContext p = VerificationRequest.builder().build();
+        assertThat(p.getPaymentId()).isEmpty();
+
+        // With payload but no nonce.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().build())
+                .build();
+        assertThat(p.getPaymentId()).isEmpty();
+
+        // With payload and nonce.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder()
+                        .payload(ExactSchemePayload.builder()
+                                .signature("0xsignature")
+                                .authorization(ExactSchemePayload.Authorization.builder()
+                                        .nonce("payment-id-123")
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        assertThat(p.getVersion()).isEmpty();
+        assertThat(p.getPaymentId()).isPresent();
+        assertThat(p.getPaymentId().get()).isEqualTo("payment-id-123");
+        assertThat(p.getFrom()).isEmpty();
+        assertThat(p.getTo()).isEmpty();
+        assertThat(p.getAssetAmount()).isEmpty();
+        assertThat(p.getAssetContract()).isEmpty();
+        assertThat(p.getNetwork()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("getFrom()")
+    void testGetFrom() {
+        // No payload.
+        PaymentContext p = VerificationRequest.builder().build();
+        assertThat(p.getFrom()).isEmpty();
+
+        // With payload but no from address.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().build())
+                .build();
+        assertThat(p.getFrom()).isEmpty();
+
+        // With payload and from address.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder()
+                        .payload(ExactSchemePayload.builder()
+                                .signature("0xsignature")
+                                .authorization(ExactSchemePayload.Authorization.builder()
+                                        .from("0xFromAddress")
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        assertThat(p.getVersion()).isEmpty();
+        assertThat(p.getPaymentId()).isEmpty();
+        assertThat(p.getFrom()).isPresent();
+        assertThat(p.getFrom().get()).isEqualTo("0xFromAddress");
+        assertThat(p.getTo()).isEmpty();
+        assertThat(p.getAssetAmount()).isEmpty();
+        assertThat(p.getAssetContract()).isEmpty();
+        assertThat(p.getNetwork()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("getTo()")
+    void testGetTo() {
+        // No payload.
+        PaymentContext p = VerificationRequest.builder().build();
+        assertThat(p.getTo()).isEmpty();
+
+        // With payload but no to address.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().build())
+                .build();
+        assertThat(p.getTo()).isEmpty();
+
+        // With payload and to address.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder()
+                        .payload(ExactSchemePayload.builder()
+                                .signature("0xsignature")
+                                .authorization(ExactSchemePayload.Authorization.builder()
+                                        .to("0xToAddress")
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        assertThat(p.getVersion()).isEmpty();
+        assertThat(p.getPaymentId()).isEmpty();
+        assertThat(p.getFrom()).isEmpty();
+        assertThat(p.getTo()).isPresent();
+        assertThat(p.getTo().get()).isEqualTo("0xToAddress");
+        assertThat(p.getAssetAmount()).isEmpty();
+        assertThat(p.getAssetContract()).isEmpty();
+        assertThat(p.getNetwork()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("getAssetAmount()")
+    void testGetAssetAmount() {
+        // No payload.
+        PaymentContext p = VerificationRequest.builder().build();
+        assertThat(p.getAssetAmount()).isEmpty();
+
+        // With payload but no amount.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().build())
+                .build();
+        assertThat(p.getAssetAmount()).isEmpty();
+
+        // With payload and amount.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder()
+                        .payload(ExactSchemePayload.builder()
+                                .signature("0xsignature")
+                                .authorization(ExactSchemePayload.Authorization.builder()
+                                        .value("1000")
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        assertThat(p.getVersion()).isEmpty();
+        assertThat(p.getPaymentId()).isEmpty();
+        assertThat(p.getFrom()).isEmpty();
+        assertThat(p.getTo()).isEmpty();
+        assertThat(p.getAssetAmount()).isPresent();
+        assertThat(p.getAssetAmount().get().compareTo(BigInteger.valueOf(1000L))).isZero();
+        assertThat(p.getAssetContract()).isEmpty();
+        assertThat(p.getNetwork()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("getAssetContract()")
+    public void testGetAssetContract() {
+        // No payload.
+        PaymentContext p = VerificationRequest.builder().build();
+        assertThat(p.getAssetContract()).isEmpty();
+
+        // With payload but no asset contract.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().build())
+                .build();
+        assertThat(p.getAssetContract()).isEmpty();
+
+        // With payload and asset contract.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder()
+                        .payload(ExactSchemePayload.builder()
+                                .signature("0xsignature")
+                                .authorization(ExactSchemePayload.Authorization.builder().build())
+                                .build())
+                        .build())
+                .paymentRequirements(PaymentRequirements.builder()
+                        .asset("0xAssetContract")
+                        .build())
+                .build();
+        assertThat(p.getVersion()).isEmpty();
+        assertThat(p.getPaymentId()).isEmpty();
+        assertThat(p.getFrom()).isEmpty();
+        assertThat(p.getTo()).isEmpty();
+        assertThat(p.getAssetAmount()).isEmpty();
+        assertThat(p.getAssetContract()).isPresent();
+        assertThat(p.getAssetContract().get()).isEqualTo("0xAssetContract");
+        assertThat(p.getNetwork()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("getNetwork")
+    void testGetNetwork() {
+        // No payload.
+        PaymentContext p = VerificationRequest.builder().build();
+        assertThat(p.getNetwork()).isEmpty();
+
+        // With payload but no network.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder().build())
+                .build();
+        assertThat(p.getNetwork()).isEmpty();
+
+        // With payload and network.
+        p = VerificationRequest.builder()
+                .paymentPayload(PaymentPayload.builder()
+                        .payload(ExactSchemePayload.builder()
+                                .signature("0xsignature")
+                                .authorization(ExactSchemePayload.Authorization.builder().build())
+                                .build())
+                        .build())
+                .paymentRequirements(PaymentRequirements.builder()
+                        .network(BASE_SEPOLIA.networkId())
+                        .build())
+                .build();
+        assertThat(p.getVersion()).isEmpty();
+        assertThat(p.getPaymentId()).isEmpty();
+        assertThat(p.getFrom()).isEmpty();
+        assertThat(p.getTo()).isEmpty();
+        assertThat(p.getAssetAmount()).isEmpty();
+        assertThat(p.getAssetContract()).isEmpty();
+        assertThat(p.getNetwork()).isPresent();
+        assertThat(p.getNetwork().get()).isEqualTo(BASE_SEPOLIA);
+    }
+
+}

@@ -100,6 +100,7 @@ public record PaymentRequirements(
 
     /**
      * Get an extra value by its key.
+     * TODO is @JsonIgnore missing?
      *
      * @param key the key of the extra value
      * @return an Optional containing the extra value if present, or empty if not found
@@ -129,8 +130,7 @@ public record PaymentRequirements(
                 && StringUtils.equalsIgnoreCase(network, other.network())
                 && StringUtils.equalsIgnoreCase(asset, other.asset())
                 && StringUtils.equalsIgnoreCase(payTo, other.payTo())
-                && other.amountAsBigInteger().compareTo(amountAsBigInteger()) >= 0
-                && other.maxTimeoutSeconds() <= maxTimeoutSeconds
+                && other.amountAsBigInteger().compareTo(amountAsBigInteger()) == 0
                 && (extra == null || extra.isEmpty()
                 || (other.extra() != null
                 && extra.entrySet().stream()
@@ -139,6 +139,5 @@ public record PaymentRequirements(
                         other.extra().get(e.getKey())
                 ))));
     }
-
 
 }
