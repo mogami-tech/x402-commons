@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Unix timestamp in seconds annotation.
  */
 @Documented
-@Constraint(validatedBy = SupportedX402VersionValidator.class)
+@Constraint(validatedBy = UnixTimestampSecondsValidator.class)
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
 public @interface UnixTimestampSeconds {

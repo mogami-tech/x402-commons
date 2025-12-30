@@ -56,10 +56,8 @@ public class X402Versions {
      * @return an Optional containing the X402 version if found, or empty if not found
      */
     public static Optional<X402Version> findByVersion(@Nullable final Integer version) {
-        if (version == null) {
-            return Optional.empty();
-        }
-        return Optional.ofNullable(X402_VERSIONS_BY_VERSION.get(version));
+        return Optional.ofNullable(version)
+                .map(X402_VERSIONS_BY_VERSION::get);
     }
 
     /**
@@ -69,11 +67,10 @@ public class X402Versions {
      * @return an Optional containing the X402 version if found, or empty if not found or invalid
      */
     public static Optional<X402Version> findByVersion(@Nullable final String version) {
-        if (version == null) {
-            return Optional.empty();
-        }
         try {
-            return findByVersion(Integer.parseInt(version));
+            return Optional.ofNullable(version)
+                    .map(Integer::parseInt)
+                    .flatMap(X402Versions::findByVersion);
         } catch (NumberFormatException e) {
             return Optional.empty();
         }

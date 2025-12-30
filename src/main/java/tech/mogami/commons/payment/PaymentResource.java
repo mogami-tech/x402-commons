@@ -1,10 +1,13 @@
 package tech.mogami.commons.payment;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
+
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 /**
  * ResourceInfo object describing the protected resource.
@@ -18,8 +21,9 @@ import org.jspecify.annotations.Nullable;
 @Schema(description = "ResourceInfo object describing the protected resource")
 public record PaymentResource(
 
-        @NotBlank
-        @Schema(description = "URL of the protected resource", example = "https://api.example.com/premium-data")
+        @JsonProperty(required = true)
+        @NotBlank(message = "{validation.paymentPayload.resource.url.required}")
+        @Schema(description = "URL of the protected resource", example = "https://api.example.com/premium-data", requiredMode = REQUIRED)
         String url,
 
         @Schema(description = "Human-readable description of the resource", example = "Access to premium market data", nullable = true)

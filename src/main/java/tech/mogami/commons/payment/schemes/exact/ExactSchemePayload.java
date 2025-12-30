@@ -11,6 +11,7 @@ import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
+import tech.mogami.commons.validator.UnixTimestampSeconds;
 
 import java.math.BigInteger;
 import java.util.Optional;
@@ -78,11 +79,13 @@ public record ExactSchemePayload(
 
             @JsonProperty(required = true)
             @NotBlank(message = "{validation.exactSchemePayload.authorization.validAfter.required}")
+            @UnixTimestampSeconds(message = "{validation.exactSchemePayload.authorization.validAfter.invalid}")
             @Schema(description = "Timestamp (in seconds) after which the authorization becomes valid", example = "1718542400", requiredMode = REQUIRED)
             String validAfter,
 
             @JsonProperty(required = true)
             @NotBlank(message = "{validation.exactSchemePayload.authorization.validBefore.required}")
+            @UnixTimestampSeconds(message = "{validation.exactSchemePayload.authorization.validBefore.invalid}")
             @Schema(description = "Timestamp (in seconds) before which the authorization is valid", example = "1718642400", requiredMode = REQUIRED)
             String validBefore,
 

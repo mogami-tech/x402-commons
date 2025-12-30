@@ -1,6 +1,7 @@
 package tech.mogami.commons.payment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.Optional;
 
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static java.math.BigInteger.ZERO;
 
 /**
@@ -42,34 +44,39 @@ import static java.math.BigInteger.ZERO;
 @SuppressWarnings("unused")
 public record PaymentRequirements(
 
+        @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.scheme.required}")
         @Scheme(message = "{validation.paymentRequirements.scheme.invalid}")
-        @Schema(description = "Payment scheme identifier", example = "exact")
+        @Schema(description = "Payment scheme identifier", example = "exact", requiredMode = REQUIRED)
         String scheme,
 
+        @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.network.required}")
         @NetworkId(message = "{validation.paymentRequirements.network.invalid}")
-        @Schema(description = "Blockchain network identifier in CAIP-2 format", example = "eip155:84532")
+        @Schema(description = "Blockchain network identifier in CAIP-2 format", example = "eip155:84532", requiredMode = REQUIRED)
         String network,
 
+        @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.amount.required}")
         @BigIntegerString(message = "{validation.paymentRequirements.amount.invalid}")
-        @Schema(description = "Required payment amount in atomic token units", example = "100000")
+        @Schema(description = "Required payment amount in atomic token units", example = "100000", requiredMode = REQUIRED)
         String amount,
 
+        @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.asset.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.asset.invalid}")
-        @Schema(description = "Contract asset address", example = "0xABCDEF1234567890...")
+        @Schema(description = "Contract asset address", example = "0xABCDEF1234567890...", requiredMode = REQUIRED)
         String asset,
 
+        @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.payTo.invalid}")
-        @Schema(description = "Recipient wallet address or role constant (e.g., merchant)", example = "0x1234...")
-        String payTo,
+        @Schema(description = "Recipient wallet address or role constant (e.g., merchant)", example = "0x1234...", requiredMode = REQUIRED) String payTo,
 
+        @JsonProperty(required = true)
         @NotNull(message = "{validation.paymentRequirements.maxTimeoutSeconds.required}")
         @Positive(message = "{validation.paymentRequirements.maxTimeoutSeconds.positive}")
-        @Schema(description = "Maximum time allowed for payment completion", example = "60")
+        @Schema(description = "Maximum time allowed for payment completion", example = "60", requiredMode = REQUIRED)
         Integer maxTimeoutSeconds,
 
         @Schema(description = "Extra scheme-specific information. For `exact` on EVM: should contain asset `name` and `version`", example = "{\"name\": \"USDC\", \"version\": \"2\"}")

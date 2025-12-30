@@ -45,9 +45,11 @@ public record PaymentPayload(
         @Schema(description = "Version of the x402 payment protocol", example = "2", requiredMode = REQUIRED)
         Integer x402Version,
 
+        @JsonProperty(required = true)
         @Valid
-        @Schema(description = "Resource requiring payment", nullable = true)
-        @Nullable PaymentResource resource,
+        @NotNull(message = "{validation.paymentPayload.resource.required}")
+        @Schema(description = "Resource requiring payment", requiredMode = REQUIRED)
+        PaymentResource resource,
 
         @JsonProperty(required = true)
         @Valid
