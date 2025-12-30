@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_NAME;
+
 /**
  * Existing {@link Scheme}.
  */
@@ -23,12 +25,15 @@ public class Schemes {
 
     /** Exact scheme. */
     public static final Scheme EXACT_SCHEME = Scheme.builder()
-            .name("exact")
+            .name(EXACT_SCHEME_NAME)
             .payloadClass(ExactSchemePayload.class)
             .build();
 
     /** All schemes. */
     private static final List<Scheme> ALL_SCHEMES = List.of(EXACT_SCHEME);
+
+    /** Supported schemes. */
+    public static final List<Scheme> SUPPORTED_SCHEMES = List.of(EXACT_SCHEME);
 
     /** Map of schemes by name. */
     private static final Map<String, Scheme> SCHEMES_BY_NAME = ALL_SCHEMES.stream()
