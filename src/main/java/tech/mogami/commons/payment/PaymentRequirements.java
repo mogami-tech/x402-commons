@@ -71,7 +71,8 @@ public record PaymentRequirements(
         @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.payTo.invalid}")
-        @Schema(description = "Recipient wallet address or role constant (e.g., merchant)", example = "0x1234...", requiredMode = REQUIRED) String payTo,
+        @Schema(description = "Recipient wallet address or role constant (e.g., merchant)", example = "0x1234...", requiredMode = REQUIRED)
+        String payTo,
 
         @JsonProperty(required = true)
         @NotNull(message = "{validation.paymentRequirements.maxTimeoutSeconds.required}")
