@@ -56,7 +56,7 @@ public class X402HeaderPaymentPayloadUtilTest extends BaseMogamiTest {
                                         .get()
                                         .isEqualTo("2");
                             });
-                    assertThat(payload.getPayloadAs()).isNotNull()
+                    assertThat(payload.getTypedPayload()).isNotNull()
                             .isInstanceOfSatisfying(ExactSchemePayload.class, p -> {
                                 AssertionsForClassTypes.assertThat(p.signature()).isEqualTo("0x2d6a7588d6acca505cbf0d9a4a227e0c52c6c34008c8e8986a1283259764173608a2ce6496642e377d6da8dbbf5836e9bd15092f9ecab05ded3d6293af148b571c");
                                 AssertionsForClassTypes.assertThat(p.authorization().from()).isEqualTo("0x857b06519E91e3A54538791bDbb0E22373e36b66");
@@ -106,7 +106,7 @@ public class X402HeaderPaymentPayloadUtilTest extends BaseMogamiTest {
                                         .get()
                                         .isEqualTo("2");
                             });
-                    assertThat(payload.getPayloadAs()).isNotNull()
+                    assertThat(payload.getTypedPayload()).isNotNull()
                             .isInstanceOfSatisfying(ExactSchemePayload.class, p -> {
                                 AssertionsForClassTypes.assertThat(p.signature()).isEqualTo("0x2d6a7588d6acca505cbf0d9a4a227e0c52c6c34008c8e8986a1283259764173608a2ce6496642e377d6da8dbbf5836e9bd15092f9ecab05ded3d6293af148b571c");
                                 AssertionsForClassTypes.assertThat(p.authorization().from()).isEqualTo("0x857b06519E91e3A54538791bDbb0E22373e36b66");

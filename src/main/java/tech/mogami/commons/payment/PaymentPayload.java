@@ -97,7 +97,7 @@ public record PaymentPayload(
      * @throws InvalidX402Scheme if the scheme is unsupported
      */
     @JsonIgnore
-    public Object getPayloadAs() {
+    public Object getTypedPayload() {
         return JsonUtil.convertValue(payload, getScheme().payloadClass());
     }
 
