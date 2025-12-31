@@ -2,7 +2,6 @@ package tech.mogami.commons.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.experimental.UtilityClass;
 import org.jspecify.annotations.Nullable;
@@ -25,8 +24,6 @@ public class JsonUtil {
     private static final ObjectMapper MAPPER = new ObjectMapper()
             .configure(FAIL_ON_UNKNOWN_PROPERTIES, true)
             .configure(WRITE_DATES_AS_TIMESTAMPS, false)
-            .enable(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES)
-            .enable(DeserializationFeature.FAIL_ON_NULL_CREATOR_PROPERTIES)
             .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
             .findAndRegisterModules();
 
