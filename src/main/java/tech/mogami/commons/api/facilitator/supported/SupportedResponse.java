@@ -90,7 +90,7 @@ public record SupportedResponse(
          */
         @JsonIgnore
         public String toFormattedString() {
-            return "%s / %s".formatted(network, scheme);
+            return "x402:V%s/%s/%s".formatted(x402Version, network, scheme);
         }
 
     }
