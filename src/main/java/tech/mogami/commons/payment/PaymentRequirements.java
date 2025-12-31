@@ -108,11 +108,11 @@ public record PaymentRequirements(
 
     /**
      * Get an extra value by its key.
-     * TODO is @JsonIgnore missing?
      *
      * @param key the key of the extra value
      * @return an Optional containing the extra value if present, or empty if not found
      */
+    @JsonIgnore
     public Optional<String> getExtra(@Nullable final String key) {
         return Optional.ofNullable(key)
                 .filter(StringUtils::isNotEmpty)

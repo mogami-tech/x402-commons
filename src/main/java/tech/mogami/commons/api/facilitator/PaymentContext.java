@@ -1,5 +1,6 @@
 package tech.mogami.commons.api.facilitator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import tech.mogami.commons.constant.network.Network;
 import tech.mogami.commons.constant.network.Networks;
@@ -34,6 +35,7 @@ public interface PaymentContext {
      *
      * @return the X402 version if present
      */
+    @JsonIgnore
     default Optional<X402Version> getVersion() {
         return Optional.ofNullable(paymentPayload())
                 .flatMap(PaymentPayload::getX402Version);
@@ -44,6 +46,7 @@ public interface PaymentContext {
      *
      * @return the payment ID if present
      */
+    @JsonIgnore
     default Optional<String> getPaymentId() {
         return Optional.ofNullable(paymentPayload())
                 .flatMap(PaymentPayload::getNonce);
@@ -54,6 +57,7 @@ public interface PaymentContext {
      *
      * @return the from address if present
      */
+    @JsonIgnore
     default Optional<String> getFrom() {
         return Optional.ofNullable(paymentPayload())
                 .flatMap(PaymentPayload::getFromAddress);
@@ -64,6 +68,7 @@ public interface PaymentContext {
      *
      * @return the to address if present
      */
+    @JsonIgnore
     default Optional<String> getTo() {
         return Optional.ofNullable(paymentPayload())
                 .flatMap(PaymentPayload::getToAddress);
@@ -74,6 +79,7 @@ public interface PaymentContext {
      *
      * @return the amount if present
      */
+    @JsonIgnore
     default Optional<BigInteger> getAssetAmount() {
         return Optional.ofNullable(paymentPayload())
                 .flatMap(PaymentPayload::getAmount);
@@ -84,6 +90,7 @@ public interface PaymentContext {
      *
      * @return the asset contract if present
      */
+    @JsonIgnore
     default Optional<String> getAssetContract() {
         return Optional.ofNullable(paymentRequirements())
                 .map(PaymentRequirements::asset)
@@ -95,6 +102,7 @@ public interface PaymentContext {
      *
      * @return the network if present
      */
+    @JsonIgnore
     default Optional<Network> getNetwork() {
         return Optional.ofNullable(paymentRequirements())
                 .map(PaymentRequirements::network)
