@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Base test.
  */
-@SuppressWarnings({"unused", "magicnumber"})
+@SuppressWarnings({"unused", "magicnumber", "SameReturnValue", "SpellCheckingInspection"})
 public class BaseMogamiTest extends BaseMogamiTestData {
 
     /**

@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.Set;
 
 /**
- * Exception thrown when an x402 payment is invalid.
+ * Exception thrown when the x402 payment is invalid.
  */
 public final class InvalidX402PaymentRequiredException extends X402Exception {
 

@@ -19,6 +19,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 @Builder
 @Jacksonized
 @Schema(description = "ResourceInfo object describing the protected resource")
+@SuppressWarnings("unused")
 public record PaymentResource(
 
         @JsonProperty(required = true)

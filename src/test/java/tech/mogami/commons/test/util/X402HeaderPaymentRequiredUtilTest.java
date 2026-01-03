@@ -46,25 +46,23 @@ public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {
                             });
                     assertThat(p.accepts())
                             .hasSize(1)
-                            .satisfies(accepts -> {
-                                assertThat(accepts.getFirst())
-                                        .satisfies(accept -> {
-                                            assertThat(accept.scheme()).isEqualTo(EXACT_SCHEME.name());
-                                            assertThat(accept.network()).isEqualTo(BASE_SEPOLIA.networkId());
-                                            assertThat(accept.amount()).isEqualTo("10000");
-                                            assertThat(accept.asset()).isEqualTo(BASE_SEPOLIA_USDC_CONTRACT);
-                                            assertThat(accept.payTo()).isEqualTo("0x209693Bc6afc0C5328bA36FaF03C514EF312287C");
-                                            assertThat(accept.maxTimeoutSeconds()).isEqualTo(60);
-                                            assertThat(accept.getExtra(EXACT_SCHEME_PARAMETER_NAME))
-                                                    .isPresent()
-                                                    .get()
-                                                    .isEqualTo("USDC");
-                                            assertThat(accept.getExtra(EXACT_SCHEME_PARAMETER_VERSION))
-                                                    .isPresent()
-                                                    .get()
-                                                    .isEqualTo("2");
-                                        });
-                            });
+                            .satisfies(accepts -> assertThat(accepts.getFirst())
+                                    .satisfies(accept -> {
+                                        assertThat(accept.scheme()).isEqualTo(EXACT_SCHEME.name());
+                                        assertThat(accept.network()).isEqualTo(BASE_SEPOLIA.networkId());
+                                        assertThat(accept.amount()).isEqualTo("10000");
+                                        assertThat(accept.asset()).isEqualTo(BASE_SEPOLIA_USDC_CONTRACT);
+                                        assertThat(accept.payTo()).isEqualTo("0x209693Bc6afc0C5328bA36FaF03C514EF312287C");
+                                        assertThat(accept.maxTimeoutSeconds()).isEqualTo(60);
+                                        assertThat(accept.getExtra(EXACT_SCHEME_PARAMETER_NAME))
+                                                .isPresent()
+                                                .get()
+                                                .isEqualTo("USDC");
+                                        assertThat(accept.getExtra(EXACT_SCHEME_PARAMETER_VERSION))
+                                                .isPresent()
+                                                .get()
+                                                .isEqualTo("2");
+                                    }));
                 });
     }
 

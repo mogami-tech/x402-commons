@@ -3,6 +3,7 @@ package tech.mogami.commons.exception;
 /**
  * Exception thrown when a x402 scheme is invalid.
  */
+@SuppressWarnings("unused")
 public final class InvalidX402Scheme extends X402Exception {
 
     /**

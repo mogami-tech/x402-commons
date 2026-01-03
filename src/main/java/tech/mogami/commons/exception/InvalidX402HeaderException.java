@@ -1,8 +1,9 @@
 package tech.mogami.commons.exception;
 
 /**
- * Exception thrown when an x402 header is invalid.
+ * Exception thrown when the x402 header is invalid.
  */
+@SuppressWarnings("unused")
 public final class InvalidX402HeaderException extends X402Exception {
 
     /**
