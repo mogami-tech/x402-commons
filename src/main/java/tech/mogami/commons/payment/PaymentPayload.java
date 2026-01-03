@@ -33,7 +33,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
  * @param payload     payload is scheme dependent
  * @param extensions  Protocol extensions data
  */
-@Builder
+@Builder(toBuilder = true)
 @Jacksonized
 @Schema(description = "Payment payload sent by the client")
 @SuppressWarnings("unused")
