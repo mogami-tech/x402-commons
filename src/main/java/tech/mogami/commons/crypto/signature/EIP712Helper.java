@@ -1,5 +1,6 @@
 package tech.mogami.commons.crypto.signature;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.experimental.UtilityClass;
@@ -10,7 +11,6 @@ import org.web3j.crypto.StructuredDataEncoder;
 import org.web3j.utils.Numeric;
 import tech.mogami.commons.constant.network.Network;
 import tech.mogami.commons.constant.network.Networks;
-import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequirements;
 import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 
@@ -52,17 +52,17 @@ public class EIP712Helper {
      * Signs an authorization message using EIP-712 structured data signing.
      * TYPES
      *
-     * @param credentials          the credentials of the signer
-     * @param paymentsRequirements the payment requirements containing network and scheme information
-     * @param paymentPayload       the payment payload containing authorization details
+     * @param credentials                     the credentials of the signer
+     * @param paymentsRequirements            the payment requirements containing network and scheme information
+     * @param exactSchemePayloadAuthorization the exact scheme payload containing authorization details
      * @return the signature in hexadecimal format
      * @throws Exception if an error occurs during signing
      */
     public static String sign(final Credentials credentials,
                               final PaymentRequirements paymentsRequirements,
-                              final PaymentPayload paymentPayload) throws Exception {
+                              final ExactSchemePayload.Authorization exactSchemePayloadAuthorization) throws Exception {
         // Build the EIP-712 typed-data JSON (domain + message) exactly once
-        String typedDataJson = buildTypedDataJson(paymentsRequirements, paymentPayload);
+        String typedDataJson = buildTypedDataJson(paymentsRequirements, exactSchemePayloadAuthorization);
 
         // Sign and hex-encode
         return toHex(Sign.signTypedData(typedDataJson, credentials.getEcKeyPair()));
@@ -71,19 +71,19 @@ public class EIP712Helper {
     /**
      * Verifies a signature against the expected signer using EIP-712 structured data signing.
      *
-     * @param signatureHex         the signature in hexadecimal format
-     * @param paymentsRequirements the payment requirements containing network and scheme information
-     * @param paymentPayload       the payment payload containing authorization details
-     * @param expectedSigner       the expected signer's address
+     * @param signatureHex                    the signature in hexadecimal format
+     * @param paymentsRequirements            the payment requirements containing network and scheme information
+     * @param exactSchemePayloadAuthorization the exact scheme payload containing authorization details
+     * @param expectedSigner                  the expected signer's address
      * @return true if the signature is valid for the expected signer, false otherwise
      * @throws Exception if an error occurs during verification
      */
     public static boolean verify(final String signatureHex,
                                  final PaymentRequirements paymentsRequirements,
-                                 final PaymentPayload paymentPayload,
+                                 final ExactSchemePayload.Authorization exactSchemePayloadAuthorization,
                                  final String expectedSigner) throws Exception {
         // Create the typed-data JSON exactly as in sign()
-        String typedDataJson = buildTypedDataJson(paymentsRequirements, paymentPayload);
+        String typedDataJson = buildTypedDataJson(paymentsRequirements, exactSchemePayloadAuthorization);
 
         // Hash according to EIP-712
         byte[] dataHash = new StructuredDataEncoder(typedDataJson).hashStructuredData();
@@ -99,17 +99,17 @@ public class EIP712Helper {
     /**
      * Builds the JSON representation of the typed data for EIP-712 signing.
      *
-     * @param paymentsRequirements the payment requirements containing network and scheme information
-     * @param paymentPayload       the payment payload containing authorization details
+     * @param paymentsRequirements            the payment requirements containing network and scheme information
+     * @param exactSchemePayloadAuthorization the exact scheme payload containing authorization details
      * @return the JSON string representation of the typed data
-     * @throws Exception if an error occurs during JSON creation
+     * @throws JsonProcessingException if an error occurs during JSON processing
      */
     private static String buildTypedDataJson(final PaymentRequirements paymentsRequirements,
-                                             final PaymentPayload paymentPayload) throws Exception {
+                                             final ExactSchemePayload.Authorization exactSchemePayloadAuthorization) throws JsonProcessingException {
         final ObjectMapper mapper = new ObjectMapper();
 
         // Validate inputs =============================================================================================
-        Network network = Networks.findByName(paymentsRequirements.network())
+        Network network = Networks.findByNetworkId(paymentsRequirements.network())
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported network: " + paymentsRequirements.network()));
 
         // Build the EIP-712 typed-data JSON (domain + message) ========================================================
@@ -119,15 +119,13 @@ public class EIP712Helper {
         domain.put("chainId", network.chainId());
         domain.put("verifyingContract", paymentsRequirements.asset());
 
-        ExactSchemePayload exactSchemePayload = (ExactSchemePayload) paymentPayload.payload();
-
         ObjectNode msg = mapper.createObjectNode();
-        msg.put("from", exactSchemePayload.authorization().from());
-        msg.put("to", exactSchemePayload.authorization().to());
-        msg.put("value", new BigInteger(exactSchemePayload.authorization().value()));
-        msg.put("validAfter", new BigInteger(exactSchemePayload.authorization().validAfter()));
-        msg.put("validBefore", new BigInteger(exactSchemePayload.authorization().validBefore()));
-        msg.put("nonce", exactSchemePayload.authorization().nonce());
+        msg.put("from", exactSchemePayloadAuthorization.from());
+        msg.put("to", exactSchemePayloadAuthorization.to());
+        msg.put("value", new BigInteger(exactSchemePayloadAuthorization.value()));
+        msg.put("validAfter", new BigInteger(exactSchemePayloadAuthorization.validAfter()));
+        msg.put("validBefore", new BigInteger(exactSchemePayloadAuthorization.validBefore()));
+        msg.put("nonce", exactSchemePayloadAuthorization.nonce());
 
         ObjectNode root = mapper.createObjectNode();
         root.put("primaryType", "TransferWithAuthorization");

@@ -1,32 +1,37 @@
 package tech.mogami.commons.payment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.constant.version.X402Version;
+import tech.mogami.commons.constant.version.X402Versions;
+import tech.mogami.commons.exception.InvalidX402Scheme;
+import tech.mogami.commons.payment.schemes.Scheme;
+import tech.mogami.commons.payment.schemes.Schemes;
 import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
-import tech.mogami.commons.validator.Network;
-import tech.mogami.commons.validator.Scheme;
-import tech.mogami.commons.validator.X402Version;
+import tech.mogami.commons.util.JsonUtil;
+import tech.mogami.commons.validator.ExistingX402Version;
 
 import java.math.BigInteger;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static tech.mogami.commons.payment.PaymentConstants.SCHEME_PARAMETER;
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 /**
- * Payment payload (included as the X-PAYMENT header in base64 encoded JSON).
+ * Payment payload.
  *
  * @param x402Version version of the x402 payment protocol
- * @param scheme      scheme is the scheme value of the accepted `paymentRequirements` the client is using to pay
- * @param network     network is the network id of the accepted `paymentRequirements` the client is using to pay
+ * @param resource    Resource requiring payment
+ * @param accepted    PaymentRequirements object indicating the payment method chosen
  * @param payload     payload is scheme dependent
+ * @param extensions  Protocol extensions data
  */
 @Builder(toBuilder = true)
 @Jacksonized
@@ -34,31 +39,67 @@ import static tech.mogami.commons.payment.PaymentConstants.SCHEME_PARAMETER;
 @SuppressWarnings("unused")
 public record PaymentPayload(
 
+        @JsonProperty(required = true)
         @NotNull(message = "{validation.paymentPayload.x402Version.required}")
-        @X402Version(message = "{validation.paymentPayload.x402Version.invalid}")
-        @Schema(description = "Version of the x402 payment protocol", example = "1")
+        @ExistingX402Version(message = "{validation.paymentPayload.x402Version.invalid}")
+        @Schema(description = "Version of the x402 payment protocol", example = "2", requiredMode = REQUIRED)
         Integer x402Version,
 
-        @NotBlank(message = "{validation.paymentPayload.scheme.required}")
-        @Scheme(message = "{validation.paymentPayload.scheme.invalid}")
-        @Schema(description = "Scheme used to pay", example = "exact")
-        String scheme,
+        @JsonProperty(required = true)
+        @Valid
+        @NotNull(message = "{validation.paymentPayload.resource.required}")
+        @Schema(description = "Resource requiring payment", requiredMode = REQUIRED)
+        PaymentResource resource,
 
-        @NotBlank(message = "{validation.paymentPayload.network.required}")
-        @Network(message = "{validation.paymentPayload.network.invalid}")
-        @Schema(description = "Network used to pay", example = "base-sepolia")
-        String network,
+        @JsonProperty(required = true)
+        @Valid
+        @NotNull(message = "{validation.paymentRequired.accepts.required}")
+        @Schema(description = "PaymentRequirements object indicating the payment method chosen", requiredMode = REQUIRED)
+        PaymentRequirements accepted,
 
+        @JsonProperty(required = true)
         @Valid
         @NotNull(message = "{validation.paymentPayload.payload.required}")
-        @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = SCHEME_PARAMETER)
-        @JsonSubTypes({
-                @JsonSubTypes.Type(value = ExactSchemePayload.class, name = "exact")
-        })
-        @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", oneOf = {ExactSchemePayload.class})
-        Object payload
+        @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", requiredMode = REQUIRED, oneOf = {ExactSchemePayload.class})
+        Object payload,
+
+        @Schema(description = "Protocol extensions data", nullable = true)
+        @Nullable Map<String, Object> extensions
 
 ) {
+
+    /**
+     * Get the X402Version enum corresponding to the x402Version field.
+     *
+     * @return the X402Version enum if found
+     */
+    @JsonIgnore
+    public Optional<X402Version> getX402Version() {
+        return X402Versions.findByVersion(x402Version);
+    }
+
+    /**
+     * Get the scheme from the accepted payment requirements.
+     *
+     * @return the scheme
+     * @throws InvalidX402Scheme if the scheme is unsupported
+     */
+    @JsonIgnore
+    public Scheme getScheme() {
+        return Schemes.findByName(accepted.scheme())
+                .orElseThrow(() -> new InvalidX402Scheme("Unsupported scheme: " + accepted.scheme()));
+    }
+
+    /**
+     * Get the payload cast to its specific type based on the accepted scheme.
+     *
+     * @return the payload cast to its specific type
+     * @throws InvalidX402Scheme if the scheme is unsupported
+     */
+    @JsonIgnore
+    public Object getTypedPayload() {
+        return JsonUtil.convertValue(payload, getScheme().payloadClass());
+    }
 
     /**
      * Get the nonce from the payload.
@@ -109,10 +150,8 @@ public record PaymentPayload(
      */
     private <T> Optional<T> extract(final Function<ExactSchemePayload, Optional<T>> extractor) {
         return Optional.ofNullable(payload)
-                .flatMap(p -> switch (p) {
-                    case ExactSchemePayload exactPayload -> extractor.apply(exactPayload);
-                    default -> Optional.empty();
-                });
+                .map(p -> JsonUtil.convertValue(p, ExactSchemePayload.class))
+                .flatMap(extractor);
     }
 
 }

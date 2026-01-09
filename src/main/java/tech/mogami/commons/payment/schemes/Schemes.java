@@ -3,12 +3,15 @@ package tech.mogami.commons.payment.schemes;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_NAME;
 
 /**
  * Existing {@link Scheme}.
@@ -17,13 +20,20 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
 public class Schemes {
 
+    /** Scheme parameter: the parameter used to specify the payment scheme in headers. */
+    public static final String SCHEME_PARAMETER = "scheme";
+
     /** Exact scheme. */
     public static final Scheme EXACT_SCHEME = Scheme.builder()
-            .name("exact")
+            .name(EXACT_SCHEME_NAME)
+            .payloadClass(ExactSchemePayload.class)
             .build();
 
     /** All schemes. */
     private static final List<Scheme> ALL_SCHEMES = List.of(EXACT_SCHEME);
+
+    /** Supported schemes. */
+    public static final List<Scheme> SUPPORTED_SCHEMES = List.of(EXACT_SCHEME);
 
     /** Map of schemes by name. */
     private static final Map<String, Scheme> SCHEMES_BY_NAME = ALL_SCHEMES.stream()

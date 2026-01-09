@@ -1,7 +1,7 @@
 package tech.mogami.commons.constant;
 
 /**
- * Protocol Components.
+ * The x402 protocol involves three primary components.
  */
 @SuppressWarnings("unused")
 public enum Actor {
