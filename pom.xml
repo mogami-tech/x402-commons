@@ -64,8 +64,8 @@
         <!-- Core JSON & Validation -->
         <jackson.version>2.20.1</jackson.version>
         <jakarta.validation.version>3.1.1</jakarta.validation.version>
-        <hibernate.validator.version>8.0.3.Final</hibernate.validator.version>
-        <tomcat-embed-el.version>10.1.23</tomcat-embed-el.version>
+        <hibernate.validator.version>9.1.0.Final</hibernate.validator.version>
+        <tomcat-embed-el.version>11.0.15</tomcat-embed-el.version>
         <jakarta.el.version>6.0.1</jakarta.el.version>
 
         <!-- Crypto & Blockchain -->
@@ -82,7 +82,7 @@
 
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
-        <maven.puppycrawl.checkstyle.version>12.3.0</maven.puppycrawl.checkstyle.version>
+        <maven.puppycrawl.checkstyle.version>13.0.0</maven.puppycrawl.checkstyle.version>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
@@ -94,7 +94,7 @@
         <maven.gitflow-maven-plugin.version>1.21.0</maven.gitflow-maven-plugin.version>
         <maven.gpg-plugin.version>3.2.8</maven.gpg-plugin.version>
         <maven.deploy-plugin.version>3.1.4</maven.deploy-plugin.version>
-        <maven.central-publishing-maven-plugin.version>0.9.0</maven.central-publishing-maven-plugin.version>
+        <maven.central-publishing-maven-plugin.version>0.10.0</maven.central-publishing-maven-plugin.version>
     </properties>
 
     <!-- Dependencies ============================================================================================== -->
