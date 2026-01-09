@@ -64,7 +64,7 @@
         <!-- Core JSON & Validation -->
         <jackson.version>2.20.1</jackson.version>
         <jakarta.validation.version>3.1.1</jakarta.validation.version>
-        <hibernate.validator.version>8.0.3.Final</hibernate.validator.version>
+        <hibernate.validator.version>9.1.0.Final</hibernate.validator.version>
         <tomcat-embed-el.version>10.1.23</tomcat-embed-el.version>
         <jakarta.el.version>6.0.1</jakarta.el.version>
 
