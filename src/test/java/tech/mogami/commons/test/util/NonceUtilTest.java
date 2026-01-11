@@ -42,4 +42,32 @@ public class NonceUtilTest {
         }
     }
 
+    @Test
+    @DisplayName("shortenNonce() - should shorten long nonce")
+    void shouldShortenLongNonce() {
+        var nonce = "0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
+        assertThat(NonceUtil.shortenNonce(nonce))
+                .isEqualTo("0x0123...cdef");
+    }
+
+    @Test
+    @DisplayName("shortenNonce() - should return original when nonce is short")
+    void shouldReturnOriginalWhenNonceIsShort() {
+        var nonce = "0x1234";
+        assertThat(NonceUtil.shortenNonce(nonce)).isEqualTo(nonce);
+    }
+
+    @Test
+    @DisplayName("shortenNonce() - should return original when length equals prefix plus suffix")
+    void shouldReturnOriginalWhenLengthEqualsPrefixPlusSuffix() {
+        var nonce = "0x12345678";
+        assertThat(NonceUtil.shortenNonce(nonce)).isEqualTo(nonce);
+    }
+
+    @Test
+    @DisplayName("shortenNonce() - should return null when nonce is null")
+    void shouldReturnNullWhenNonceIsNull() {
+        assertThat(NonceUtil.shortenNonce(null)).isNull();
+    }
+
 }
