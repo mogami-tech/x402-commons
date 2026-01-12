@@ -6,10 +6,11 @@ import org.junitpioneer.jupiter.SetEnvironmentVariable;
 import tech.mogami.commons.constant.network.Networks;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.mogami.commons.constant.network.Networks.BASE_MAINNET;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
-import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
-import static tech.mogami.commons.constant.network.base.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
 @DisplayName("Network Tests")
 public class NetworkTest {
@@ -18,7 +19,7 @@ public class NetworkTest {
     @DisplayName("Networks count")
     void testNetworksCount() {
         // There should be exactly 2 networks defined
-        assertThat(Networks.ALL_NETWORKS.size()).isEqualTo(2);
+        assertThat(Networks.ALL_NETWORKS.size()).isEqualTo(5);
     }
 
     @Test
@@ -30,6 +31,19 @@ public class NetworkTest {
         // Base mainnet
         assertThat(BASE_MAINNET.defaultRpcUrl()).isEqualTo("https://mainnet.base.org");
         assertThat(BASE_MAINNET.rpcUrl()).isEqualTo("https://mainnet.base.org");
+    }
+
+    @Test
+    @DisplayName("NetworkId")
+    void testNetworkId() {
+        assertThat(BASE_SEPOLIA.networkId()).isEqualTo("eip155:84532");
+        assertThat(BASE_MAINNET.networkId()).isEqualTo("eip155:8453");
+
+        // Search
+        assertThat(Networks.findByNetworkId("eip155:84532")).isPresent().get().isEqualTo(BASE_SEPOLIA);
+        assertThat(Networks.findByNetworkId("EIP155:84532")).isPresent().get().isEqualTo(BASE_SEPOLIA);
+        assertThat(Networks.findByNetworkId("eip155:8453")).isPresent().get().isEqualTo(BASE_MAINNET);
+        assertThat(Networks.findByNetworkId("eip155:845")).isEmpty();
     }
 
     @Test
@@ -65,6 +79,23 @@ public class NetworkTest {
                     assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_MAINNET_USDC_CONTRACT);
                 });
         assertThat(BASE_MAINNET.findDeployedAsset(BASE_SEPOLIA_USDC_CONTRACT)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Testing isEvm() and chainId()")
+    void testIsEvmAndChainId() {
+        // Both Base networks are EVM-compatible
+        assertThat(BASE_SEPOLIA.isEvm()).isTrue();
+        assertThat(BASE_SEPOLIA.chainId()).isEqualTo(84532L);
+
+        assertThat(BASE_MAINNET.isEvm()).isTrue();
+        assertThat(BASE_MAINNET.chainId()).isEqualTo(8453L);
+
+        // Test on Solana.
+        assertThat(Networks.SOLANA_MAINNET.isEvm()).isFalse();
+        assertThatThrownBy(Networks.SOLANA_MAINNET::chainId)
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessage("chainId is only available for EVM-compatible blockchains");
     }
 
 }

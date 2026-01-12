@@ -1,7 +1,7 @@
 package tech.mogami.commons.payment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,13 +13,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
-import tech.mogami.commons.validator.Network;
+import tech.mogami.commons.validator.NetworkId;
 import tech.mogami.commons.validator.Scheme;
 
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.Optional;
 
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static java.math.BigInteger.ZERO;
 
 /**
@@ -28,15 +29,11 @@ import static java.math.BigInteger.ZERO;
  * @param scheme            Scheme of the payment protocol to use.
  *                          A schene is a structured definition that specifies the format,
  *                          validation rules and processing logic for a specific type of transaction
- * @param network           Network of the blockchain to send payment on (e.g., 'base-mainnet')
- * @param maxAmountRequired Maximum amount required to pay for the resource in atomic units of the asset (e.g., '0.10')
- * @param resource          URL of resource to pay for
- * @param description       Description of the resource
- * @param mimeType          MIME type of the resource (e.g., application/json)
- * @param outputSchema      Optional schema describing the structure or metadata of the protected resource output
- * @param payTo             Address to pay value to
- * @param maxTimeoutSeconds Maximum time in seconds for the resource server to respond (e.g., 60)
+ * @param network           Blockchain network identifier in CAIP-2 format (e.g., "eip155:84532")
+ * @param amount            Required payment amount in atomic token units
  * @param asset             Address of the EIP-3009 compliant ERC20 contract (example: an ERC20 contract address).
+ * @param payTo             Recipient wallet address or role constant (e.g., merchant)
+ * @param maxTimeoutSeconds Maximum time allowed for payment completion
  * @param extra             Extra information about the payment details specific to the scheme
  *                          For `exact` scheme on the EVM network,
  *                          expects extra to contain the records `name` and `version` pertaining to asset
@@ -47,48 +44,41 @@ import static java.math.BigInteger.ZERO;
 @SuppressWarnings("unused")
 public record PaymentRequirements(
 
+        @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.scheme.required}")
         @Scheme(message = "{validation.paymentRequirements.scheme.invalid}")
-        @Schema(description = "Scheme of the payment protocol to use", example = "exact")
+        @Schema(description = "Payment scheme identifier", example = "exact", requiredMode = REQUIRED)
         String scheme,
 
+        @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.network.required}")
-        @Network(message = "{validation.paymentRequirements.network.invalid}")
-        @Schema(description = "Blockchain network to send the payment on", example = "base-sepolia")
+        @NetworkId(message = "{validation.paymentRequirements.network.invalid}")
+        @Schema(description = "Blockchain network identifier in CAIP-2 format", example = "eip155:84532", requiredMode = REQUIRED)
         String network,
 
-        @NotBlank(message = "{validation.paymentRequirements.maxAmountRequired.required}")
-        @BigIntegerString(message = "{validation.paymentRequirements.maxAmountRequired.invalid}")
-        @Schema(description = "Maximum amount required to pay in atomic units (e.g., smallest token unit)", example = "100000")
-        String maxAmountRequired,
+        @JsonProperty(required = true)
+        @NotBlank(message = "{validation.paymentRequirements.amount.required}")
+        @BigIntegerString(message = "{validation.paymentRequirements.amount.invalid}")
+        @Schema(description = "Required payment amount in atomic token units", example = "100000", requiredMode = REQUIRED)
+        String amount,
 
-        @NotBlank(message = "{validation.paymentRequirements.resource.required}")
-        @Schema(description = "URL of the resource to pay for", example = "https://example.com/weather")
-        String resource,
-
-        @Schema(description = "Description of the resource", example = "Accurate weather data for your location")
-        @Nullable String description,
-
-        @Schema(description = "MIME type of the resource", example = "application/json")
-        @Nullable String mimeType,
-
-        @Schema(description = "Optional schema describing the structure or metadata of the protected resource output")
-        @Nullable JsonNode outputSchema,
-
-        @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
-        @BlockchainAddress(message = "{validation.paymentRequirements.payTo.invalid}")
-        @Schema(description = "Address to which payment should be made", example = "0x1234abcd...")
-        String payTo,
-
-        @NotNull(message = "{validation.paymentRequirements.maxTimeoutSeconds.required}")
-        @Positive(message = "{validation.paymentRequirements.maxTimeoutSeconds.positive}")
-        @Schema(description = "Maximum allowed time in seconds for the server to respond", example = "60")
-        Integer maxTimeoutSeconds,
-
+        @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.asset.required}")
         @BlockchainAddress(message = "{validation.paymentRequirements.asset.invalid}")
-        @Schema(description = "Contract asset address", example = "0xABCDEF1234567890...")
+        @Schema(description = "Contract asset address", example = "0xABCDEF1234567890...", requiredMode = REQUIRED)
         String asset,
+
+        @JsonProperty(required = true)
+        @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
+        @BlockchainAddress(message = "{validation.paymentRequirements.payTo.invalid}")
+        @Schema(description = "Recipient wallet address or role constant (e.g., merchant)", example = "0x1234...", requiredMode = REQUIRED)
+        String payTo,
+
+        @JsonProperty(required = true)
+        @NotNull(message = "{validation.paymentRequirements.maxTimeoutSeconds.required}")
+        @Positive(message = "{validation.paymentRequirements.maxTimeoutSeconds.positive}")
+        @Schema(description = "Maximum time allowed for payment completion", example = "60", requiredMode = REQUIRED)
+        Integer maxTimeoutSeconds,
 
         @Schema(description = "Extra scheme-specific information. For `exact` on EVM: should contain asset `name` and `version`", example = "{\"name\": \"USDC\", \"version\": \"2\"}")
         @Singular("extra") Map<String, String> extra
@@ -96,23 +86,23 @@ public record PaymentRequirements(
 ) {
 
     /**
-     * Get the maximum amount required as a BigInteger.
+     * Get the amount required as a BigInteger.
      *
-     * @return the maximum amount required to be converted to BigInteger
+     * @return the amount required to be converted to BigInteger
      */
     @JsonIgnore
-    public BigInteger maxAmountRequiredAsBigInteger() {
-        if (StringUtils.isBlank(maxAmountRequired)) {
+    public BigInteger amountAsBigInteger() {
+        if (StringUtils.isBlank(amount)) {
             return ZERO;
         }
         try {
-            BigInteger value = new BigInteger(maxAmountRequired.trim());
+            BigInteger value = new BigInteger(amount.trim());
             if (value.signum() < 0) {
-                throw new IllegalArgumentException("maxAmountRequired cannot be negative: " + maxAmountRequired);
+                throw new IllegalArgumentException("amount cannot be negative: " + amount);
             }
             return value;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid maxAmountRequired: '" + maxAmountRequired + "'", e);
+            throw new IllegalArgumentException("Invalid amount: '" + amount + "'", e);
         }
     }
 
@@ -122,10 +112,40 @@ public record PaymentRequirements(
      * @param key the key of the extra value
      * @return an Optional containing the extra value if present, or empty if not found
      */
+    @JsonIgnore
     public Optional<String> getExtra(@Nullable final String key) {
         return Optional.ofNullable(key)
                 .filter(StringUtils::isNotEmpty)
                 .map(extra::get);
+    }
+
+    /**
+     * Checks whether the given payment requirements are compatible with this one.
+     * <p>
+     * Compatibility rules:
+     * - scheme, network, asset, payTo must match
+     * - paid amount must be superior required amount
+     * - timeout must be inferior to maxTimeoutSeconds
+     * - extra values required by this instance must be present and equal in the other instance
+     *
+     * @param other the payment requirements to check against
+     * @return true if compatible, false otherwise
+     */
+    @JsonIgnore
+    public boolean isCompatibleWith(@Nullable final PaymentRequirements other) {
+        return other != null
+                && StringUtils.equalsIgnoreCase(scheme, other.scheme())
+                && StringUtils.equalsIgnoreCase(network, other.network())
+                && StringUtils.equalsIgnoreCase(asset, other.asset())
+                && StringUtils.equalsIgnoreCase(payTo, other.payTo())
+                && other.amountAsBigInteger().compareTo(amountAsBigInteger()) == 0
+                && (extra == null || extra.isEmpty()
+                || (other.extra() != null
+                && extra.entrySet().stream()
+                .allMatch(e -> StringUtils.equalsIgnoreCase(
+                        e.getValue(),
+                        other.extra().get(e.getKey())
+                ))));
     }
 
 }

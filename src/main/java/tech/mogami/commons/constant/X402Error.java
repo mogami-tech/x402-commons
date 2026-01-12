@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * The x402 protocol defines standard error codes that may be returned by facilitators or resource servers.
@@ -72,7 +73,7 @@ public enum X402Error {
     UNEXPECTED_SETTLE_ERROR("unexpected_settle_error",
             "Unexpected error occurred during payment settlement"),
 
-    /** Unknown or unmapped error. */
+    /** Unknown or unmapped error (Not in the specs - Added by Mogami in case of). */
     UNKNOWN("unknown_error",
             "Unknown or unmapped error");
 
@@ -124,10 +125,10 @@ public enum X402Error {
      * @return the enum constant, or UNKNOWN if not found
      */
     public static X402Error fromCode(@Nullable final String code) {
-        if (code == null) {
-            return UNKNOWN;
-        }
-        return ALL_X402_ERRORS.getOrDefault(StringUtils.lowerCase(code), UNKNOWN);
+        return Optional.ofNullable(code)
+                .map(StringUtils::lowerCase)
+                .map(ALL_X402_ERRORS::get)
+                .orElse(UNKNOWN);
     }
 
 }

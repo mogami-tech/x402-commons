@@ -7,11 +7,14 @@ import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Supported response for GET /supported.
  *
- * @param kinds list of supported (scheme, network) pairs
+ * @param kinds      list of supported (scheme, network) pairs
+ * @param extensions list of supported extension identifiers
+ * @param signers    map of CAIP-2 patterns to public signer addresses
  */
 @Builder
 @Jacksonized
@@ -20,9 +23,37 @@ import java.util.List;
 public record SupportedResponse(
 
         @Schema(description = "List of supported payment kinds (x402 version, scheme, and network)")
-        @Singular List<SupportedKind> kinds
+        @Singular List<SupportedKind> kinds,
+
+        @Schema(description = "List of extension identifiers implemented by the facilitator", example = "[]")
+        @Singular List<String> extensions,
+
+        @Schema(description = "Map of CAIP-2 patterns to public signer addresses",
+                example = """
+                        {
+                          "eip155:*": ["0x1234567890abcdef1234567890abcdef12345678"],
+                          "solana:*": ["CKPKJWNdJEqa81x7CkZ14BVPiY6y16Sxs7owznqtWYp5"]
+                        }
+                        """
+        )
+        @Singular Map<String, List<String>> signers
 
 ) {
+
+    /**
+     * Constructor.
+     */
+    public SupportedResponse {
+        if (kinds == null) {
+            kinds = List.of();
+        }
+        if (extensions == null) {
+            extensions = List.of();
+        }
+        if (signers == null) {
+            signers = Map.of();
+        }
+    }
 
     /**
      * Single pair the facilitator can handle.
@@ -30,6 +61,7 @@ public record SupportedResponse(
      * @param x402Version x402 version
      * @param scheme      the scheme used for the payment
      * @param network     the network used for the payment
+     * @param extra       additional scheme-specific configuration
      */
     @Builder
     @Jacksonized
@@ -37,14 +69,17 @@ public record SupportedResponse(
     @SuppressWarnings("unused")
     public record SupportedKind(
 
-            @Schema(description = "x402 protocol version supported", example = "1")
-            int x402Version,
+            @Schema(description = "x402 protocol version supported", example = "2")
+            Integer x402Version,
 
             @Schema(description = "Scheme identifier", example = "exact")
             String scheme,
 
-            @Schema(description = "Blockchain network supported", example = "base-sepolia")
-            String network
+            @Schema(description = "Blockchain network identifier in CAIP-2 format", example = "eip155:84532")
+            String network,
+
+            @Schema(description = "Additional scheme-specific configuration", nullable = true)
+            Map<String, Object> extra
 
     ) {
 
@@ -55,7 +90,7 @@ public record SupportedResponse(
          */
         @JsonIgnore
         public String toFormattedString() {
-            return "%s / %s".formatted(network, scheme);
+            return "x402:V%s/%s/%s".formatted(x402Version, network, scheme);
         }
 
     }

@@ -1,6 +1,9 @@
 package tech.mogami.commons.constant;
 
 import lombok.experimental.UtilityClass;
+import tech.mogami.commons.api.facilitator.settle.SettlementResponse;
+import tech.mogami.commons.payment.PaymentPayload;
+import tech.mogami.commons.payment.PaymentRequired;
 
 /**
  * X402 constants.
@@ -9,17 +12,29 @@ import lombok.experimental.UtilityClass;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class X402Constants {
 
-    /** X402 payment required header. */
-    public static final String X402_X_PAYMENT_HEADER = "X-PAYMENT";
+    /**
+     * The server indicates payment is required using the HTTP 402 "Payment Required" status code (Server → Client).
+     * Mechanism: HTTP 402 status code with PAYMENT-REQUIRED header.
+     * Data Format: Base64-encoded {@link PaymentRequired} schema in header.
+     */
+    public static final String X402_PAYMENT_REQUIRED_HEADER = "payment-required";
 
-    /** X402 payment required header decoded - This is specific to the Mogami server sdk. */
-    public static final String X402_X_PAYMENT_HEADER_DECODED = "X-PAYMENT-DECODED";
+    /**
+     * Clients send payment data using the PAYMENT-SIGNATURE HTTP header (Client → Server).
+     * Mechanism: PAYMENT-SIGNATURE header containing base64-encoded JSON.
+     * Data Format: Base64-encoded {@link PaymentPayload} schema.
+     */
+    public static final String X402_PAYMENT_SIGNATURE_HEADER = "payment-signature";
 
-    /** X402 header containing the settlement Response as Base64 encoded JSON if the payment was executed successfully. */
-    public static final String X402_X_PAYMENT_RESPONSE = "X-PAYMENT-RESPONSE";
+    /**
+     * Servers communicate payment settlement results using the PAYMENT-RESPONSE header (Server → Client).
+     * Mechanism: PAYMENT-RESPONSE header containing base64-encoded JSON.
+     * Data Format: Base64-encoded {@link SettlementResponse} schema.
+     */
+    public static final String X402_PAYMENT_RESPONSE_HEADER = "payment-response";
 
     /** X402 payment required message. */
-    public static final String X402_PAYMENT_REQUIRED_MESSAGE = "X-PAYMENT header is required";
+    public static final String X402_PAYMENT_REQUIRED_MESSAGE = "Payment required";
 
     /** Default payment timeout in seconds. */
     public static final int X402_DEFAULT_PAYMENT_TIMEOUT_SECONDS = 60;

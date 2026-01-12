@@ -7,9 +7,9 @@
     <!-- Project information ======================================================================================= -->
     <groupId>tech.mogami.commons</groupId>
     <artifactId>mogami-x402-commons</artifactId>
-    <version>1.2.0</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
-    <name>Mogami x402 commons</name>
+    <name>Mogami x402 commons - x402 V2</name>
     <description>Provides core classes, enums, constants, and API definitions required to implement the x402 protocol
     </description>
     <url>https://github.com/mogami-tech/x402-commons</url>
@@ -55,7 +55,7 @@
 
         <!-- Boilerplate & Utils -->
         <lombok.version>1.18.42</lombok.version>
-        <commons-lang3.version>3.20.0</commons-lang3.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
         <commons-text.version>1.15.0</commons-text.version>
         <commons-codec.version>1.20.0</commons-codec.version>
         <commons-collections.version>4.5.0</commons-collections.version>
@@ -64,6 +64,9 @@
         <!-- Core JSON & Validation -->
         <jackson.version>2.20.1</jackson.version>
         <jakarta.validation.version>3.1.1</jakarta.validation.version>
+        <hibernate.validator.version>9.1.0.Final</hibernate.validator.version>
+        <tomcat-embed-el.version>11.0.15</tomcat-embed-el.version>
+        <jakarta.el.version>6.0.1</jakarta.el.version>
 
         <!-- Crypto & Blockchain -->
         <web3j.crypto.version>4.14.0</web3j.crypto.version>
@@ -79,7 +82,7 @@
 
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
-        <maven.puppycrawl.checkstyle.version>12.3.0</maven.puppycrawl.checkstyle.version>
+        <maven.puppycrawl.checkstyle.version>13.0.0</maven.puppycrawl.checkstyle.version>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
@@ -91,7 +94,7 @@
         <maven.gitflow-maven-plugin.version>1.21.0</maven.gitflow-maven-plugin.version>
         <maven.gpg-plugin.version>3.2.8</maven.gpg-plugin.version>
         <maven.deploy-plugin.version>3.1.4</maven.deploy-plugin.version>
-        <maven.central-publishing-maven-plugin.version>0.9.0</maven.central-publishing-maven-plugin.version>
+        <maven.central-publishing-maven-plugin.version>0.10.0</maven.central-publishing-maven-plugin.version>
     </properties>
 
     <!-- Dependencies ============================================================================================== -->
@@ -123,9 +126,24 @@
             <version>${commons-codec.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
+        </dependency>
+        <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>${jakarta.validation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>${jakarta.el.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-el</artifactId>
+            <version>${tomcat-embed-el.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
