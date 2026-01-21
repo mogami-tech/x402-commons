@@ -73,7 +73,7 @@
         <web3j.utils.version>4.14.1</web3j.utils.version>
 
         <!-- API & documentation -->
-        <swagger.version>2.2.41</swagger.version>
+        <swagger.version>2.2.42</swagger.version>
 
         <!-- Test dependencies  -->
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
