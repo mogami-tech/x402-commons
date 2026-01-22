@@ -2,6 +2,7 @@ package tech.mogami.commons.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.experimental.UtilityClass;
 import org.jspecify.annotations.Nullable;
@@ -83,6 +84,23 @@ public class JsonUtil {
             return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Error while writing pretty JSON: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Format a JSON string to a pretty-printed version.
+     *
+     * @param json the JSON string to format
+     * @return the formatted JSON string, or the original string if formatting fails
+     */
+    public static String toPrettyJson(@Nullable final String json) {
+        try {
+            JsonNode node = MAPPER.readTree(json);
+            return MAPPER
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(node);
+        } catch (Exception e) {
+            return json;
         }
     }
 
