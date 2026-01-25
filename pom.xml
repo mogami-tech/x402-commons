@@ -78,7 +78,7 @@
         <!-- Test dependencies  -->
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
         <junit-pionner.version>2.3.0</junit-pionner.version>
-        <assertj.version>3.27.6</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
 
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
