@@ -62,7 +62,7 @@
         <jspecify.version>1.0.0</jspecify.version>
 
         <!-- Core JSON & Validation -->
-        <jackson.version>2.20.1</jackson.version>
+        <jackson.version>2.21.0</jackson.version>
         <jakarta.validation.version>3.1.1</jakarta.validation.version>
         <hibernate.validator.version>9.1.0.Final</hibernate.validator.version>
         <tomcat-embed-el.version>11.0.15</tomcat-embed-el.version>
@@ -73,12 +73,12 @@
         <web3j.utils.version>4.14.1</web3j.utils.version>
 
         <!-- API & documentation -->
-        <swagger.version>2.2.41</swagger.version>
+        <swagger.version>2.2.42</swagger.version>
 
         <!-- Test dependencies  -->
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
         <junit-pionner.version>2.3.0</junit-pionner.version>
-        <assertj.version>3.27.6</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
 
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
