@@ -10,9 +10,11 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static tech.mogami.commons.constant.asset.Assets.EURC;
 import static tech.mogami.commons.constant.asset.Assets.USDC;
 import static tech.mogami.commons.constant.blockchain.Blockchains.BASE;
 import static tech.mogami.commons.constant.blockchain.Blockchains.SOLANA;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_EURC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
@@ -51,6 +53,12 @@ public class Networks {
                     .asset(USDC)
                     .displayName("USD Coin")
                     .contractAddress(BASE_MAINNET_USDC_CONTRACT)
+                    .decimals(6)
+                    .build())
+            .eurc(Network.DeployedAsset.builder()
+                    .asset(EURC)
+                    .displayName("Euro Coin")
+                    .contractAddress(BASE_MAINNET_EURC_CONTRACT)
                     .decimals(6)
                     .build())
             .build();
@@ -99,6 +107,12 @@ public class Networks {
                     .asset(USDC)
                     .displayName("USDC")
                     .contractAddress("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v")
+                    .decimals(6)
+                    .build())
+            .eurc(Network.DeployedAsset.builder()
+                    .asset(EURC)
+                    .displayName("Euro Coin")
+                    .contractAddress("HzwqbKZw8HxMN6bF2yFZNrht3c2iXXzpKcFu7uBEDKtr")
                     .decimals(6)
                     .build())
             .build();
