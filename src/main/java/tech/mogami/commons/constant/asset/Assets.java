@@ -26,8 +26,15 @@ public class Assets {
             .type(STABLECOIN)
             .build();
 
+    /** EURC. */
+    public static final Asset EURC = Asset.builder()
+            .name("EURC")
+            .symbol("EURC")
+            .type(STABLECOIN)
+            .build();
+
     /** List of all assets. */
-    public static final List<Asset> ALL_ASSETS = List.of(USDC);
+    public static final List<Asset> ALL_ASSETS = List.of(USDC, EURC);
 
     /** Map of assets by name. */
     private static final Map<String, Asset> ASSETS_BY_NAME = ALL_ASSETS.stream()
