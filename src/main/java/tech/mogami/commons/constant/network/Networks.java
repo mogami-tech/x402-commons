@@ -16,6 +16,7 @@ import static tech.mogami.commons.constant.blockchain.Blockchains.BASE;
 import static tech.mogami.commons.constant.blockchain.Blockchains.SOLANA;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_EURC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_EURC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
 /**
@@ -37,6 +38,12 @@ public class Networks {
                     .asset(USDC)
                     .displayName("USDC")
                     .contractAddress(BASE_SEPOLIA_USDC_CONTRACT)
+                    .decimals(6)
+                    .build())
+            .eurc(Network.DeployedAsset.builder()
+                    .asset(EURC)
+                    .displayName("EURC")
+                    .contractAddress(BASE_SEPOLIA_EURC_CONTRACT)
                     .decimals(6)
                     .build())
             .build();
