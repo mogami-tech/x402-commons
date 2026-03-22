@@ -65,7 +65,7 @@
         <jackson.version>2.21.1</jackson.version>
         <jakarta.validation.version>3.1.1</jakarta.validation.version>
         <hibernate.validator.version>9.1.0.Final</hibernate.validator.version>
-        <tomcat-embed-el.version>11.0.18</tomcat-embed-el.version>
+        <tomcat-embed-el.version>11.0.20</tomcat-embed-el.version>
         <jakarta.el.version>6.0.1</jakarta.el.version>
 
         <!-- Crypto & Blockchain -->
