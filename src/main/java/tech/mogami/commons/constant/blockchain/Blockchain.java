@@ -7,7 +7,7 @@ import lombok.Builder;
  * Represents a blockchain.
  *
  * @param namespace   the namespace of the blockchain (example: "eip155" for Ethereum)
- * @param name        the name of the blockchain (example: "ethereum" or "bitcoin")
+ * @param name        the name of the blockchain (example: "Ethereum" or "bitcoin")
  * @param displayName a user-friendly display name for the blockchain
  */
 @Builder

@@ -103,7 +103,7 @@ public class NetworkTest {
         assertThat(Networks.SOLANA_MAINNET.eurc().asset().symbol()).isEqualTo("EURC");
         assertThat(Networks.SOLANA_MAINNET.eurc().decimals()).isEqualTo(6);
 
-        // Solana testnets do not have EURC
+        // Solana Testnet do not have EURC
         assertThat(Networks.SOLANA_DEVNET.eurc()).isNull();
         assertThat(Networks.SOLANA_TESTNET.eurc()).isNull();
     }

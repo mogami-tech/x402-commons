@@ -13,7 +13,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 /**
  * HTTP output specification for a bazaar resource.
  *
- * @param type    Response content type (e.g., json, text)
+ * @param type    Response content type (e.g., JSON, text)
  * @param format  Additional format information (optional)
  * @param example Example response payload
  */
