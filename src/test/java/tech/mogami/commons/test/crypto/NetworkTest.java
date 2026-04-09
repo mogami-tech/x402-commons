@@ -9,7 +9,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.mogami.commons.constant.network.Networks.BASE_MAINNET;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_EURC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_EURC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
 @DisplayName("Network Tests")
@@ -79,6 +81,57 @@ public class NetworkTest {
                     assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_MAINNET_USDC_CONTRACT);
                 });
         assertThat(BASE_MAINNET.findDeployedAsset(BASE_SEPOLIA_USDC_CONTRACT)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Testing EURC deployed asset")
+    void testEurcDeployedAsset() {
+        // Base Sepolia has EURC
+        assertThat(BASE_SEPOLIA.eurc()).isNotNull();
+        assertThat(BASE_SEPOLIA.eurc().asset().symbol()).isEqualTo("EURC");
+        assertThat(BASE_SEPOLIA.eurc().contractAddress()).isEqualTo(BASE_SEPOLIA_EURC_CONTRACT);
+        assertThat(BASE_SEPOLIA.eurc().decimals()).isEqualTo(6);
+
+        // Base Mainnet has EURC
+        assertThat(BASE_MAINNET.eurc()).isNotNull();
+        assertThat(BASE_MAINNET.eurc().asset().symbol()).isEqualTo("EURC");
+        assertThat(BASE_MAINNET.eurc().contractAddress()).isEqualTo(BASE_MAINNET_EURC_CONTRACT);
+        assertThat(BASE_MAINNET.eurc().decimals()).isEqualTo(6);
+
+        // Solana Mainnet has EURC
+        assertThat(Networks.SOLANA_MAINNET.eurc()).isNotNull();
+        assertThat(Networks.SOLANA_MAINNET.eurc().asset().symbol()).isEqualTo("EURC");
+        assertThat(Networks.SOLANA_MAINNET.eurc().decimals()).isEqualTo(6);
+
+        // Solana Testnet do not have EURC
+        assertThat(Networks.SOLANA_DEVNET.eurc()).isNull();
+        assertThat(Networks.SOLANA_TESTNET.eurc()).isNull();
+    }
+
+    @Test
+    @DisplayName("Testing findDeployedAsset with EURC contract address")
+    void testFindDeployedAssetWithEurc() {
+        // EURC on Base Sepolia
+        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_SEPOLIA_EURC_CONTRACT))
+                .isPresent()
+                .get()
+                .satisfies(deployedAsset -> {
+                    assertThat(deployedAsset.asset().symbol()).isEqualTo("EURC");
+                    assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_SEPOLIA_EURC_CONTRACT);
+                });
+
+        // EURC on Base Mainnet
+        assertThat(BASE_MAINNET.findDeployedAsset(BASE_MAINNET_EURC_CONTRACT))
+                .isPresent()
+                .get()
+                .satisfies(deployedAsset -> {
+                    assertThat(deployedAsset.asset().symbol()).isEqualTo("EURC");
+                    assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_MAINNET_EURC_CONTRACT);
+                });
+
+        // Cross-network lookups return empty
+        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_MAINNET_EURC_CONTRACT)).isEmpty();
+        assertThat(BASE_MAINNET.findDeployedAsset(BASE_SEPOLIA_EURC_CONTRACT)).isEmpty();
     }
 
     @Test

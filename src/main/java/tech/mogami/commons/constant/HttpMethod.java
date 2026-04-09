@@ -1,0 +1,39 @@
+package tech.mogami.commons.constant;
+
+import java.util.Set;
+
+/**
+ * HTTP methods.
+ */
+@SuppressWarnings("unused")
+public enum HttpMethod {
+
+    /** HTTP GET method. */
+    GET,
+
+    /** HTTP POST method. */
+    POST,
+
+    /** HTTP PUT method. */
+    PUT,
+
+    /** HTTP DELETE method. */
+    DELETE,
+
+    /** HTTP PATCH method. */
+    PATCH,
+
+    /** HTTP HEAD method. */
+    HEAD;
+
+    /** Allowed HTTP methods. */
+    public static final Set<HttpMethod> ALLOWED_METHODS = Set.of(
+            HttpMethod.GET,
+            HttpMethod.HEAD,
+            HttpMethod.DELETE,
+            HttpMethod.POST,
+            HttpMethod.PUT,
+            HttpMethod.PATCH
+    );
+
+}

@@ -22,9 +22,10 @@ import static java.math.RoundingMode.DOWN;
  * @param name             the name of the network (example: "base-sepolia" or "ethereum-mainnet")
  * @param displayName      a user-friendly display name for the network
  * @param networkReference CAIP-2 reference (chainId, genesis hash, etc.)
- * @param isTestnet        indicates whether the network is a testnet
+ * @param isTestnet        indicates whether the network is a Testnet
  * @param defaultRpcUrl    the default RPC URL for connecting to the network
  * @param usdc             the USDC asset deployed on the network
+ * @param eurc             the EURC asset deployed on the network, or null if not available
  */
 @Builder
 @SuppressWarnings("unused")
@@ -35,7 +36,8 @@ public record Network(
         String networkReference,
         boolean isTestnet,
         String defaultRpcUrl,
-        DeployedAsset usdc
+        DeployedAsset usdc,
+        @Nullable DeployedAsset eurc
 ) {
 
     /** Environment variable prefix for RPC URLs. */
@@ -202,6 +204,8 @@ public record Network(
         // Passing all deployed assets here when more are added
         if (StringUtils.equalsIgnoreCase(contractAddress, usdc.contractAddress())) {
             return Optional.of(usdc);
+        } else if (eurc != null && StringUtils.equalsIgnoreCase(contractAddress, eurc.contractAddress())) {
+            return Optional.of(eurc);
         } else {
             return Optional.empty();
         }
