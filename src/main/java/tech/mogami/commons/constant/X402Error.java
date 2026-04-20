@@ -100,11 +100,9 @@ public enum X402Error {
     );
 
     /** Error code. */
-    @Getter
     private final String code;
 
     /** Error default message. */
-    @Getter
     private final String defaultMessage;
 
     /**
@@ -129,6 +127,44 @@ public enum X402Error {
                 .map(StringUtils::lowerCase)
                 .map(ALL_X402_ERRORS::get)
                 .orElse(UNKNOWN);
+    }
+
+    /**
+     * Getter code.
+     *
+     * @return code
+     */
+    @Deprecated
+    public final String getCode() {
+        return code;
+    }
+
+    /**
+     * Getter defaultMessage.
+     *
+     * @return defaultMessage
+     */
+    @Deprecated
+    public final String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    /**
+     * Returns the error code.
+     *
+     * @return error code
+     */
+    public String code() {
+        return code;
+    }
+
+    /**
+     * Returns the default message.
+     *
+     * @return default message
+     */
+    public String defaultMessage() {
+        return defaultMessage;
     }
 
 }

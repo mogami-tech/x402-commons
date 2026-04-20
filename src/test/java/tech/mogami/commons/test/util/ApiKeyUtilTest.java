@@ -4,47 +4,42 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.util.ApiKeyUtil;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static tech.mogami.commons.util.ApiKeyUtil.DEFAULT_API_KEY_LENGTH;
 
-@DisplayName("API Key Util Tests")
+@DisplayName("API Key Util tests")
 public class ApiKeyUtilTest {
 
     @Test
-    @DisplayName("generateApiKey() - Default Length")
-    void shouldGenerateApiKeyWithDefaultLength() {
-        var apiKey = ApiKeyUtil.generateApiKey();
-        assertNotNull(apiKey);
-        assertEquals(64, apiKey.length());
-        assertTrue(apiKey.chars().allMatch(Character::isLetterOrDigit));
+    @DisplayName("generateApiKey() - Default Length of 64")
+    void generateApiKeyWithDefaultLength() {
+        assertThat(ApiKeyUtil.generateApiKey())
+                .isNotNull()
+                .hasSize(DEFAULT_API_KEY_LENGTH)
+                .matches("[a-zA-Z0-9]+");
     }
 
     @Test
     @DisplayName("generateApiKey() - Custom Length")
-    void shouldGenerateApiKeyWithCustomLength() {
-        var length = 42;
-        String apiKey = ApiKeyUtil.generateApiKey(length);
-        assertNotNull(apiKey);
-        assertEquals(length, apiKey.length());
-        assertTrue(apiKey.chars().allMatch(Character::isLetterOrDigit));
+    void generateApiKeyWithCustomLength() {
+        assertThat(ApiKeyUtil.generateApiKey(42))
+                .isNotNull()
+                .hasSize(42)
+                .matches("[a-zA-Z0-9]+");
     }
 
     @Test
     @DisplayName("generateApiKey() - Invalid Length")
-    void shouldThrowExceptionIfLengthIsZeroOrNegative() {
-        assertThrows(IllegalArgumentException.class, () -> ApiKeyUtil.generateApiKey(0));
-        assertThrows(IllegalArgumentException.class, () -> ApiKeyUtil.generateApiKey(-1));
+    void invalidKeyLength() {
+        assertThatIllegalArgumentException().isThrownBy(() -> ApiKeyUtil.generateApiKey(0));
+        assertThatIllegalArgumentException().isThrownBy(() -> ApiKeyUtil.generateApiKey(-1));
     }
 
     @Test
     @DisplayName("generateApiKey() - Unique Keys")
-    void shouldGenerateUniqueKeys() {
-        var key1 = ApiKeyUtil.generateApiKey();
-        var key2 = ApiKeyUtil.generateApiKey();
-        assertNotEquals(key1, key2);
+    void uniqueKeys() {
+        assertThat(ApiKeyUtil.generateApiKey()).isNotEqualTo(ApiKeyUtil.generateApiKey());
     }
 
 }

@@ -19,7 +19,7 @@ import static tech.mogami.commons.test.BaseMogamiTestData.TEST_SERVER_WALLET_ADD
 /**
  * Tests for the EIP-712 helper class.
  */
-@DisplayName("EIP-712 helper Tests")
+@DisplayName("EIP-712 helper tests")
 public class EIP712HelperTest {
 
     final String expectedSignature = "0x7d9463e2c7c98e33c08747882521be88cc02443a8c46f3a1f5b51ae8d1bdd9581fa41ab35c1cebfe70a79471640a1bde9ffadd377e38d708b5ca6a38b30300f61b";
@@ -28,7 +28,6 @@ public class EIP712HelperTest {
             .scheme(EXACT_SCHEME.name())
             .network(BASE_SEPOLIA.networkId())
             .amount("10000")
-            //.resource("http://localhost/weather")
             .payTo(TEST_SERVER_WALLET_ADDRESS_1)
             .asset("0x036CbD53842c5426634e7929541eC2318f3dCF7e")
             .extra(EXACT_SCHEME_PARAMETER_NAME, "USDC")

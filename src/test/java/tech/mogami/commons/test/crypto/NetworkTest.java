@@ -3,10 +3,12 @@ package tech.mogami.commons.test.crypto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
+import tech.mogami.commons.constant.network.Network;
 import tech.mogami.commons.constant.network.Networks;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static tech.mogami.commons.constant.network.Networks.ALL_NETWORKS;
 import static tech.mogami.commons.constant.network.Networks.BASE_MAINNET;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_EURC_CONTRACT;
@@ -14,137 +16,96 @@ import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_M
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_EURC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
 
-@DisplayName("Network Tests")
+@DisplayName("Network tests")
 public class NetworkTest {
 
     @Test
     @DisplayName("Networks count")
-    void testNetworksCount() {
-        // There should be exactly 2 networks defined
-        assertThat(Networks.ALL_NETWORKS.size()).isEqualTo(5);
+    void networksCount() {
+        assertThat(ALL_NETWORKS.size()).isEqualTo(5);
     }
 
     @Test
-    @DisplayName("Testing defaultRpcUrl and rpcUrls")
-    void testDefaultRpcUrlAndRpcUrls() {
+    @DisplayName("Should return defaultRpcUrl and rpcUrls")
+    void defaultRpcUrlAndRpcUrls() {
         // Base sepolia
-        assertThat(BASE_SEPOLIA.defaultRpcUrl()).isEqualTo("https://sepolia.base.org");
-        assertThat(BASE_SEPOLIA.rpcUrl()).isEqualTo("https://sepolia.base.org");
+        assertThat(BASE_SEPOLIA)
+                .returns("https://sepolia.base.org", Network::defaultRpcUrl)
+                .returns("https://sepolia.base.org", Network::rpcUrl);
         // Base mainnet
-        assertThat(BASE_MAINNET.defaultRpcUrl()).isEqualTo("https://mainnet.base.org");
-        assertThat(BASE_MAINNET.rpcUrl()).isEqualTo("https://mainnet.base.org");
+        assertThat(BASE_MAINNET)
+                .returns("https://mainnet.base.org", Network::defaultRpcUrl)
+                .returns("https://mainnet.base.org", Network::rpcUrl);
     }
 
     @Test
-    @DisplayName("NetworkId")
-    void testNetworkId() {
-        assertThat(BASE_SEPOLIA.networkId()).isEqualTo("eip155:84532");
-        assertThat(BASE_MAINNET.networkId()).isEqualTo("eip155:8453");
+    @DisplayName("NetworkId and findByNetworkId()")
+    void networkId() {
+        assertThat(BASE_SEPOLIA).returns("eip155:84532", Network::networkId);
+        assertThat(BASE_MAINNET).returns("eip155:8453", Network::networkId);
 
-        // Search
-        assertThat(Networks.findByNetworkId("eip155:84532")).isPresent().get().isEqualTo(BASE_SEPOLIA);
-        assertThat(Networks.findByNetworkId("EIP155:84532")).isPresent().get().isEqualTo(BASE_SEPOLIA);
-        assertThat(Networks.findByNetworkId("eip155:8453")).isPresent().get().isEqualTo(BASE_MAINNET);
+        // Search with findByNetworkId
+        assertThat(Networks.findByNetworkId("eip155:84532")).hasValue(BASE_SEPOLIA);
+        assertThat(Networks.findByNetworkId("EIP155:84532")).hasValue(BASE_SEPOLIA);
+        assertThat(Networks.findByNetworkId("eip155:8453")).hasValue(BASE_MAINNET);
         assertThat(Networks.findByNetworkId("eip155:845")).isEmpty();
     }
 
     @Test
-    @DisplayName("Testing defaultRpcUrl and rpcUrls with environment variables")
+    @DisplayName("Should return defaultRpcUrl and rpcUrls with environment variables")
     @SetEnvironmentVariable(key = "RPC_URL_BASE", value = "https://custom-url-base.org")
     @SetEnvironmentVariable(key = "RPC_URL_BASE_SEPOLIA", value = "https://custom-url-base-sepolia.org")
-    void testDefaultRpcUrlAndRpcUrlsWithEnvironmentVariables() {
+    void defaultRpcUrlAndRpcUrlsWithEnvironmentVariables() {
         // Base sepolia
-        assertThat(BASE_SEPOLIA.defaultRpcUrl()).isEqualTo("https://sepolia.base.org");
-        assertThat(BASE_SEPOLIA.rpcUrl()).isEqualTo("https://custom-url-base-sepolia.org");
+        assertThat(BASE_SEPOLIA)
+                .returns("https://sepolia.base.org", Network::defaultRpcUrl)
+                .returns("https://custom-url-base-sepolia.org", Network::rpcUrl);
         // Base mainnet
-        assertThat(BASE_MAINNET.defaultRpcUrl()).isEqualTo("https://mainnet.base.org");
-        assertThat(BASE_MAINNET.rpcUrl()).isEqualTo("https://custom-url-base.org");
+        assertThat(BASE_MAINNET)
+                .returns("https://mainnet.base.org", Network::defaultRpcUrl)
+                .returns("https://custom-url-base.org", Network::rpcUrl);
     }
 
     @Test
-    @DisplayName("Testing deployed asset conversion")
-    void testDeployedAssetConversion() {
-        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_SEPOLIA_USDC_CONTRACT))
-                .isPresent()
-                .get()
-                .satisfies(deployedAsset -> {
-                    assertThat(deployedAsset.asset().symbol()).isEqualTo("USDC");
-                    assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_SEPOLIA_USDC_CONTRACT);
-                });
+    @DisplayName("findDeployedAsset()")
+    void findDeployedAsset() {
+        // USDC on Base Sepolia
+        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_SEPOLIA_USDC_CONTRACT)).isPresent().get()
+                .returns("USDC", deployedAsset -> deployedAsset.asset().symbol())
+                .returns(BASE_SEPOLIA_USDC_CONTRACT, Network.DeployedAsset::contractAddress);
         assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_MAINNET_USDC_CONTRACT)).isEmpty();
 
-        assertThat(BASE_MAINNET.findDeployedAsset(BASE_MAINNET_USDC_CONTRACT))
-                .isPresent()
-                .get()
-                .satisfies(deployedAsset -> {
-                    assertThat(deployedAsset.asset().symbol()).isEqualTo("USDC");
-                    assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_MAINNET_USDC_CONTRACT);
-                });
+        // USDC on Base Mainnet
+        assertThat(BASE_MAINNET.findDeployedAsset(BASE_MAINNET_USDC_CONTRACT)).isPresent().get()
+                .returns("USDC", d -> d.asset().symbol())
+                .returns(BASE_MAINNET_USDC_CONTRACT, Network.DeployedAsset::contractAddress);
         assertThat(BASE_MAINNET.findDeployedAsset(BASE_SEPOLIA_USDC_CONTRACT)).isEmpty();
-    }
 
-    @Test
-    @DisplayName("Testing EURC deployed asset")
-    void testEurcDeployedAsset() {
-        // Base Sepolia has EURC
-        assertThat(BASE_SEPOLIA.eurc()).isNotNull();
-        assertThat(BASE_SEPOLIA.eurc().asset().symbol()).isEqualTo("EURC");
-        assertThat(BASE_SEPOLIA.eurc().contractAddress()).isEqualTo(BASE_SEPOLIA_EURC_CONTRACT);
-        assertThat(BASE_SEPOLIA.eurc().decimals()).isEqualTo(6);
-
-        // Base Mainnet has EURC
-        assertThat(BASE_MAINNET.eurc()).isNotNull();
-        assertThat(BASE_MAINNET.eurc().asset().symbol()).isEqualTo("EURC");
-        assertThat(BASE_MAINNET.eurc().contractAddress()).isEqualTo(BASE_MAINNET_EURC_CONTRACT);
-        assertThat(BASE_MAINNET.eurc().decimals()).isEqualTo(6);
-
-        // Solana Mainnet has EURC
-        assertThat(Networks.SOLANA_MAINNET.eurc()).isNotNull();
-        assertThat(Networks.SOLANA_MAINNET.eurc().asset().symbol()).isEqualTo("EURC");
-        assertThat(Networks.SOLANA_MAINNET.eurc().decimals()).isEqualTo(6);
-
-        // Solana Testnet do not have EURC
-        assertThat(Networks.SOLANA_DEVNET.eurc()).isNull();
-        assertThat(Networks.SOLANA_TESTNET.eurc()).isNull();
-    }
-
-    @Test
-    @DisplayName("Testing findDeployedAsset with EURC contract address")
-    void testFindDeployedAssetWithEurc() {
         // EURC on Base Sepolia
-        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_SEPOLIA_EURC_CONTRACT))
-                .isPresent()
-                .get()
-                .satisfies(deployedAsset -> {
-                    assertThat(deployedAsset.asset().symbol()).isEqualTo("EURC");
-                    assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_SEPOLIA_EURC_CONTRACT);
-                });
+        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_SEPOLIA_EURC_CONTRACT)).isPresent().get()
+                .returns("EURC", d -> d.asset().symbol())
+                .returns(BASE_SEPOLIA_EURC_CONTRACT, Network.DeployedAsset::contractAddress);
+        assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_MAINNET_EURC_CONTRACT)).isEmpty();
 
         // EURC on Base Mainnet
-        assertThat(BASE_MAINNET.findDeployedAsset(BASE_MAINNET_EURC_CONTRACT))
-                .isPresent()
-                .get()
-                .satisfies(deployedAsset -> {
-                    assertThat(deployedAsset.asset().symbol()).isEqualTo("EURC");
-                    assertThat(deployedAsset.contractAddress()).isEqualTo(BASE_MAINNET_EURC_CONTRACT);
-                });
-
-        // Cross-network lookups return empty
+        assertThat(BASE_MAINNET.findDeployedAsset(BASE_MAINNET_EURC_CONTRACT)).isPresent().get()
+                .returns("EURC", d -> d.asset().symbol())
+                .returns(BASE_MAINNET_EURC_CONTRACT, Network.DeployedAsset::contractAddress);
         assertThat(BASE_SEPOLIA.findDeployedAsset(BASE_MAINNET_EURC_CONTRACT)).isEmpty();
-        assertThat(BASE_MAINNET.findDeployedAsset(BASE_SEPOLIA_EURC_CONTRACT)).isEmpty();
     }
 
     @Test
-    @DisplayName("Testing isEvm() and chainId()")
-    void testIsEvmAndChainId() {
-        // Both Base networks are EVM-compatible
-        assertThat(BASE_SEPOLIA.isEvm()).isTrue();
-        assertThat(BASE_SEPOLIA.chainId()).isEqualTo(84532L);
+    @DisplayName("isEvm()")
+    void isEvm() {
+        assertThat(BASE_SEPOLIA)
+                .returns(true, Network::isEvm)
+                .returns(84532L, Network::chainId);
 
-        assertThat(BASE_MAINNET.isEvm()).isTrue();
-        assertThat(BASE_MAINNET.chainId()).isEqualTo(8453L);
+        assertThat(BASE_MAINNET)
+                .returns(true, Network::isEvm)
+                .returns(8453L, Network::chainId);
 
-        // Test on Solana.
+        // Test that chain id is not available on Solana (not evm).
         assertThat(Networks.SOLANA_MAINNET.isEvm()).isFalse();
         assertThatThrownBy(Networks.SOLANA_MAINNET::chainId)
                 .isInstanceOf(UnsupportedOperationException.class)

@@ -5,21 +5,22 @@ import org.junit.jupiter.api.Test;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
 import tech.mogami.commons.exception.InvalidX402PaymentRequiredException;
 import tech.mogami.commons.payment.PaymentRequired;
+import tech.mogami.commons.payment.PaymentRequirements;
+import tech.mogami.commons.payment.PaymentResource;
 import tech.mogami.commons.test.BaseMogamiTest;
 import tech.mogami.commons.util.X402HeaderUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.mogami.commons.constant.X402Constants.X402_PAYMENT_REQUIRED_HEADER;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
-import static tech.mogami.commons.constant.version.X402Versions.X402_SUPPORTED_VERSION_BY_MOGAMI;
+import static tech.mogami.commons.constant.version.X402Versions.V2;
 import static tech.mogami.commons.payment.schemes.Schemes.EXACT_SCHEME;
 import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
 import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 
-@DisplayName("x402 header PaymentRequired Util Tests")
+@DisplayName("x402 header PaymentRequired Util tests")
 public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {
 
     @Test
@@ -34,35 +35,26 @@ public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {
                 .hasMessageContaining("Invalid x402 payment requirements");
 
         assertThat(X402HeaderUtil.decodePaymentRequired(getSampleEncodedPaymentRequired())).isNotNull()
-                .satisfies(p -> {
-                    assertTrue(p.getVersion().isPresent());
-                    assertThat(p.getVersion().get()).isEqualTo(X402_SUPPORTED_VERSION_BY_MOGAMI);
-                    assertThat(p.error()).isEqualTo("PAYMENT-SIGNATURE header is required");
-                    assertThat(p.resource())
-                            .satisfies(paymentResource -> {
-                                assertThat(paymentResource.url()).contains("https://api.example.com/premium-data");
-                                assertThat(paymentResource.description()).contains("Access to premium market data");
-                                assertThat(paymentResource.mimeType()).isEqualTo("application/json");
-                            });
-                    assertThat(p.accepts())
+                .satisfies(paymentRequired -> {
+                    assertThat(paymentRequired.getVersion()).hasValue(V2);
+                    assertThat(paymentRequired.error()).isEqualTo("PAYMENT-SIGNATURE header is required");
+                    assertThat(paymentRequired.resource())
+                            .returns("https://api.example.com/premium-data", PaymentResource::url)
+                            .returns("Access to premium market data", PaymentResource::description)
+                            .returns("application/json", PaymentResource::mimeType);
+                    assertThat(paymentRequired.accepts())
                             .hasSize(1)
-                            .satisfies(accepts -> assertThat(accepts.getFirst())
-                                    .satisfies(accept -> {
-                                        assertThat(accept.scheme()).isEqualTo(EXACT_SCHEME.name());
-                                        assertThat(accept.network()).isEqualTo(BASE_SEPOLIA.networkId());
-                                        assertThat(accept.amount()).isEqualTo("10000");
-                                        assertThat(accept.asset()).isEqualTo(BASE_SEPOLIA_USDC_CONTRACT);
-                                        assertThat(accept.payTo()).isEqualTo("0x209693Bc6afc0C5328bA36FaF03C514EF312287C");
-                                        assertThat(accept.maxTimeoutSeconds()).isEqualTo(60);
-                                        assertThat(accept.getExtra(EXACT_SCHEME_PARAMETER_NAME))
-                                                .isPresent()
-                                                .get()
-                                                .isEqualTo("USDC");
-                                        assertThat(accept.getExtra(EXACT_SCHEME_PARAMETER_VERSION))
-                                                .isPresent()
-                                                .get()
-                                                .isEqualTo("2");
-                                    }));
+                            .first()
+                            .returns(EXACT_SCHEME.name(), PaymentRequirements::scheme)
+                            .returns(BASE_SEPOLIA.networkId(), PaymentRequirements::network)
+                            .returns("10000", PaymentRequirements::amount)
+                            .returns(BASE_SEPOLIA_USDC_CONTRACT, PaymentRequirements::asset)
+                            .returns("0x209693Bc6afc0C5328bA36FaF03C514EF312287C", PaymentRequirements::payTo)
+                            .returns(60, PaymentRequirements::maxTimeoutSeconds)
+                            .satisfies(paymentRequirements -> {
+                                assertThat(paymentRequirements.getExtra(EXACT_SCHEME_PARAMETER_NAME)).hasValue("USDC");
+                                assertThat(paymentRequirements.getExtra(EXACT_SCHEME_PARAMETER_VERSION)).hasValue("2");
+                            });
                 });
     }
 
@@ -74,12 +66,12 @@ public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {
                 .isInstanceOf(InvalidX402PaymentRequiredException.class)
                 .hasMessageContaining("Invalid x402 payment requirements");
 
-        // Valid PaymentRequired object ================================================================================
+        // We decode a valid payment ===================================================================================
         PaymentRequired original = X402HeaderUtil.decodePaymentRequired(getSampleEncodedPaymentRequired());
         String encoded = X402HeaderUtil.encodePaymentRequired(original);
         assertThat(encoded).isNotBlank();
 
-        // round-trip safety ===========================================================================================
+        // We encode it and check if they are the same =================================================================
         PaymentRequired parsed = X402HeaderUtil.decodePaymentRequired(encoded);
         assertThat(parsed).isEqualTo(original);
     }

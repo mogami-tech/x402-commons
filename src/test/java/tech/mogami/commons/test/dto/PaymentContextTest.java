@@ -14,14 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.constant.version.X402Versions.V2;
 
-@DisplayName("PaymentContext DTO Test")
+@DisplayName("PaymentContext interface tests")
 public class PaymentContextTest {
 
     @Test
     @DisplayName("getVersion()")
-    void testGetVersion() {
+    void getVersion() {
         // No payload.
-        PaymentContext p = VerificationRequest.builder().build();
+        PaymentContext p = VerificationRequest.builder()
+                .build();
         assertThat(p.getVersion()).isEmpty();
 
         // With payload but no version.
@@ -40,8 +41,7 @@ public class PaymentContextTest {
         p = VerificationRequest.builder()
                 .paymentPayload(PaymentPayload.builder().x402Version(2).build())
                 .build();
-        assertThat(p.getVersion()).isPresent();
-        assertThat(p.getVersion().get()).isEqualTo(V2);
+        assertThat(p.getVersion()).hasValue(V2);
         assertThat(p.getPaymentId()).isEmpty();
         assertThat(p.getFrom()).isEmpty();
         assertThat(p.getTo()).isEmpty();
@@ -52,9 +52,10 @@ public class PaymentContextTest {
 
     @Test
     @DisplayName("getPaymentId()")
-    void testGetPaymentId() {
+    void getPaymentId() {
         // No payload.
-        PaymentContext p = VerificationRequest.builder().build();
+        PaymentContext p = VerificationRequest.builder()
+                .build();
         assertThat(p.getPaymentId()).isEmpty();
 
         // With payload but no nonce.
@@ -75,8 +76,7 @@ public class PaymentContextTest {
                         .build())
                 .build();
         assertThat(p.getVersion()).isEmpty();
-        assertThat(p.getPaymentId()).isPresent();
-        assertThat(p.getPaymentId().get()).isEqualTo("payment-id-123");
+        assertThat(p.getPaymentId()).hasValue("payment-id-123");
         assertThat(p.getFrom()).isEmpty();
         assertThat(p.getTo()).isEmpty();
         assertThat(p.getAssetAmount()).isEmpty();
@@ -86,9 +86,10 @@ public class PaymentContextTest {
 
     @Test
     @DisplayName("getFrom()")
-    void testGetFrom() {
+    void getFrom() {
         // No payload.
-        PaymentContext p = VerificationRequest.builder().build();
+        PaymentContext p = VerificationRequest.builder()
+                .build();
         assertThat(p.getFrom()).isEmpty();
 
         // With payload but no from address.
@@ -110,8 +111,7 @@ public class PaymentContextTest {
                 .build();
         assertThat(p.getVersion()).isEmpty();
         assertThat(p.getPaymentId()).isEmpty();
-        assertThat(p.getFrom()).isPresent();
-        assertThat(p.getFrom().get()).isEqualTo("0xFromAddress");
+        assertThat(p.getFrom()).hasValue("0xFromAddress");
         assertThat(p.getTo()).isEmpty();
         assertThat(p.getAssetAmount()).isEmpty();
         assertThat(p.getAssetContract()).isEmpty();
@@ -120,9 +120,10 @@ public class PaymentContextTest {
 
     @Test
     @DisplayName("getTo()")
-    void testGetTo() {
+    void getTo() {
         // No payload.
-        PaymentContext p = VerificationRequest.builder().build();
+        PaymentContext p = VerificationRequest.builder()
+                .build();
         assertThat(p.getTo()).isEmpty();
 
         // With payload but no to address.
@@ -145,8 +146,7 @@ public class PaymentContextTest {
         assertThat(p.getVersion()).isEmpty();
         assertThat(p.getPaymentId()).isEmpty();
         assertThat(p.getFrom()).isEmpty();
-        assertThat(p.getTo()).isPresent();
-        assertThat(p.getTo().get()).isEqualTo("0xToAddress");
+        assertThat(p.getTo()).hasValue("0xToAddress");
         assertThat(p.getAssetAmount()).isEmpty();
         assertThat(p.getAssetContract()).isEmpty();
         assertThat(p.getNetwork()).isEmpty();
@@ -154,9 +154,10 @@ public class PaymentContextTest {
 
     @Test
     @DisplayName("getAssetAmount()")
-    void testGetAssetAmount() {
+    void getAssetAmount() {
         // No payload.
-        PaymentContext p = VerificationRequest.builder().build();
+        PaymentContext p = VerificationRequest.builder()
+                .build();
         assertThat(p.getAssetAmount()).isEmpty();
 
         // With payload but no amount.
@@ -180,17 +181,17 @@ public class PaymentContextTest {
         assertThat(p.getPaymentId()).isEmpty();
         assertThat(p.getFrom()).isEmpty();
         assertThat(p.getTo()).isEmpty();
-        assertThat(p.getAssetAmount()).isPresent();
-        assertThat(p.getAssetAmount().get().compareTo(BigInteger.valueOf(1000L))).isZero();
+        assertThat(p.getAssetAmount()).contains(BigInteger.valueOf(1000));
         assertThat(p.getAssetContract()).isEmpty();
         assertThat(p.getNetwork()).isEmpty();
     }
 
     @Test
     @DisplayName("getAssetContract()")
-    public void testGetAssetContract() {
+    public void getAssetContract() {
         // No payload.
-        PaymentContext p = VerificationRequest.builder().build();
+        PaymentContext p = VerificationRequest.builder()
+                .build();
         assertThat(p.getAssetContract()).isEmpty();
 
         // With payload but no asset contract.
@@ -216,21 +217,22 @@ public class PaymentContextTest {
         assertThat(p.getFrom()).isEmpty();
         assertThat(p.getTo()).isEmpty();
         assertThat(p.getAssetAmount()).isEmpty();
-        assertThat(p.getAssetContract()).isPresent();
-        assertThat(p.getAssetContract().get()).isEqualTo("0xAssetContract");
+        assertThat(p.getAssetContract()).hasValue("0xAssetContract");
         assertThat(p.getNetwork()).isEmpty();
     }
 
     @Test
-    @DisplayName("getNetwork")
-    void testGetNetwork() {
+    @DisplayName("getNetwork()")
+    void getNetwork() {
         // No payload.
-        PaymentContext p = VerificationRequest.builder().build();
+        PaymentContext p = VerificationRequest.builder()
+                .build();
         assertThat(p.getNetwork()).isEmpty();
 
         // With payload but no network.
         p = VerificationRequest.builder()
-                .paymentPayload(PaymentPayload.builder().build())
+                .paymentPayload(PaymentPayload.builder()
+                        .build())
                 .build();
         assertThat(p.getNetwork()).isEmpty();
 
@@ -252,8 +254,7 @@ public class PaymentContextTest {
         assertThat(p.getTo()).isEmpty();
         assertThat(p.getAssetAmount()).isEmpty();
         assertThat(p.getAssetContract()).isEmpty();
-        assertThat(p.getNetwork()).isPresent();
-        assertThat(p.getNetwork().get()).isEqualTo(BASE_SEPOLIA);
+        assertThat(p.getNetwork()).hasValue(BASE_SEPOLIA);
     }
 
 }

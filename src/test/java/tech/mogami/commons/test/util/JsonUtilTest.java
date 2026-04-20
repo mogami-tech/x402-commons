@@ -6,15 +6,14 @@ import tech.mogami.commons.api.facilitator.verify.VerificationResponse;
 import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.util.JsonUtil;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("JSON Util Tests")
+@DisplayName("JSON Util tests")
 public class JsonUtilTest {
 
     @Test
     @DisplayName("isValidJson()")
-    public void testIsValidJson() {
+    public void isValidJson() {
         var json = """
                 {
                   "isValid": false,
@@ -22,8 +21,8 @@ public class JsonUtilTest {
                   "payer": "0xf6b42050A71Ca13f842eDa53C7d31B7C1BD94F6E"
                 }
                 """;
-        assertFalse(JsonUtil.isValidJson(json, PaymentPayload.class));
-        assertTrue(JsonUtil.isValidJson(json, VerificationResponse.class));
+        assertThat(JsonUtil.isValidJson(json, PaymentPayload.class)).isFalse();
+        assertThat(JsonUtil.isValidJson(json, VerificationResponse.class)).isTrue();
     }
 
 }

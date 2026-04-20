@@ -37,3 +37,6 @@ replay_pid*
 src/main/solidity/cache
 src/main/solidity/lib
 src/main/solidity/out
+
+# Review file
+review.md

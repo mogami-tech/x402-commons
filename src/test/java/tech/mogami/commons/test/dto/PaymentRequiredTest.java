@@ -14,31 +14,39 @@ public class PaymentRequiredTest {
     @Test
     @DisplayName("getVersion()")
     void getVersion() {
-        assertThat(PaymentRequired.builder().build().getVersion())
-                .isEmpty();
-        assertThat(PaymentRequired.builder().x402Version(null).build().getVersion())
-                .isEmpty();
-        assertThat(PaymentRequired.builder().x402Version(2).build().getVersion())
-                .isPresent()
-                .get()
-                .isEqualTo(V2);
+        assertThat(PaymentRequired.builder()
+                .build().getVersion()).isEmpty();
+
+        assertThat(PaymentRequired.builder()
+                .x402Version(null)
+                .build().getVersion()).isEmpty();
+
+        assertThat(PaymentRequired.builder()
+                .x402Version(2)
+                .build().getVersion()).hasValue(V2);
     }
 
     @Test
     @DisplayName("isSupportedVersion()")
     void isSupportedVersion() {
-        assertThat(PaymentRequired.builder().build().isSupportedVersion())
-                .isFalse();
-        assertThat(PaymentRequired.builder().x402Version(null).build().isSupportedVersion())
-                .isFalse();
-        assertThat(PaymentRequired.builder().x402Version(1).build().isSupportedVersion())
-                .isFalse();
-        assertThat(PaymentRequired.builder().x402Version(2).build().isSupportedVersion())
-                .isTrue();
+        assertThat(PaymentRequired.builder()
+                .build().isSupportedVersion()).isFalse();
+
+        assertThat(PaymentRequired.builder()
+                .x402Version(null)
+                .build().isSupportedVersion()).isFalse();
+
+        assertThat(PaymentRequired.builder()
+                .x402Version(1)
+                .build().isSupportedVersion()).isFalse();
+
+        assertThat(PaymentRequired.builder()
+                .x402Version(2)
+                .build().isSupportedVersion()).isTrue();
     }
 
     @Test
-    @DisplayName("Validation")
+    @DisplayName("Validation should work")
     void validation() {
         assertThat(ValidationUtil.findViolations(PaymentRequired.builder().build()))
                 .hasSize(3)

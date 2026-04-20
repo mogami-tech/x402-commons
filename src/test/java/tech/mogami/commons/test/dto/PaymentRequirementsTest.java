@@ -14,7 +14,7 @@ public class PaymentRequirementsTest {
 
     @Test
     @DisplayName("isCompatibleWith() when payment satisfies requirements")
-    void should_be_compatible_when_payment_satisfies_requirements() {
+    void ValidRequirementsForIsCompatibleWith() {
         PaymentRequirements required = PaymentRequirements.builder()
                 .scheme("exact")
                 .network("eip155:84532")
@@ -30,7 +30,7 @@ public class PaymentRequirementsTest {
                 .network("eip155:84532")
                 .amount("1500") // more than required
                 .asset("0xabcdef") // case-insensitive
-                .payTo("0xpayee")
+                .payTo("0xpayee") // case-insensitive
                 .maxTimeoutSeconds(30) // shorter timeout
                 .extra(Map.of("name", "USDC", "version", "2", "foo", "bar"))
                 .build();
@@ -40,7 +40,7 @@ public class PaymentRequirementsTest {
 
     @Test
     @DisplayName("isCompatibleWith() when amount is too low")
-    void should_not_be_compatible_when_amount_is_too_low() {
+    void invalidAmountForIsCompatibleWith() {
         PaymentRequirements required = PaymentRequirements.builder()
                 .scheme("exact")
                 .network("eip155:84532")
@@ -64,7 +64,7 @@ public class PaymentRequirementsTest {
 
     @Test
     @DisplayName("isCompatibleWith() when other is null")
-    void should_not_be_compatible_when_other_is_null() {
+    void nullValueForIsCompatibleWith() {
         PaymentRequirements required = PaymentRequirements.builder()
                 .scheme("exact")
                 .network("eip155:84532")
@@ -79,7 +79,7 @@ public class PaymentRequirementsTest {
 
     @Test
     @DisplayName("isCompatibleWith() when extra is missing")
-    void should_not_be_compatible_when_required_extra_is_missing() {
+    void extraMissingForIsCompatibleWith() {
         PaymentRequirements required = PaymentRequirements.builder()
                 .scheme("exact")
                 .network("eip155:84532")
