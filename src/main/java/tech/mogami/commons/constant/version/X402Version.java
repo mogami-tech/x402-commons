@@ -10,7 +10,8 @@ import lombok.Builder;
 @Builder
 @SuppressWarnings("unused")
 public record X402Version(
-        int version) {
+        int version
+) {
 
     /**
      * Get the canonical string representation of the version.
@@ -22,7 +23,7 @@ public record X402Version(
     }
 
     /**
-     * Get the label representation of the version.
+     * Get the label representation of the version (ex : V2).
      *
      * @return the label representation
      */

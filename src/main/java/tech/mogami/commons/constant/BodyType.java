@@ -19,10 +19,20 @@ public enum BodyType {
     /** The string value associated with the enum constant. */
     private final String value;
 
+    /**
+     * Constructor.
+     *
+     * @param newValue value to set for the enum constant
+     */
     BodyType(final String newValue) {
         this.value = newValue;
     }
 
+    /**
+     * Return value.
+     *
+     * @return value of the enum constant
+     */
     @JsonValue
     public String value() {
         return value;

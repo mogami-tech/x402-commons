@@ -6,13 +6,13 @@ package tech.mogami.commons.constant;
 @SuppressWarnings("unused")
 public enum PaymentStatus {
 
-    /** Payment getStatus indicating the payment is pending, completed, or failed. */
+    /** Payment Status indicating the payment is pending. */
     PENDING,
 
-    /** Payment getStatus indicating the payment has been successfully completed. */
+    /** Payment status indicating the payment has been successfully completed. */
     COMPLETED,
 
-    /** Payment getStatus indicating the payment has failed. */
+    /** Payment status indicating the payment has failed. */
     FAILED
 
 }

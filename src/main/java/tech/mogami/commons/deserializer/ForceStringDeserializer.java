@@ -19,7 +19,7 @@ public final class ForceStringDeserializer extends JsonDeserializer<String> {
         if (node.isTextual()) {
             return node.asText();
         }
-        return node.toString(); // convert object or array to JSON string
+        return node.toString();
     }
 
 }

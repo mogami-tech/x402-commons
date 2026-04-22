@@ -27,13 +27,6 @@ public enum HttpMethod {
     HEAD;
 
     /** Allowed HTTP methods. */
-    public static final Set<HttpMethod> ALLOWED_METHODS = Set.of(
-            HttpMethod.GET,
-            HttpMethod.HEAD,
-            HttpMethod.DELETE,
-            HttpMethod.POST,
-            HttpMethod.PUT,
-            HttpMethod.PATCH
-    );
+    public static final Set<HttpMethod> ALLOWED_METHODS = Set.of(GET, HEAD, DELETE, POST, PUT, PATCH);
 
 }

@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Existing {@link X402Version}.
+ * List of all the {@link X402Version}.
  */
 @UtilityClass
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
@@ -32,9 +32,6 @@ public class X402Versions {
     /** List of all X402 versions. */
     public static final List<X402Version> ALL_X402_VERSIONS = List.of(V1, V2);
 
-    /** List of X402 supported version. */
-    public static final List<X402Version> X402_SUPPORTED_VERSIONS = List.of(V2);
-
     /** Map of all X402 versions by version number. */
     private static final Map<Integer, X402Version> X402_VERSIONS_BY_VERSION = ALL_X402_VERSIONS.stream()
             .collect(Collectors.toUnmodifiableMap(
@@ -42,8 +39,11 @@ public class X402Versions {
                     Function.identity()
             ));
 
+    /** List of X402 supported version. */
+    public static final List<X402Version> X402_SUPPORTED_VERSIONS = List.of(V2);
+
     /** Map of X402 versions by version number. */
-    private static final Map<Integer, X402Version> SUPPORTED_VERSIONS_BY_VERSION = X402_SUPPORTED_VERSIONS.stream()
+    private static final Map<Integer, X402Version> X402_SUPPORTED_VERSIONS_BY_VERSION = X402_SUPPORTED_VERSIONS.stream()
             .collect(Collectors.toUnmodifiableMap(
                     X402Version::version,
                     Function.identity()

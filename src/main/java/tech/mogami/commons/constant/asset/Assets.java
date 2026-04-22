@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import static tech.mogami.commons.constant.asset.AssetType.STABLECOIN;
 
 /**
- * Existing {@link Asset}.
+ * List of all the {@link Asset}.
  */
 @UtilityClass
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
@@ -44,7 +44,7 @@ public class Assets {
             ));
 
     /** Map of assets by symbol. */
-    public static final Map<String, Asset> ASSETS_BY_SYMBOL = ALL_ASSETS.stream()
+    private static final Map<String, Asset> ASSETS_BY_SYMBOL = ALL_ASSETS.stream()
             .collect(Collectors.toUnmodifiableMap(
                     asset -> StringUtils.lowerCase(asset.symbol()),
                     Function.identity()

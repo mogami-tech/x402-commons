@@ -18,9 +18,13 @@ import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_M
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_EURC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.SolanaContracts.SOLANA_DEVNET_EURC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.SolanaContracts.SOLANA_DEVNET_USDC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.SolanaContracts.SOLANA_MAINNET_EURC_CONTRACT;
+import static tech.mogami.commons.constant.network.contract.SolanaContracts.SOLANA_MAINNET_USDC_CONTRACT;
 
 /**
- * Existing {@link Network}.
+ * List of all the {@link Network}.
  */
 @UtilityClass
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused", "magicnumber"})
@@ -81,7 +85,13 @@ public class Networks {
             .usdc(Network.DeployedAsset.builder()
                     .asset(USDC)
                     .displayName("USDC")
-                    .contractAddress("7kbnvuGBxxj8AG9qp8Scn56muWGaRaFqxg1FsRp3PaFT")
+                    .contractAddress(SOLANA_DEVNET_USDC_CONTRACT)
+                    .decimals(6)
+                    .build())
+            .eurc(Network.DeployedAsset.builder()
+                    .asset(EURC)
+                    .displayName("Euro Coin")
+                    .contractAddress(SOLANA_DEVNET_EURC_CONTRACT)
                     .decimals(6)
                     .build())
             .build();
@@ -94,12 +104,6 @@ public class Networks {
             .networkReference("8E9rvCKLFQia2Y35HXjjpWzj8weVo44K")
             .isTestnet(true)
             .defaultRpcUrl("https://api.testnet.solana.com")
-            .usdc(Network.DeployedAsset.builder()
-                    .asset(USDC)
-                    .displayName("USDC")
-                    .contractAddress("4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU")
-                    .decimals(6)
-                    .build())
             .build();
 
     /** Solana mainnet network. */
@@ -113,13 +117,13 @@ public class Networks {
             .usdc(Network.DeployedAsset.builder()
                     .asset(USDC)
                     .displayName("USDC")
-                    .contractAddress("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v")
+                    .contractAddress(SOLANA_MAINNET_USDC_CONTRACT)
                     .decimals(6)
                     .build())
             .eurc(Network.DeployedAsset.builder()
                     .asset(EURC)
                     .displayName("Euro Coin")
-                    .contractAddress("HzwqbKZw8HxMN6bF2yFZNrht3c2iXXzpKcFu7uBEDKtr")
+                    .contractAddress(SOLANA_MAINNET_EURC_CONTRACT)
                     .decimals(6)
                     .build())
             .build();

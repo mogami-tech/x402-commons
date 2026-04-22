@@ -1,6 +1,5 @@
 package tech.mogami.commons.constant;
 
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 
@@ -10,7 +9,6 @@ import java.util.Optional;
 /**
  * The x402 protocol defines standard error codes that may be returned by facilitators or resource servers.
  */
-@Getter
 public enum X402Error {
 
     /** Client does not have enough tokens to complete the payment. */
@@ -127,26 +125,6 @@ public enum X402Error {
                 .map(StringUtils::lowerCase)
                 .map(ALL_X402_ERRORS::get)
                 .orElse(UNKNOWN);
-    }
-
-    /**
-     * Getter code.
-     *
-     * @return code
-     */
-    @Deprecated
-    public final String getCode() {
-        return code;
-    }
-
-    /**
-     * Getter defaultMessage.
-     *
-     * @return defaultMessage
-     */
-    @Deprecated
-    public final String getDefaultMessage() {
-        return defaultMessage;
     }
 
     /**

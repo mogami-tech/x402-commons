@@ -1,5 +1,5 @@
 /**
- * Constants used across the application.
+ * Constants used across the applications.
  */
 @NullMarked
 package tech.mogami.commons.constant;

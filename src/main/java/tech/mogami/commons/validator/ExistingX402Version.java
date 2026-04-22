@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * X402Version annotation.
+ * x402 version annotation.
  */
 @Documented
 @Constraint(validatedBy = ExistingX402VersionValidator.class)

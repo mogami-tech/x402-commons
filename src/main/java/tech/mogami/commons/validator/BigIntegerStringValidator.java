@@ -16,6 +16,7 @@ public class BigIntegerStringValidator implements ConstraintValidator<BigInteger
         if (StringUtils.isBlank(value)) {
             return true;
         }
+
         try {
             new BigInteger(StringUtils.trim(value));
             return true;

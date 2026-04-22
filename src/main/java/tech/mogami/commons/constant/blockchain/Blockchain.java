@@ -2,9 +2,10 @@ package tech.mogami.commons.constant.blockchain;
 
 
 import lombok.Builder;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * Represents a blockchain.
+ * Blockchain.
  *
  * @param namespace   the namespace of the blockchain (example: "eip155" for Ethereum)
  * @param name        the name of the blockchain (example: "Ethereum" or "bitcoin")
@@ -27,10 +28,10 @@ public record Blockchain(
      * @throws IllegalArgumentException if namespace or name is null or blank
      */
     public Blockchain {
-        if (namespace == null || namespace.isBlank()) {
+        if (StringUtils.isBlank(namespace)) {
             throw new IllegalArgumentException("Blockchain namespace can't be null or blank");
         }
-        if (name == null || name.isBlank()) {
+        if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("Blockchain name can't be null or blank");
         }
     }
