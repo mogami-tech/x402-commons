@@ -11,7 +11,7 @@ import tech.mogami.commons.payment.PaymentRequired;
 import java.util.Set;
 
 /**
- * Utility class to treat X-402 headers.
+ * Utility class to treat x402 headers.
  */
 @UtilityClass
 @SuppressWarnings({"HideUtilityClassConstructor", "unused"})

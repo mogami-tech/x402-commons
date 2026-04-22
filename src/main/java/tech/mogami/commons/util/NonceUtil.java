@@ -18,13 +18,13 @@ public class NonceUtil {
     /** Length of the nonce in bytes. */
     private static final int NONCE_LENGTH = 32;
 
-    /** Minimum length of nonce to be shortened. */
+    /** Number of characters to keep at the start of a nonce when shortening it. */
     private static final int NONCE_SHORTEN_PREFIX_LENGTH = 6;
 
-    /** Minimum length of nonce to be shortened. */
+    /** Number of characters to keep at the end of a nonce when shortening it. */
     private static final int NONCE_SHORTEN_SUFFIX_LENGTH = 4;
 
-    /** Secure random instance for generating nonce's. */
+    /** Secure random instance for generating nonce. */
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**
@@ -46,12 +46,11 @@ public class NonceUtil {
      */
     public static String shortenNonce(final String nonce) {
         if (StringUtils.length(nonce) > NONCE_SHORTEN_PREFIX_LENGTH + NONCE_SHORTEN_SUFFIX_LENGTH) {
-            return String.format("%s...%s",
-                    StringUtils.left(nonce, NONCE_SHORTEN_PREFIX_LENGTH),
-                    StringUtils.right(nonce, NONCE_SHORTEN_SUFFIX_LENGTH));
-        } else {
-            return nonce;
+            return StringUtils.left(nonce, NONCE_SHORTEN_PREFIX_LENGTH)
+                    + "..."
+                    + StringUtils.right(nonce, NONCE_SHORTEN_SUFFIX_LENGTH);
         }
+        return nonce;
     }
 
 }

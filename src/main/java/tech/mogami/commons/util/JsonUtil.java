@@ -53,7 +53,7 @@ public class JsonUtil {
      * @param <T>    the type of the object to return
      * @return the converted object of the specified type
      */
-    public <T> T convertValue(final Object object, final Class<T> type) {
+    public static <T> T convertValue(final Object object, final Class<T> type) {
         return MAPPER.convertValue(object, type);
     }
 
@@ -89,6 +89,7 @@ public class JsonUtil {
 
     /**
      * Format a JSON string to a pretty-printed version.
+     * If the json passed is not valid, the original string will be returned.
      *
      * @param json the JSON string to format
      * @return the formatted JSON string, or the original string if formatting fails
