@@ -18,6 +18,13 @@ public class ApiKeyUtil {
     /** Secure random. */
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
+    /** Reusable random string generator. */
+    private static final RandomStringGenerator GENERATOR = new RandomStringGenerator.Builder()
+            .usingRandom(SECURE_RANDOM::nextInt)
+            .withinRange('0', 'z')
+            .filteredBy(Character::isLetterOrDigit)
+            .get();
+
     /**
      * Generates a random API key with the default length.
      *
@@ -30,20 +37,15 @@ public class ApiKeyUtil {
     /**
      * Generates a random API key of the specified length.
      *
-     * @param length the length of the API key
+     * @param length the length of the API key (must be positive)
      * @return a randomly generated API key
+     * @throws IllegalArgumentException if length is not positive
      */
     public static String generateApiKey(final int length) {
         if (length <= 0) {
             throw new IllegalArgumentException("API key length must be positive, '" + length + "' is invalid");
         }
-
-        return new RandomStringGenerator.Builder()
-                .usingRandom(SECURE_RANDOM::nextInt)
-                .withinRange('0', 'z') // Covers letters, digits, and a few symbols
-                .filteredBy(Character::isLetterOrDigit)
-                .get()
-                .generate(length);
+        return GENERATOR.generate(length);
     }
 
 }

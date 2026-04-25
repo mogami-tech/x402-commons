@@ -9,6 +9,10 @@ import tech.mogami.commons.payment.PaymentPayload;
 import tech.mogami.commons.payment.PaymentRequired;
 
 import java.util.Set;
+import java.util.function.Function;
+
+import static tech.mogami.commons.constant.X402Constants.X402_PAYMENT_REQUIRED_HEADER;
+import static tech.mogami.commons.constant.X402Constants.X402_PAYMENT_RESPONSE_HEADER;
 
 /**
  * Utility class to treat x402 headers.
@@ -24,29 +28,13 @@ public class X402HeaderUtil {
      * @return The PaymentRequired.
      */
     public PaymentRequired decodePaymentRequired(final String encodedHeader) {
-        // We decode it.
-        final String decodedPaymentRequired;
-        try {
-            decodedPaymentRequired = Base64Util.decode(encodedHeader);
-        } catch (IllegalArgumentException e) {
-            throw new InvalidX402HeaderException("Invalid base64 payment-required header", e);
-        }
-
-        // We transform the encoded value into a PaymentRequired object.
-        final PaymentRequired paymentRequired;
-        try {
-            paymentRequired = JsonUtil.fromJson(decodedPaymentRequired, PaymentRequired.class);
-        } catch (final IllegalArgumentException e) {
-            throw new InvalidX402HeaderException("Invalid payment-required JSON payload", e);
-        }
-
-        // We validate the PaymentRequired object.
-        Set<ConstraintViolation<PaymentRequired>> violations = ValidationUtil.findViolations(paymentRequired);
-        if (!violations.isEmpty()) {
-            throw new InvalidX402PaymentRequiredException(violations);
-        }
-
-        return paymentRequired;
+        return decodeHeader(
+                encodedHeader,
+                "Invalid base64 " + X402_PAYMENT_REQUIRED_HEADER + " header",
+                PaymentRequired.class,
+                "Invalid payment-required JSON payload",
+                InvalidX402PaymentRequiredException::new
+        );
     }
 
     /**
@@ -56,22 +44,11 @@ public class X402HeaderUtil {
      * @return The encoded string.
      */
     public String encodePaymentRequired(final PaymentRequired paymentRequired) {
-        // Check violations.
-        Set<ConstraintViolation<PaymentRequired>> violations = ValidationUtil.findViolations(paymentRequired);
-        if (!violations.isEmpty()) {
-            throw new InvalidX402PaymentRequiredException(violations);
-        }
-
-        // Transform to JSON.
-        final String json;
-        try {
-            json = JsonUtil.toJson(paymentRequired);
-        } catch (RuntimeException e) {
-            throw new InvalidX402HeaderException("Unable to serialize payment-required payload", e);
-        }
-
-        // Return encoded in base64.
-        return Base64Util.encode(json);
+        return encodeHeader(
+                paymentRequired,
+                InvalidX402PaymentRequiredException::new,
+                "Unable to serialize payment-required payload"
+        );
     }
 
     /**
@@ -81,29 +58,13 @@ public class X402HeaderUtil {
      * @return The PaymentPayload.
      */
     public PaymentPayload decodePaymentPayload(final String encodedHeader) {
-        // We decode it.
-        final String decodedPaymentPayload;
-        try {
-            decodedPaymentPayload = Base64Util.decode(encodedHeader);
-        } catch (IllegalArgumentException e) {
-            throw new InvalidX402HeaderException("Invalid base64 payment payload header", e);
-        }
-
-        // We transform the encoded value into a PaymentPayload object.
-        final PaymentPayload paymentPayload;
-        try {
-            paymentPayload = JsonUtil.fromJson(decodedPaymentPayload, PaymentPayload.class);
-        } catch (final IllegalArgumentException e) {
-            throw new InvalidX402HeaderException("Invalid x402 payment payload", e);
-        }
-
-        // We validate the PaymentPayload object.
-        Set<ConstraintViolation<PaymentPayload>> violations = ValidationUtil.findViolations(paymentPayload);
-        if (!violations.isEmpty()) {
-            throw new InvalidX402HeaderException("Invalid payment payload object");
-        }
-
-        return paymentPayload;
+        return decodeHeader(
+                encodedHeader,
+                "Invalid base64 payment payload header",
+                PaymentPayload.class,
+                "Invalid x402 payment payload",
+                violations -> new InvalidX402HeaderException("Invalid payment payload object")
+        );
     }
 
     /**
@@ -113,22 +74,11 @@ public class X402HeaderUtil {
      * @return The encoded string.
      */
     public String encodePaymentPayload(final PaymentPayload paymentPayload) {
-        // Check violations.
-        Set<ConstraintViolation<PaymentPayload>> violations = ValidationUtil.findViolations(paymentPayload);
-        if (!violations.isEmpty()) {
-            throw new InvalidX402HeaderException("Invalid payment payload object");
-        }
-
-        // Transform to JSON.
-        final String json;
-        try {
-            json = JsonUtil.toJson(paymentPayload);
-        } catch (RuntimeException e) {
-            throw new InvalidX402HeaderException("Unable to serialize payment payload", e);
-        }
-
-        // Return encoded in base64.
-        return Base64Util.encode(json);
+        return encodeHeader(
+                paymentPayload,
+                violations -> new InvalidX402HeaderException("Invalid payment payload object"),
+                "Unable to serialize payment payload"
+        );
     }
 
     /**
@@ -138,28 +88,13 @@ public class X402HeaderUtil {
      * @return The SettlementResponse.
      */
     public SettlementResponse decodeSettlementResponse(final String encodedHeader) {
-        // We decode it.
-        final String decodedSettlementResponse;
-        try {
-            decodedSettlementResponse = Base64Util.decode(encodedHeader);
-        } catch (IllegalArgumentException e) {
-            throw new InvalidX402HeaderException("Invalid base64 payment-response header", e);
-        }
-
-        // We transform the encoded value into a SettlementResponse object.
-        final SettlementResponse settlementResponse;
-        try {
-            settlementResponse = JsonUtil.fromJson(decodedSettlementResponse, SettlementResponse.class);
-        } catch (final IllegalArgumentException e) {
-            throw new InvalidX402HeaderException("Invalid payment-response JSON payload", e);
-        }
-
-        Set<ConstraintViolation<SettlementResponse>> violations = ValidationUtil.findViolations(settlementResponse);
-        if (!violations.isEmpty()) {
-            throw new InvalidX402HeaderException("Invalid SettlementResponse object");
-        }
-
-        return settlementResponse;
+        return decodeHeader(
+                encodedHeader,
+                "Invalid base64 " + X402_PAYMENT_RESPONSE_HEADER + " header",
+                SettlementResponse.class,
+                "Invalid payment-response JSON payload",
+                violations -> new InvalidX402HeaderException("Invalid SettlementResponse object")
+        );
     }
 
     /**
@@ -169,21 +104,75 @@ public class X402HeaderUtil {
      * @return The encoded string.
      */
     public String encodeSettlementResponse(final SettlementResponse settlementResponse) {
-        // Check violations.
-        Set<ConstraintViolation<SettlementResponse>> violations = ValidationUtil.findViolations(settlementResponse);
-        if (!violations.isEmpty()) {
-            throw new InvalidX402HeaderException("Invalid SettlementResponse object");
+        return encodeHeader(
+                settlementResponse,
+                violations -> new InvalidX402HeaderException("Invalid SettlementResponse object"),
+                "Unable to serialize payment-response payload"
+        );
+    }
+
+    /**
+     * Generic helper that decodes a base64 header into a typed object and validates it.
+     *
+     * @param encodedHeader      the raw base64 header value
+     * @param base64ErrorMessage error message used when base64 decoding fails
+     * @param type               expected target type
+     * @param jsonErrorMessage   error message used when JSON deserialization fails
+     * @param onViolations       maps validation violations to a domain-specific runtime exception
+     * @param <T>                decoded and validated target type
+     * @return the decoded and validated object
+     */
+    private static <T> T decodeHeader(final String encodedHeader,
+                                      final String base64ErrorMessage,
+                                      final Class<T> type,
+                                      final String jsonErrorMessage,
+                                      final Function<Set<ConstraintViolation<T>>, RuntimeException> onViolations) {
+        final String decoded;
+        try {
+            decoded = Base64Util.decode(encodedHeader);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidX402HeaderException(base64ErrorMessage, e);
         }
 
-        // Transform to JSON.
+        final T object;
+        try {
+            object = JsonUtil.fromJson(decoded, type);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidX402HeaderException(jsonErrorMessage, e);
+        }
+
+        Set<ConstraintViolation<T>> violations = ValidationUtil.findViolations(object);
+        if (!violations.isEmpty()) {
+            throw onViolations.apply(violations);
+        }
+
+        return object;
+    }
+
+    /**
+     * Generic helper that validates, serializes, and base64-encodes a header payload.
+     *
+     * @param object                    object to validate and encode
+     * @param onViolations              maps validation violations to a domain-specific runtime exception
+     * @param serializationErrorMessage error message used when JSON serialization fails
+     * @param <T>                       payload type
+     * @return the base64-encoded JSON payload
+     */
+    private static <T> String encodeHeader(final T object,
+                                           final Function<Set<ConstraintViolation<T>>, RuntimeException> onViolations,
+                                           final String serializationErrorMessage) {
+        Set<ConstraintViolation<T>> violations = ValidationUtil.findViolations(object);
+        if (!violations.isEmpty()) {
+            throw onViolations.apply(violations);
+        }
+
         final String json;
         try {
-            json = JsonUtil.toJson(settlementResponse);
+            json = JsonUtil.toJson(object);
         } catch (RuntimeException e) {
-            throw new InvalidX402HeaderException("Unable to serialize payment-response payload", e);
+            throw new InvalidX402HeaderException(serializationErrorMessage, e);
         }
 
-        // Return encoded in base64.
         return Base64Util.encode(json);
     }
 

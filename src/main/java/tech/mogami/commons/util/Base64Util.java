@@ -32,7 +32,7 @@ public class Base64Util {
      * @return the decoded string
      */
     public static String decode(final String input) {
-        return new String(Base64.getDecoder().decode(input), UTF_8);
+        return new String(Base64.getMimeDecoder().decode(input), UTF_8);
     }
 
 }

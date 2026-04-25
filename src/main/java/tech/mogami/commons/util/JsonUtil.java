@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.experimental.UtilityClass;
 import org.jspecify.annotations.Nullable;
 
+import java.io.IOException;
+
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
@@ -52,9 +54,14 @@ public class JsonUtil {
      * @param type   the class type to convert the object to
      * @param <T>    the type of the object to return
      * @return the converted object of the specified type
+     * @throws IllegalArgumentException if conversion fails
      */
     public static <T> T convertValue(final Object object, final Class<T> type) {
-        return MAPPER.convertValue(object, type);
+        try {
+            return MAPPER.convertValue(object, type);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Error while converting value to " + type.getSimpleName() + ": " + e.getMessage(), e);
+        }
     }
 
     /**
@@ -89,10 +96,10 @@ public class JsonUtil {
 
     /**
      * Format a JSON string to a pretty-printed version.
-     * If the json passed is not valid, the original string will be returned.
      *
      * @param json the JSON string to format
-     * @return the formatted JSON string, or the original string if formatting fails
+     * @return the formatted JSON string
+     * @throws IllegalStateException if the input is not valid JSON or formatting fails
      */
     public static String toPrettyJson(@Nullable final String json) {
         try {
@@ -100,8 +107,8 @@ public class JsonUtil {
             return MAPPER
                     .writerWithDefaultPrettyPrinter()
                     .writeValueAsString(node);
-        } catch (Exception e) {
-            return json;
+        } catch (IOException e) {
+            throw new IllegalStateException("Error while writing pretty JSON: " + e.getMessage(), e);
         }
     }
 
