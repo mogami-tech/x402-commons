@@ -3,6 +3,7 @@ package tech.mogami.commons.validator;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.constant.network.Networks;
 
 /**
@@ -11,7 +12,7 @@ import tech.mogami.commons.constant.network.Networks;
 public class NetworkIdValidator implements ConstraintValidator<NetworkId, String> {
 
     @Override
-    public final boolean isValid(final String networkId, final ConstraintValidatorContext constraintValidatorContext) {
+    public final boolean isValid(@Nullable final String networkId, final ConstraintValidatorContext constraintValidatorContext) {
         if (StringUtils.isBlank(networkId)) {
             return true;
         }
