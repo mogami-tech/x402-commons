@@ -2,6 +2,7 @@ package tech.mogami.commons.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.constant.x402.X402Versions;
 
 import static tech.mogami.commons.constant.x402.X402Versions.X402_SUPPORTED_VERSIONS;
@@ -12,7 +13,7 @@ import static tech.mogami.commons.constant.x402.X402Versions.X402_SUPPORTED_VERS
 public class SupportedX402VersionValidator implements ConstraintValidator<SupportedX402Version, Integer> {
 
     @Override
-    public final boolean isValid(final Integer version, final ConstraintValidatorContext constraintValidatorContext) {
+    public final boolean isValid(@Nullable final Integer version, final ConstraintValidatorContext constraintValidatorContext) {
         return X402Versions.findByVersion(version)
                 .filter(X402_SUPPORTED_VERSIONS::contains)
                 .isPresent();
