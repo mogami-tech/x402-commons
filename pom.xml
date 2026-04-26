@@ -54,10 +54,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Boilerplate & Utils -->
-        <lombok.version>1.18.44</lombok.version>
+        <lombok.version>1.18.46</lombok.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <commons-text.version>1.15.0</commons-text.version>
-        <commons-codec.version>1.21.0</commons-codec.version>
+        <commons-codec.version>1.22.0</commons-codec.version>
         <commons-collections.version>4.5.0</commons-collections.version>
         <jspecify.version>1.0.0</jspecify.version>
 
