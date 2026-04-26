@@ -7,8 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import tech.mogami.commons.api.facilitator.PaymentContext;
-import tech.mogami.commons.payment.PaymentPayload;
-import tech.mogami.commons.payment.PaymentRequirements;
+import tech.mogami.commons.api.payment.PaymentPayload;
+import tech.mogami.commons.api.payment.PaymentRequirements;
 
 /**
  * Request to settle a payment.

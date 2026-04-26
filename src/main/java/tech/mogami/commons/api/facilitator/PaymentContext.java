@@ -2,11 +2,11 @@ package tech.mogami.commons.api.facilitator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
+import tech.mogami.commons.api.payment.PaymentPayload;
+import tech.mogami.commons.api.payment.PaymentRequirements;
 import tech.mogami.commons.constant.network.Network;
 import tech.mogami.commons.constant.network.Networks;
-import tech.mogami.commons.constant.version.X402Version;
-import tech.mogami.commons.payment.PaymentPayload;
-import tech.mogami.commons.payment.PaymentRequirements;
+import tech.mogami.commons.constant.x402.X402Version;
 
 import java.math.BigInteger;
 import java.util.Optional;

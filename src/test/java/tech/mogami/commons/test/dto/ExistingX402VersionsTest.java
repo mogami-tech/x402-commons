@@ -2,14 +2,14 @@ package tech.mogami.commons.test.dto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tech.mogami.commons.constant.version.X402Version;
-import tech.mogami.commons.constant.version.X402Versions;
+import tech.mogami.commons.constant.x402.X402Version;
+import tech.mogami.commons.constant.x402.X402Versions;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tech.mogami.commons.constant.version.X402Versions.ALL_X402_VERSIONS;
-import static tech.mogami.commons.constant.version.X402Versions.V1;
-import static tech.mogami.commons.constant.version.X402Versions.V2;
-import static tech.mogami.commons.constant.version.X402Versions.X402_SUPPORTED_VERSIONS;
+import static tech.mogami.commons.constant.x402.X402Versions.ALL_X402_VERSIONS;
+import static tech.mogami.commons.constant.x402.X402Versions.V1;
+import static tech.mogami.commons.constant.x402.X402Versions.V2;
+import static tech.mogami.commons.constant.x402.X402Versions.X402_SUPPORTED_VERSIONS;
 
 @DisplayName("X402 versions tests")
 public class ExistingX402VersionsTest {

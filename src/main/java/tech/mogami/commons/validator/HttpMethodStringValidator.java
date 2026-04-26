@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
 
-import static tech.mogami.commons.constant.HttpMethod.ALLOWED_METHODS;
+import static tech.mogami.commons.constant.util.HttpMethod.ALLOWED_METHODS;
 
 /**
  * Validator for the {@link HttpMethodString} annotation.

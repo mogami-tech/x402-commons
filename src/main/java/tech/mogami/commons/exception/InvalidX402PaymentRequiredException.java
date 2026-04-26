@@ -6,9 +6,13 @@ import lombok.Getter;
 import java.util.Set;
 
 /**
- * Exception thrown when the x402 payment is invalid.
+ * Exception thrown when a x402 payment is invalid.
  */
 public final class InvalidX402PaymentRequiredException extends X402Exception {
+
+    /** Serial version UID. */
+    @java.io.Serial
+    private static final long serialVersionUID = 1L;
 
     /** The set of constraint violations. */
     @Getter

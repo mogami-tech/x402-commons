@@ -1,10 +1,14 @@
 package tech.mogami.commons.exception;
 
 /**
- * Exception thrown when the x402 header is invalid.
+ * Exception thrown when a x402 header is invalid.
  */
 @SuppressWarnings("unused")
 public final class InvalidX402HeaderException extends X402Exception {
+
+    /** Serial version UID. */
+    @java.io.Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructor.

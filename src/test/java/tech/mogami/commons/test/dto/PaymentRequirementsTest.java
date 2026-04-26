@@ -2,7 +2,7 @@ package tech.mogami.commons.test.dto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tech.mogami.commons.payment.PaymentRequirements;
+import tech.mogami.commons.api.payment.PaymentRequirements;
 
 import java.util.Map;
 

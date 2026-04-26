@@ -2,12 +2,11 @@ package tech.mogami.commons.test.x402;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.web3j.protocol.core.methods.response.EthCompileSolidity;
-import tech.mogami.commons.constant.X402Error;
+import tech.mogami.commons.constant.x402.X402Error;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tech.mogami.commons.constant.X402Error.ALL_X402_ERRORS;
-import static tech.mogami.commons.constant.X402Error.INSUFFICIENT_FUNDS;
+import static tech.mogami.commons.constant.x402.X402Error.ALL_X402_ERRORS;
+import static tech.mogami.commons.constant.x402.X402Error.INSUFFICIENT_FUNDS;
 
 @DisplayName("X402 error tests")
 public class X402ErrorTest {

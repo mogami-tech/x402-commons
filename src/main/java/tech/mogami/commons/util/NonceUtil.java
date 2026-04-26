@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.security.SecureRandom;
 
-import static tech.mogami.commons.constant.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
+import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
 
 /**
  * Utility class for nonce operations.

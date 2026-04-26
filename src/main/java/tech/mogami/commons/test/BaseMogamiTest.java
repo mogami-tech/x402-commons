@@ -1,10 +1,10 @@
 package tech.mogami.commons.test;
 
 import tech.mogami.commons.api.facilitator.settle.SettlementResponse;
-import tech.mogami.commons.payment.PaymentPayload;
-import tech.mogami.commons.payment.PaymentRequirements;
-import tech.mogami.commons.payment.PaymentResource;
-import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
+import tech.mogami.commons.api.payment.PaymentPayload;
+import tech.mogami.commons.api.payment.PaymentRequirements;
+import tech.mogami.commons.api.payment.PaymentResource;
+import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
 
 import java.util.Map;
 

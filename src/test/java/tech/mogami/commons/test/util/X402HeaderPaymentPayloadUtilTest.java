@@ -2,18 +2,18 @@ package tech.mogami.commons.test.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tech.mogami.commons.api.payment.PaymentPayload;
+import tech.mogami.commons.api.payment.PaymentRequirements;
+import tech.mogami.commons.api.payment.PaymentResource;
+import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
-import tech.mogami.commons.payment.PaymentPayload;
-import tech.mogami.commons.payment.PaymentRequirements;
-import tech.mogami.commons.payment.PaymentResource;
-import tech.mogami.commons.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.test.BaseMogamiTest;
 import tech.mogami.commons.util.X402HeaderUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.mogami.commons.constant.version.X402Versions.V2;
-import static tech.mogami.commons.payment.schemes.Schemes.EXACT_SCHEME;
+import static tech.mogami.commons.api.payment.schemes.Schemes.EXACT_SCHEME;
+import static tech.mogami.commons.constant.x402.X402Versions.V2;
 
 @DisplayName("x402 header PaymentPayload Util tests")
 public class X402HeaderPaymentPayloadUtilTest extends BaseMogamiTest {

@@ -242,7 +242,7 @@
                     <configLocation>https://mogami.tech/shared/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
-                    <excludes>**/crypto/contract/**/*</excludes>
+                    <excludes>**/blockchain/contract/**/*</excludes>
                 </configuration>
             </plugin>
             <plugin>

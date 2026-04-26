@@ -2,7 +2,7 @@ package tech.mogami.commons.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import tech.mogami.commons.constant.version.X402Versions;
+import tech.mogami.commons.constant.x402.X402Versions;
 
 /**
  * Validator for the {@link ExistingX402Version} annotation.

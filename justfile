@@ -36,7 +36,7 @@ build_contracts:
               -b src/main/solidity/out/ERC20.sol/ERC20.bin \
               -a src/main/solidity/out/ERC20.sol/ERC20.abi \
               -o src/main/java \
-              -p tech.mogami.commons.crypto.contract
+              -p tech.mogami.commons.blockchain.contract
     cd src/main/solidity && forge install circlefin/stablecoin-evm --no-git
     cd src/main/solidity && forge build --contracts lib/stablecoin-evm/contracts/v2/FiatTokenV2_2.sol --extra-output-files abi bin
     mv src/main/solidity/out/FiatTokenV2_2.sol/FiatTokenV2_2.abi.json src/main/solidity/out/FiatTokenV2_2.sol/FiatTokenV2_2.abi
@@ -44,4 +44,8 @@ build_contracts:
               -b src/main/solidity/out/FiatTokenV2_2.sol/FiatTokenV2_2.bin \
               -a src/main/solidity/out/FiatTokenV2_2.sol/FiatTokenV2_2.abi \
               -o src/main/java \
-              -p tech.mogami.commons.crypto.contract
+              -p tech.mogami.commons.blockchain.contract
+
+# Util =================================================================================================================
+generate_review_file:
+    find src   \( -name "*.java"   -o -name "*.html"   -o -name "*.properties"   -o -name "*.yml"   -o -name "*.yaml"   -o -name "*pom.xml"   -o -name "*.css" \)   -type f | sed 's#^src/##' | sed 's/^/- [ ] /' > review.md

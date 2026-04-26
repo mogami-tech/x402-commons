@@ -3,13 +3,11 @@ package tech.mogami.commons.test.dto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.api.facilitator.supported.SupportedResponse;
-import tech.mogami.commons.constant.version.X402Version;
-import tech.mogami.commons.constant.version.X402Versions;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static tech.mogami.commons.api.payment.schemes.Schemes.EXACT_SCHEME;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
-import static tech.mogami.commons.constant.version.X402Versions.V2;
-import static tech.mogami.commons.payment.schemes.Schemes.EXACT_SCHEME;
+import static tech.mogami.commons.constant.x402.X402Versions.V2;
 
 @DisplayName("SupportedKind tests")
 public class SupportedKindTest {

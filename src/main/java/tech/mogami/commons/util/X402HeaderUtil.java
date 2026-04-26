@@ -3,16 +3,16 @@ package tech.mogami.commons.util;
 import jakarta.validation.ConstraintViolation;
 import lombok.experimental.UtilityClass;
 import tech.mogami.commons.api.facilitator.settle.SettlementResponse;
+import tech.mogami.commons.api.payment.PaymentPayload;
+import tech.mogami.commons.api.payment.PaymentRequired;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
 import tech.mogami.commons.exception.InvalidX402PaymentRequiredException;
-import tech.mogami.commons.payment.PaymentPayload;
-import tech.mogami.commons.payment.PaymentRequired;
 
 import java.util.Set;
 import java.util.function.Function;
 
-import static tech.mogami.commons.constant.X402Constants.X402_PAYMENT_REQUIRED_HEADER;
-import static tech.mogami.commons.constant.X402Constants.X402_PAYMENT_RESPONSE_HEADER;
+import static tech.mogami.commons.constant.x402.X402Constants.X402_PAYMENT_REQUIRED_HEADER;
+import static tech.mogami.commons.constant.x402.X402Constants.X402_PAYMENT_RESPONSE_HEADER;
 
 /**
  * Utility class to treat x402 headers.

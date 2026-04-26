@@ -2,23 +2,23 @@ package tech.mogami.commons.test.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tech.mogami.commons.api.payment.PaymentRequired;
+import tech.mogami.commons.api.payment.PaymentRequirements;
+import tech.mogami.commons.api.payment.PaymentResource;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
 import tech.mogami.commons.exception.InvalidX402PaymentRequiredException;
-import tech.mogami.commons.payment.PaymentRequired;
-import tech.mogami.commons.payment.PaymentRequirements;
-import tech.mogami.commons.payment.PaymentResource;
 import tech.mogami.commons.test.BaseMogamiTest;
 import tech.mogami.commons.util.X402HeaderUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.mogami.commons.constant.X402Constants.X402_PAYMENT_REQUIRED_HEADER;
+import static tech.mogami.commons.api.payment.schemes.Schemes.EXACT_SCHEME;
+import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
+import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_USDC_CONTRACT;
-import static tech.mogami.commons.constant.version.X402Versions.V2;
-import static tech.mogami.commons.payment.schemes.Schemes.EXACT_SCHEME;
-import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
-import static tech.mogami.commons.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
+import static tech.mogami.commons.constant.x402.X402Constants.X402_PAYMENT_REQUIRED_HEADER;
+import static tech.mogami.commons.constant.x402.X402Versions.V2;
 
 @DisplayName("x402 header PaymentRequired Util tests")
 public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {

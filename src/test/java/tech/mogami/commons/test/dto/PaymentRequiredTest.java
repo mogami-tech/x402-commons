@@ -2,11 +2,11 @@ package tech.mogami.commons.test.dto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tech.mogami.commons.payment.PaymentRequired;
+import tech.mogami.commons.api.payment.PaymentRequired;
 import tech.mogami.commons.util.ValidationUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tech.mogami.commons.constant.version.X402Versions.V2;
+import static tech.mogami.commons.constant.x402.X402Versions.V2;
 
 @DisplayName("PaymentRequired tests")
 public class PaymentRequiredTest {
