@@ -188,7 +188,7 @@ public class PaymentContextTest {
 
     @Test
     @DisplayName("getAssetContract()")
-    public void getAssetContract() {
+    void getAssetContract() {
         // No payload.
         PaymentContext p = VerificationRequest.builder()
                 .build();
@@ -219,6 +219,14 @@ public class PaymentContextTest {
         assertThat(p.getAssetAmount()).isEmpty();
         assertThat(p.getAssetContract()).hasValue("0xAssetContract");
         assertThat(p.getNetwork()).isEmpty();
+
+        // With blank asset contract (should be treated as absent).
+        p = VerificationRequest.builder()
+                .paymentRequirements(PaymentRequirements.builder()
+                        .asset("   ")
+                        .build())
+                .build();
+        assertThat(p.getAssetContract()).isEmpty();
     }
 
     @Test

@@ -14,8 +14,9 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
  * @param success     Indicates whether the payment settlement was successful
  * @param errorReason Error reason if settlement failed (omitted if successful)
  * @param payer       Address of the payer's wallet
- * @param transaction Blockchain transaction hash of the settled payment, or null if error
+ * @param transaction Blockchain transaction hash (empty string if settlement failed)
  * @param network     Blockchain network identifier in CAIP-2 format
+ * @param amount      Actual amount settled in atomic units (omitted if not applicable)
  */
 @Builder
 @Jacksonized
@@ -34,12 +35,15 @@ public record SettlementResponse(
         @Nullable String payer,
 
         @JsonProperty(required = true)
-        @Schema(description = "Blockchain transaction hash of the settled payment, or null if error", example = "0x123...", requiredMode = REQUIRED)
+        @Schema(description = "Blockchain transaction hash (empty string if settlement failed)", example = "0x123...", requiredMode = REQUIRED)
         String transaction,
 
         @JsonProperty(required = true)
         @Schema(description = "Blockchain network identifier in CAIP-2 format", example = "eip155:84532", requiredMode = REQUIRED)
-        String network
+        String network,
+
+        @Schema(description = "Actual amount settled in atomic units", example = "10000", nullable = true)
+        @Nullable String amount
 
 ) {
 }

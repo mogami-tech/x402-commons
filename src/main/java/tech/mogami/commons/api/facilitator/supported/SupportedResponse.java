@@ -41,21 +41,6 @@ public record SupportedResponse(
 ) {
 
     /**
-     * Constructor.
-     */
-    public SupportedResponse {
-        if (kinds == null) {
-            kinds = List.of();
-        }
-        if (extensions == null) {
-            extensions = List.of();
-        }
-        if (signers == null) {
-            signers = Map.of();
-        }
-    }
-
-    /**
      * Single pair the facilitator can handle.
      *
      * @param x402Version x402 version
@@ -79,7 +64,7 @@ public record SupportedResponse(
             String network,
 
             @Schema(description = "Additional scheme-specific configuration", nullable = true)
-            Map<String, Object> extra
+            @Singular("extra") Map<String, Object> extra
 
     ) {
 
@@ -96,5 +81,3 @@ public record SupportedResponse(
     }
 
 }
-
-

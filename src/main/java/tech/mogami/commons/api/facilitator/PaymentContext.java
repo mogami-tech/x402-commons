@@ -2,6 +2,7 @@ package tech.mogami.commons.api.facilitator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.api.payment.PaymentPayload;
 import tech.mogami.commons.api.payment.PaymentRequirements;
 import tech.mogami.commons.constant.network.Network;
@@ -12,7 +13,7 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 /**
- * Payment context marker interface.
+ * Payment context interface providing access to payment payload and requirements data.
  */
 public interface PaymentContext {
 
@@ -21,14 +22,14 @@ public interface PaymentContext {
      *
      * @return payment payload
      */
-    PaymentPayload paymentPayload();
+    @Nullable PaymentPayload paymentPayload();
 
     /**
      * Gets the payment requirements.
      *
      * @return payment requirements
      */
-    PaymentRequirements paymentRequirements();
+    @Nullable PaymentRequirements paymentRequirements();
 
     /**
      * Get the X402 version from the payload.
@@ -87,8 +88,9 @@ public interface PaymentContext {
 
     /**
      * Get the asset contract from the payment requirements.
+     * Blank values are treated as absent and will return an empty Optional.
      *
-     * @return the asset contract if present
+     * @return the asset contract if present and non-blank
      */
     @JsonIgnore
     default Optional<String> getAssetContract() {

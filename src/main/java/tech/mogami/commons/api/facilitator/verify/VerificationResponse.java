@@ -1,9 +1,12 @@
 package tech.mogami.commons.api.facilitator.verify;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
+
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 /**
  * Response returned after verification processing.
@@ -18,7 +21,8 @@ import org.jspecify.annotations.Nullable;
 @SuppressWarnings("unused")
 public record VerificationResponse(
 
-        @Schema(description = "Indicates whether the payment authorization is valid", example = "true")
+        @JsonProperty(required = true)
+        @Schema(description = "Indicates whether the payment authorization is valid", example = "true", requiredMode = REQUIRED)
         boolean isValid,
 
         @Schema(description = "Reason for invalidity (omitted if valid)", example = "invalid_payload", nullable = true)
