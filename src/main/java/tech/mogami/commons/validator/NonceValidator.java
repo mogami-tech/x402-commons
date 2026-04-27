@@ -5,6 +5,8 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 
+import java.util.regex.Pattern;
+
 import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
 
 /**
@@ -17,6 +19,9 @@ public class NonceValidator implements ConstraintValidator<Nonce, String> {
     /** Expected total string length: "0x" prefix (2) + 32 bytes encoded as hex (64). */
     private static final int NONCE_STRING_LENGTH = 66;
 
+    /** Pattern matching exactly 64 hexadecimal characters. */
+    private static final Pattern HEX_PATTERN = Pattern.compile("^[0-9a-fA-F]{64}$");
+
     @Override
     public final boolean isValid(@Nullable final String nonce, final ConstraintValidatorContext context) {
         if (StringUtils.isBlank(nonce)) {
@@ -27,7 +32,7 @@ public class NonceValidator implements ConstraintValidator<Nonce, String> {
             return false;
         }
 
-        return nonce.substring(BLOCKCHAIN_ADDRESS_PREFIX.length()).matches("^[0-9a-fA-F]+$");
+        return HEX_PATTERN.matcher(nonce.substring(BLOCKCHAIN_ADDRESS_PREFIX.length())).matches();
     }
 
 }

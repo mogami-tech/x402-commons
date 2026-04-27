@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Nonce validator tests")
 public class NonceValidatorTest {
 
-    NonceValidator validator = new NonceValidator();
+    private final NonceValidator validator = new NonceValidator();
 
     @Test
     @DisplayName("Should return true for null nonce")
