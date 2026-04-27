@@ -205,6 +205,26 @@ public class ExactSchemePayloadTest {
                 .containsExactly("authorization.validBefore");
     }
 
+    @Test
+    @DisplayName("Invalid nonce format should fail cascaded validation")
+    void invalidNonce() {
+        var auth = ExactSchemePayload.Authorization.builder()
+                .from(VALID_FROM)
+                .to(VALID_TO)
+                .value(VALID_VALUE)
+                .validAfter(VALID_VALID_AFTER)
+                .validBefore(VALID_VALID_BEFORE)
+                .nonce("not-a-nonce")
+                .build();
+        assertThat(ValidationUtil.findViolations(ExactSchemePayload.builder()
+                .signature(VALID_SIGNATURE)
+                .authorization(auth)
+                .build()))
+                .hasSize(1)
+                .extracting(v -> v.getPropertyPath().toString())
+                .containsExactly("authorization.nonce");
+    }
+
     // =========================================================================
     // Helper methods
     // =========================================================================

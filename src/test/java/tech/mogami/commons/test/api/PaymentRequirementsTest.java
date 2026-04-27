@@ -3,6 +3,7 @@ package tech.mogami.commons.test.api;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.api.payment.PaymentRequirements;
+import tech.mogami.commons.util.ValidationUtil;
 
 import java.util.Map;
 
@@ -149,6 +150,52 @@ public class PaymentRequirementsTest {
                 .build();
 
         assertThat(required.isCompatibleWith(paid)).isFalse();
+    }
+
+    // =========================================================================
+    // asset and payTo — accept non-EVM formats per spec
+    // =========================================================================
+
+    @Test
+    @DisplayName("Solana address in asset should pass validation")
+    void solanaAddressAssetPassesValidation() {
+        var requirements = PaymentRequirements.builder()
+                .scheme("exact")
+                .network("solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1")
+                .amount("10000")
+                .asset("4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU")
+                .payTo("CKPKJWNdJEqa81x7CkZ14BVPiY6y16Sxs7owznqtWYp5")
+                .maxTimeoutSeconds(60)
+                .build();
+        assertThat(ValidationUtil.findViolations(requirements)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("ISO 4217 currency code in asset should pass validation")
+    void iso4217AssetPassesValidation() {
+        var requirements = PaymentRequirements.builder()
+                .scheme("exact")
+                .network("eip155:84532")
+                .amount("10000")
+                .asset("USD")
+                .payTo("merchant")
+                .maxTimeoutSeconds(60)
+                .build();
+        assertThat(ValidationUtil.findViolations(requirements)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Role constant in payTo should pass validation")
+    void roleConstantPayToPassesValidation() {
+        var requirements = PaymentRequirements.builder()
+                .scheme("exact")
+                .network("eip155:84532")
+                .amount("10000")
+                .asset("0x036CbD53842c5426634e7929541eC2318f3dCF7e")
+                .payTo("merchant")
+                .maxTimeoutSeconds(60)
+                .build();
+        assertThat(ValidationUtil.findViolations(requirements)).isEmpty();
     }
 
 }

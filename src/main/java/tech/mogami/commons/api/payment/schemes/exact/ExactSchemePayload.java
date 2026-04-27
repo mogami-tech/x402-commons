@@ -13,6 +13,7 @@ import tech.mogami.commons.api.payment.schemes.SchemePayload;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
 import tech.mogami.commons.validator.EIP712Signature;
+import tech.mogami.commons.validator.Nonce;
 import tech.mogami.commons.validator.UnixTimestampSeconds;
 
 import java.math.BigInteger;
@@ -148,6 +149,7 @@ public record ExactSchemePayload(
 
             @JsonProperty(required = true)
             @NotBlank(message = "{validation.exactSchemePayload.authorization.nonce.required}")
+            @Nonce(message = "{validation.exactSchemePayload.authorization.nonce.invalid}")
             @Schema(description = "32-byte random nonce to prevent replay attacks", example = "0xdeadbeefcafebabe12345678abcdef12", requiredMode = REQUIRED)
             String nonce
 
