@@ -7,7 +7,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.regex.Pattern;
 
-import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
+import static tech.mogami.commons.constant.blockchain.BlockchainConstants.EVM_ADDRESS_PREFIX;
 
 /**
  * Validator for the {@link Nonce} annotation.
@@ -28,11 +28,11 @@ public class NonceValidator implements ConstraintValidator<Nonce, String> {
             return true;
         }
 
-        if (nonce.length() != NONCE_STRING_LENGTH || !nonce.startsWith(BLOCKCHAIN_ADDRESS_PREFIX)) {
+        if (nonce.length() != NONCE_STRING_LENGTH || !nonce.startsWith(EVM_ADDRESS_PREFIX)) {
             return false;
         }
 
-        return HEX_PATTERN.matcher(nonce.substring(BLOCKCHAIN_ADDRESS_PREFIX.length())).matches();
+        return HEX_PATTERN.matcher(nonce.substring(EVM_ADDRESS_PREFIX.length())).matches();
     }
 
 }

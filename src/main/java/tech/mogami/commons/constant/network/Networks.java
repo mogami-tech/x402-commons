@@ -111,7 +111,7 @@ public class Networks {
             .blockchain(SOLANA)
             .name("solana")
             .displayName("Solana Mainnet")
-            .networkReference("EtWTRABZaYq6iMfeYKouRu166VU2xqa1")
+            .networkReference("5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp")
             .isTestnet(false)
             .defaultRpcUrl("https://api.mainnet-beta.solana.com")
             .usdc(Network.DeployedAsset.builder()

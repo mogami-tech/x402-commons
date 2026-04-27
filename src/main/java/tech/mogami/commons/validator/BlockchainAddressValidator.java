@@ -5,8 +5,8 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 
-import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_LENGTH;
-import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
+import static tech.mogami.commons.constant.blockchain.BlockchainConstants.EVM_ADDRESS_LENGTH;
+import static tech.mogami.commons.constant.blockchain.BlockchainConstants.EVM_ADDRESS_PREFIX;
 
 /**
  * Validator for the {@link BlockchainAddress} annotation.
@@ -20,13 +20,13 @@ public class BlockchainAddressValidator implements ConstraintValidator<Blockchai
         }
 
         // Check the length of the address and if it starts with "0x".
-        if (blockchainAddress.length() != BLOCKCHAIN_ADDRESS_LENGTH
-                || !blockchainAddress.startsWith(BLOCKCHAIN_ADDRESS_PREFIX)) {
+        if (blockchainAddress.length() != EVM_ADDRESS_LENGTH
+                || !blockchainAddress.startsWith(EVM_ADDRESS_PREFIX)) {
             return false;
         }
 
         // Check if the address contains only hexadecimal characters.
-        return blockchainAddress.substring(BLOCKCHAIN_ADDRESS_PREFIX.length()).matches("^[0-9a-fA-F]+$");
+        return blockchainAddress.substring(EVM_ADDRESS_PREFIX.length()).matches("^[0-9a-fA-F]+$");
     }
 
 }

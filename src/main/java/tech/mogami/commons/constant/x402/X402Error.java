@@ -23,9 +23,9 @@ public enum X402Error {
     INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALID_BEFORE("invalid_exact_evm_payload_authorization_valid_before",
             "Payment authorization has expired (after validBefore timestamp)"),
 
-    /** The payment amount is insufficient for the required payment. */
-    INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE("invalid_exact_evm_payload_authorization_value",
-            "Payment amount is insufficient for the required payment"),
+    /** The payment amount does not exactly match the required amount. */
+    INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE("invalid_exact_evm_payload_authorization_value_mismatch",
+            "Payment amount does not exactly match the required amount"),
 
     /** Payment authorization signature is invalid or improperly signed. */
     INVALID_EXACT_EVM_PAYLOAD_SIGNATURE("invalid_exact_evm_payload_signature",
@@ -71,6 +71,10 @@ public enum X402Error {
     UNEXPECTED_SETTLE_ERROR("unexpected_settle_error",
             "Unexpected error occurred during payment settlement"),
 
+    /** Attempted to settle for more than the authorized amount (upto scheme). */
+    INVALID_UPTO_EVM_PAYLOAD_SETTLEMENT_EXCEEDS_AMOUNT("invalid_upto_evm_payload_settlement_exceeds_amount",
+            "Attempted to settle for more than the authorized amount"),
+
     /** Unknown or unmapped error (Not in the specs - Added by Mogami in case of). */
     UNKNOWN("unknown_error",
             "Unknown or unmapped error");
@@ -94,6 +98,7 @@ public enum X402Error {
             Map.entry(INVALID_TRANSACTION_STATE.code, INVALID_TRANSACTION_STATE),
             Map.entry(UNEXPECTED_VERIFY_ERROR.code, UNEXPECTED_VERIFY_ERROR),
             Map.entry(UNEXPECTED_SETTLE_ERROR.code, UNEXPECTED_SETTLE_ERROR),
+            Map.entry(INVALID_UPTO_EVM_PAYLOAD_SETTLEMENT_EXCEEDS_AMOUNT.code, INVALID_UPTO_EVM_PAYLOAD_SETTLEMENT_EXCEEDS_AMOUNT),
             Map.entry(UNKNOWN.code, UNKNOWN)
     );
 

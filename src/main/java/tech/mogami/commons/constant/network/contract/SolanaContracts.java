@@ -18,7 +18,10 @@ public class SolanaContracts {
     /** Solana devnet EURC contract address. */
     public static final String SOLANA_DEVNET_EURC_CONTRACT = "HzwqbKZw8HxMN6bF2yFZNrht3c2iXXzpKcFu7uBEDKtr";
 
-    /** Solana mainnet EURC contract address. */
+    /**
+     * Solana mainnet EURC contract address.
+     * TODO: verify this address — it is currently identical to the devnet address and may be a placeholder.
+     */
     public static final String SOLANA_MAINNET_EURC_CONTRACT = "HzwqbKZw8HxMN6bF2yFZNrht3c2iXXzpKcFu7uBEDKtr";
 
 }

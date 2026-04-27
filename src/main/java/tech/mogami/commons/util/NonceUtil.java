@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.security.SecureRandom;
 
-import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
+import static tech.mogami.commons.constant.blockchain.BlockchainConstants.EVM_ADDRESS_PREFIX;
 
 /**
  * Utility class for nonce operations.
@@ -35,7 +35,7 @@ public class NonceUtil {
     public static String generateNonce() {
         byte[] bytes = new byte[NONCE_LENGTH];
         SECURE_RANDOM.nextBytes(bytes);
-        return BLOCKCHAIN_ADDRESS_PREFIX + Hex.encodeHexString(bytes);
+        return EVM_ADDRESS_PREFIX + Hex.encodeHexString(bytes);
     }
 
     /**

@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.mogami.commons.constant.network.Networks.ALL_NETWORKS;
 import static tech.mogami.commons.constant.network.Networks.BASE_MAINNET;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
+import static tech.mogami.commons.constant.network.Networks.SOLANA_MAINNET;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_EURC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_MAINNET_USDC_CONTRACT;
 import static tech.mogami.commons.constant.network.contract.BaseContracts.BASE_SEPOLIA_EURC_CONTRACT;
@@ -43,12 +44,14 @@ public class NetworkTest {
     void networkId() {
         assertThat(BASE_SEPOLIA).returns("eip155:84532", Network::networkId);
         assertThat(BASE_MAINNET).returns("eip155:8453", Network::networkId);
+        assertThat(SOLANA_MAINNET).returns("solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp", Network::networkId);
 
         // Search with findByNetworkId
         assertThat(Networks.findByNetworkId("eip155:84532")).hasValue(BASE_SEPOLIA);
         assertThat(Networks.findByNetworkId("EIP155:84532")).hasValue(BASE_SEPOLIA);
         assertThat(Networks.findByNetworkId("eip155:8453")).hasValue(BASE_MAINNET);
         assertThat(Networks.findByNetworkId("eip155:845")).isEmpty();
+        assertThat(Networks.findByNetworkId("solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp")).hasValue(SOLANA_MAINNET);
     }
 
     @Test

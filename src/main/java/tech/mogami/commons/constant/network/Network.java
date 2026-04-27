@@ -89,7 +89,7 @@ public record Network(
      * Canonical CAIP-2 network identifier.
      * Examples:
      * - eip155:8453
-     * - solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1
+     * - solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp
      */
     public String networkId() {
         return blockchain.namespace().toLowerCase() + ":" + networkReference;

@@ -12,31 +12,47 @@ import java.math.BigInteger;
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class BlockchainConstants {
 
-    /** Blockchain address length. */
-    public static final int BLOCKCHAIN_ADDRESS_LENGTH = 42;
+    /** EVM address length (0x prefix + 40 hex characters = 42 total). */
+    public static final int EVM_ADDRESS_LENGTH = 42;
 
-    /** Blockchain shorten prefix length. */
-    public static final int BLOCKCHAIN_ADDRESS_SHORTEN_PREFIX_LENGTH = 5;
+    /** EVM address prefix. */
+    public static final String EVM_ADDRESS_PREFIX = "0x";
 
-    /** Blockchain shorten suffix length. */
-    public static final int BLOCKCHAIN_ADDRESS_SHORTEN_SUFFIX_LENGTH = 3;
+    /** EVM address shortened display prefix length (characters shown at start). */
+    public static final int EVM_ADDRESS_SHORTEN_PREFIX_LENGTH = 5;
 
-    /** Blockchain address prefix. */
-    public static final String BLOCKCHAIN_ADDRESS_PREFIX = "0x";
+    /** EVM address shortened display suffix length (characters shown at end). */
+    public static final int EVM_ADDRESS_SHORTEN_SUFFIX_LENGTH = 3;
+
+    /** @deprecated Use {@link #EVM_ADDRESS_LENGTH} instead. */
+    @Deprecated
+    public static final int BLOCKCHAIN_ADDRESS_LENGTH = EVM_ADDRESS_LENGTH;
+
+    /** @deprecated Use {@link #EVM_ADDRESS_PREFIX} instead. */
+    @Deprecated
+    public static final String BLOCKCHAIN_ADDRESS_PREFIX = EVM_ADDRESS_PREFIX;
+
+    /** @deprecated Use {@link #EVM_ADDRESS_SHORTEN_PREFIX_LENGTH} instead. */
+    @Deprecated
+    public static final int BLOCKCHAIN_ADDRESS_SHORTEN_PREFIX_LENGTH = EVM_ADDRESS_SHORTEN_PREFIX_LENGTH;
+
+    /** @deprecated Use {@link #EVM_ADDRESS_SHORTEN_SUFFIX_LENGTH} instead. */
+    @Deprecated
+    public static final int BLOCKCHAIN_ADDRESS_SHORTEN_SUFFIX_LENGTH = EVM_ADDRESS_SHORTEN_SUFFIX_LENGTH;
 
     /** Number of Wei in one Gwei. */
     public static final BigInteger GWEI_IN_WEI = BigInteger.valueOf(1_000_000_000L);
 
-    /** Default gas limit for transactions. */
+    /** Default EVM gas limit for transactions. */
     public static final BigInteger DEFAULT_GAS_LIMIT = BigInteger.valueOf(120_000L);
 
-    /** Default maximum fee per gas. */
+    /** Default EVM maximum fee per gas. */
     public static final BigInteger DEFAULT_MAXIMUM_FEE_PER_GAS = BigInteger.valueOf(2_000_000_000L);
 
-    /** Default maximum priority fee per gas. */
+    /** Default EVM maximum priority fee per gas. */
     public static final BigInteger DEFAULT_MAXIMUM_PRIORITY_FEE_PER_GAS = BigInteger.valueOf(1_000_000_000L);
 
-    /** Default Gas fees. */
+    /** Default EVM Gas fees. */
     public static final GasFees DEFAULT_GAS_FEES = GasFees.builder()
             .maximumFeePerGas(DEFAULT_MAXIMUM_FEE_PER_GAS)
             .maximumPriorityFeePerGas(DEFAULT_MAXIMUM_PRIORITY_FEE_PER_GAS)

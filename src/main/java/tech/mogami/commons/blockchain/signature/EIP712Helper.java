@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
 import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
-import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
+import static tech.mogami.commons.constant.blockchain.BlockchainConstants.EVM_ADDRESS_PREFIX;
 
 /**
  * Utility class for EIP-712 related operations.
@@ -107,7 +107,7 @@ public class EIP712Helper {
 
         Sign.SignatureData sig = signatureDataFromHex(signatureHex);
         BigInteger recoveredKey = Sign.signedMessageHashToKey(dataHash, sig);
-        String recoveredAddress = BLOCKCHAIN_ADDRESS_PREFIX + Keys.getAddress(recoveredKey);
+        String recoveredAddress = EVM_ADDRESS_PREFIX + Keys.getAddress(recoveredKey);
 
         // Compare
         return recoveredAddress.equalsIgnoreCase(Keys.toChecksumAddress(expectedSigner));
@@ -163,7 +163,7 @@ public class EIP712Helper {
         if (vValue != ETHEREUM_V_OFFSET && vValue != ETHEREUM_V_OFFSET + 1) {
             vValue = vValue + ETHEREUM_V_OFFSET;
         }
-        return BLOCKCHAIN_ADDRESS_PREFIX
+        return EVM_ADDRESS_PREFIX
                 + Numeric.toHexStringNoPrefixZeroPadded(new BigInteger(1, sig.getR()), HEX_COMPONENT_LENGTH)
                 + Numeric.toHexStringNoPrefixZeroPadded(new BigInteger(1, sig.getS()), HEX_COMPONENT_LENGTH)
                 + String.format("%02x", vValue);
