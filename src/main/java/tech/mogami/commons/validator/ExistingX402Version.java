@@ -11,7 +11,10 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * x402 version annotation.
+ * x402 version annotation — validates that the version exists in the known version registry.
+ *
+ * <p>Accepts {@code null} as valid (use {@code @NotNull} to enforce presence).
+ * Use {@link SupportedX402Version} instead when only actively-supported versions should be accepted.
  */
 @Documented
 @Constraint(validatedBy = ExistingX402VersionValidator.class)

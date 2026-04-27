@@ -7,7 +7,7 @@ import tech.mogami.commons.validator.BodyTypeStringValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Body type string validator tests")
-public class BodyTypeStringValidatorTest {
+class BodyTypeStringValidatorTest {
 
     BodyTypeStringValidator validator = new BodyTypeStringValidator();
 

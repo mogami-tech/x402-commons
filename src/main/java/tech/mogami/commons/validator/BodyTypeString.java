@@ -12,6 +12,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Body type as a String annotation.
+ *
+ * <p>{@code null} and blank strings are treated as <strong>invalid</strong>; use this annotation
+ * on required fields only, or combine with {@code @Nullable} handling as needed.
+ * Valid values are defined by {@link tech.mogami.commons.constant.util.BodyType} (case-insensitive).
  */
 @Documented
 @Constraint(validatedBy = BodyTypeStringValidator.class)

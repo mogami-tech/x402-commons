@@ -7,7 +7,7 @@ import tech.mogami.commons.validator.NetworkValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Network validator tests")
-public class NetworkValidatorTest {
+class NetworkValidatorTest {
 
     NetworkValidator validator = new NetworkValidator();
 

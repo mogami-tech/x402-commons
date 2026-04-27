@@ -12,6 +12,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Unix timestamp in seconds annotation.
+ *
+ * <p>Accepts {@code null} and blank strings as valid (use {@code @NotBlank} to enforce presence).
+ * Leading and trailing whitespace is trimmed before parsing.
+ * The value must be a positive long (strictly greater than zero).
  */
 @Documented
 @Constraint(validatedBy = UnixTimestampSecondsValidator.class)

@@ -7,7 +7,9 @@ import tech.mogami.commons.validator.SchemeValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Scheme validator tests")
-public class SchemeValidatorTest {
+class SchemeValidatorTest {
+
+    SchemeValidator validator = new SchemeValidator();
 
     @Test
     @DisplayName("Should return true for null scheme")
@@ -25,7 +27,7 @@ public class SchemeValidatorTest {
     @DisplayName("Should return false for unknown scheme")
     void unknownScheme() {
         assertThat(validator.isValid("INVALID_SCHEME", null)).isFalse();
-    }    SchemeValidator validator = validator = new SchemeValidator();
+    }
 
     @Test
     @DisplayName("Should return true for known scheme")
@@ -33,7 +35,5 @@ public class SchemeValidatorTest {
         assertThat(validator.isValid("exact", null)).isTrue();
         assertThat(validator.isValid("exAct", null)).isTrue();
     }
-
-
 
 }

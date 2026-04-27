@@ -4,8 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.validator.UnixTimestampSecondsValidator;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Unix timestamp in seconds validator tests")
 class UnixTimestampSecondsValidatorTest {
@@ -15,41 +14,40 @@ class UnixTimestampSecondsValidatorTest {
     @Test
     @DisplayName("null should be valid")
     void nullTimestamp() {
-        assertTrue(validator.isValid(null, null));
+        assertThat(validator.isValid(null, null)).isTrue();
     }
 
     @Test
     @DisplayName("blank and whitespace should be valid")
     void blankAndWhitespaceTimestamp() {
-        assertTrue(validator.isValid("", null));
-        assertTrue(validator.isValid("   ", null));
+        assertThat(validator.isValid("", null)).isTrue();
+        assertThat(validator.isValid("   ", null)).isTrue();
     }
 
     @Test
     @DisplayName("positive numbers should be valid")
     void positiveNumbersTimestamp() {
-        assertTrue(validator.isValid("1", null));
-        assertTrue(validator.isValid(Long.toString(Long.MAX_VALUE), null));
+        assertThat(validator.isValid("1", null)).isTrue();
+        assertThat(validator.isValid(Long.toString(Long.MAX_VALUE), null)).isTrue();
     }
 
     @Test
     @DisplayName("zero and negative numbers should not be valid")
     void zeroAndNegativeTimestamp() {
-        assertFalse(validator.isValid("0", null));
-        assertFalse(validator.isValid("-1", null));
+        assertThat(validator.isValid("0", null)).isFalse();
+        assertThat(validator.isValid("-1", null)).isFalse();
     }
 
     @Test
     @DisplayName("non-numeric strings should not be valid")
     void nonNumericTimestamp() {
-        assertFalse(validator.isValid("invalid", null));
+        assertThat(validator.isValid("invalid", null)).isFalse();
     }
 
     @Test
-    @DisplayName("number with surrounding spaces should not be valid")
+    @DisplayName("number with surrounding spaces should be valid (whitespace is trimmed)")
     void numberWithSurroundingSpacesTimestamp() {
-        // Long.parseLong does not accept leading/trailing spaces -> should be invalid
-        assertFalse(validator.isValid(" 123 ", null));
+        assertThat(validator.isValid(" 123 ", null)).isTrue();
     }
 
 }

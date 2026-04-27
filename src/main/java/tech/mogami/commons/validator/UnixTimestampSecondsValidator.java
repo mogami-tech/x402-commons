@@ -17,7 +17,7 @@ public class UnixTimestampSecondsValidator implements ConstraintValidator<UnixTi
         }
 
         try {
-            long parsedTimestamp = Long.parseLong(value);
+            long parsedTimestamp = Long.parseLong(StringUtils.trim(value));
             return parsedTimestamp > 0;
         } catch (NumberFormatException e) {
             return false;

@@ -5,6 +5,8 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 
+import java.util.regex.Pattern;
+
 import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
 import static tech.mogami.commons.constant.blockchain.BlockchainConstants.EIP712_SIGNATURE_LENGTH;
 
@@ -12,6 +14,9 @@ import static tech.mogami.commons.constant.blockchain.BlockchainConstants.EIP712
  * Validator for the {@link EIP712Signature} annotation.
  */
 public class EIP712SignatureValidator implements ConstraintValidator<EIP712Signature, String> {
+
+    /** Pattern matching exactly 130 hexadecimal characters (65 bytes). */
+    private static final Pattern HEX_PATTERN = Pattern.compile("^[0-9a-fA-F]+$");
 
     @Override
     public final boolean isValid(@Nullable final String signature, final ConstraintValidatorContext context) {
@@ -23,7 +28,7 @@ public class EIP712SignatureValidator implements ConstraintValidator<EIP712Signa
             return false;
         }
 
-        return signature.substring(BLOCKCHAIN_ADDRESS_PREFIX.length()).matches("^[0-9a-fA-F]+$");
+        return HEX_PATTERN.matcher(signature.substring(BLOCKCHAIN_ADDRESS_PREFIX.length())).matches();
     }
 
 }

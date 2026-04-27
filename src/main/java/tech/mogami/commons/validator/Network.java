@@ -12,6 +12,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Network annotation.
+ *
+ * <p>Accepts {@code null} and blank strings as valid (use {@code @NotBlank} to enforce presence).
+ * Validates that the value matches a known network name (case-insensitive).
  */
 @Documented
 @Constraint(validatedBy = NetworkValidator.class)

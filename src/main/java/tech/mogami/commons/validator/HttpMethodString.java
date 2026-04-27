@@ -12,6 +12,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * HTTP method as a String annotation.
+ *
+ * <p>{@code null} and blank strings are treated as <strong>invalid</strong>.
+ * Valid values are defined by {@link tech.mogami.commons.constant.util.HttpMethod} (case-insensitive).
  */
 @Documented
 @Constraint(validatedBy = HttpMethodStringValidator.class)

@@ -11,7 +11,10 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Big Integer as a String annotation (positive value).
+ * Big Integer as a String annotation (non-negative value).
+ *
+ * <p>Accepts {@code null} and blank strings as valid (use {@code @NotBlank} to enforce presence).
+ * Rejects negative integers and non-numeric strings.
  */
 @Documented
 @Constraint(validatedBy = BigIntegerStringValidator.class)

@@ -12,6 +12,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Blockchain address annotation.
+ *
+ * <p>Accepts {@code null} and blank strings as valid (use {@code @NotBlank} to enforce presence).
+ * Validates that the value is a well-formed EVM address: {@code 0x} prefix followed by exactly
+ * 40 hex characters (case-insensitive).
  */
 @Documented
 @Constraint(validatedBy = BlockchainAddressValidator.class)

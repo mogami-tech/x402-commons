@@ -12,6 +12,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Network id annotation.
+ *
+ * <p>Accepts {@code null} and blank strings as valid (use {@code @NotBlank} to enforce presence).
+ * Validates that the value matches a known network identifier (e.g. {@code eip155:84532},
+ * case-insensitive).
  */
 @Documented
 @Constraint(validatedBy = NetworkIdValidator.class)

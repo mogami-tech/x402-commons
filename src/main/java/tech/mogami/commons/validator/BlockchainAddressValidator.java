@@ -5,6 +5,8 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 
+import java.util.regex.Pattern;
+
 import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_LENGTH;
 import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
 
@@ -12,6 +14,9 @@ import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKC
  * Validator for the {@link BlockchainAddress} annotation.
  */
 public class BlockchainAddressValidator implements ConstraintValidator<BlockchainAddress, String> {
+
+    /** Pattern matching exactly 40 hexadecimal characters (20 bytes). */
+    private static final Pattern HEX_PATTERN = Pattern.compile("^[0-9a-fA-F]+$");
 
     @Override
     public final boolean isValid(@Nullable final String blockchainAddress, final ConstraintValidatorContext context) {
@@ -26,7 +31,7 @@ public class BlockchainAddressValidator implements ConstraintValidator<Blockchai
         }
 
         // Check if the address contains only hexadecimal characters.
-        return blockchainAddress.substring(BLOCKCHAIN_ADDRESS_PREFIX.length()).matches("^[0-9a-fA-F]+$");
+        return HEX_PATTERN.matcher(blockchainAddress.substring(BLOCKCHAIN_ADDRESS_PREFIX.length())).matches();
     }
 
 }

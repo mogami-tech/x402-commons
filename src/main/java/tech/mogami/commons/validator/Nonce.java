@@ -14,6 +14,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Nonce annotation.
  * Validates that a value is a 32-byte random nonce to prevent replay attacks.
  * Expected format: {@code 0x} prefix followed by 64 hexadecimal characters (representing 32 bytes).
+ *
+ * <p>Accepts {@code null} and blank strings as valid (use {@code @NotBlank} to enforce presence).
  */
 @Documented
 @Constraint(validatedBy = NonceValidator.class)
