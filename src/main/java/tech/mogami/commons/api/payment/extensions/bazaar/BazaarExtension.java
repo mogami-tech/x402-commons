@@ -47,7 +47,7 @@ public record BazaarExtension(
         JsonNode schema,
 
         @Nullable
-        @Pattern(regexp = "^/[a-zA-Z0-9_/:.\\-~%]+$", message = "{validation.bazaar.routeTemplate.invalid}")
+        @Pattern(regexp = "^/(?!.*\\.\\.)(?!.*://)[a-zA-Z0-9_/:.\\-~%]+$", message = "{validation.bazaar.routeTemplate.invalid}")
         @Schema(
                 description = "Canonical route template for parameterized paths (e.g. /users/:userId). "
                         + "Absent for static routes. Facilitators must also verify absence of '..' and '://' after percent-decoding.",

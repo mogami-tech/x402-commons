@@ -251,6 +251,32 @@ public class BazaarExtensionTest {
     }
 
     @Test
+    @DisplayName("routeTemplate with path traversal (..) should fail validation")
+    void routeTemplateWithPathTraversalFails() {
+        var schema = JsonUtil.fromJson("{\"type\":\"object\"}", com.fasterxml.jackson.databind.JsonNode.class);
+        var input = BazaarHttpInput.builder().method(HttpMethod.GET).build();
+        var info = BazaarInfo.builder().input(input).build();
+        var extension = BazaarExtension.builder().info(info).schema(schema).routeTemplate("/users/../admin").build();
+        assertThat(ValidationUtil.findViolations(extension))
+                .hasSize(1)
+                .extracting(v -> v.getPropertyPath().toString())
+                .containsExactly("routeTemplate");
+    }
+
+    @Test
+    @DisplayName("routeTemplate with URL injection (://) should fail validation")
+    void routeTemplateWithUrlInjectionFails() {
+        var schema = JsonUtil.fromJson("{\"type\":\"object\"}", com.fasterxml.jackson.databind.JsonNode.class);
+        var input = BazaarHttpInput.builder().method(HttpMethod.GET).build();
+        var info = BazaarInfo.builder().input(input).build();
+        var extension = BazaarExtension.builder().info(info).schema(schema).routeTemplate("/https://evil.com").build();
+        assertThat(ValidationUtil.findViolations(extension))
+                .hasSize(1)
+                .extracting(v -> v.getPropertyPath().toString())
+                .containsExactly("routeTemplate");
+    }
+
+    @Test
     @DisplayName("routeTemplate is serialized and deserialized correctly")
     void routeTemplateSerializeDeserialize() {
         var schema = JsonUtil.fromJson("{\"type\":\"object\"}", com.fasterxml.jackson.databind.JsonNode.class);
