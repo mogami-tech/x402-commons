@@ -1,5 +1,5 @@
 /**
- * Exact payment.
+ * Exact scheme.
  */
 @NullMarked
 package tech.mogami.commons.api.payment.schemes.exact;

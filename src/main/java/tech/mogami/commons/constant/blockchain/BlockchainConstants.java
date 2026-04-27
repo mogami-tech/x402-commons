@@ -42,6 +42,9 @@ public class BlockchainConstants {
             .maximumPriorityFeePerGas(DEFAULT_MAXIMUM_PRIORITY_FEE_PER_GAS)
             .build();
 
+    /** EIP-712 signature length (0x + 65 bytes = 130 hex chars + 2 prefix chars). */
+    public static final int EIP712_SIGNATURE_LENGTH = 132;
+
     /** Atomic amount type precision. */
     public static final int ATOMIC_AMOUNT_TYPE_PRECISION = 78;
 

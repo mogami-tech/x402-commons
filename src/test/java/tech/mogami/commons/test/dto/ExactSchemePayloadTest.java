@@ -76,6 +76,19 @@ public class ExactSchemePayloadTest {
     }
 
     @Test
+    @DisplayName("Invalid signature format should fail validation")
+    void invalidSignatureFormat() {
+        var payload = ExactSchemePayload.builder()
+                .signature("not-a-signature")
+                .authorization(validAuthorization())
+                .build();
+        assertThat(ValidationUtil.findViolations(payload))
+                .hasSize(1)
+                .extracting(v -> v.getPropertyPath().toString())
+                .containsExactly("signature");
+    }
+
+    @Test
     @DisplayName("Null authorization should fail validation")
     void nullAuthorization() {
         var payload = ExactSchemePayload.builder()

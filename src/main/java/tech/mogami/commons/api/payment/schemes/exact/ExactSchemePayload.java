@@ -9,16 +9,16 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
+import tech.mogami.commons.api.payment.schemes.SchemePayload;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.BlockchainAddress;
+import tech.mogami.commons.validator.EIP712Signature;
 import tech.mogami.commons.validator.UnixTimestampSeconds;
 
 import java.math.BigInteger;
 import java.util.Optional;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
-
-import tech.mogami.commons.api.payment.schemes.SchemePayload;
 
 /**
  * Exact scheme payload.
@@ -35,6 +35,7 @@ public record ExactSchemePayload(
 
         @JsonProperty(required = true)
         @NotBlank(message = "{validation.exactSchemePayload.signature.required}")
+        @EIP712Signature(message = "{validation.exactSchemePayload.signature.invalid}")
         @Schema(description = "EIP-712 signature for authorization (transferWithAuthorization)", example = "0xabcdef1234567890...")
         String signature,
 
@@ -89,17 +90,16 @@ public record ExactSchemePayload(
      */
     @JsonIgnore
     public Optional<BigInteger> getAmount() {
-        if (authorization != null) {
-            final String stringValue = StringUtils.trimToNull(authorization.value());
-            if (stringValue != null) {
-                try {
-                    return Optional.of(new BigInteger(stringValue));
-                } catch (NumberFormatException e) {
-                    return Optional.empty();
-                }
-            }
-        }
-        return Optional.empty();
+        return Optional.ofNullable(authorization)
+                .map(Authorization::value)
+                .map(StringUtils::trimToNull)
+                .flatMap(value -> {
+                    try {
+                        return Optional.of(new BigInteger(value));
+                    } catch (NumberFormatException e) {
+                        return Optional.empty();
+                    }
+                });
     }
 
     /**
@@ -114,7 +114,6 @@ public record ExactSchemePayload(
      */
     @Builder
     @Jacksonized
-    @SuppressWarnings("unused")
     public record Authorization(
 
             @JsonProperty(required = true)
