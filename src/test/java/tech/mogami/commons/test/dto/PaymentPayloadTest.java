@@ -19,8 +19,8 @@ public class PaymentPayloadTest extends BaseMogamiTest {
     private static final String VALID_FROM = "0x857b06519E91e3A54538791bDbb0E22373e36b66";
     private static final String VALID_TO = "0x209693Bc6afc0C5328bA36FaF03C514EF312287C";
     private static final String VALID_VALUE = "10000";
-    private static final String VALID_VALID_AFTER = "1740672089";
-    private static final String VALID_VALID_BEFORE = "1740672154";
+    private static final String VALID_AFTER = "1740672089";
+    private static final String VALID_BEFORE = "1740672154";
     private static final String VALID_NONCE = "0xf3746613c2d920b5fdabc0856f2aeb2d4f88ee6037b8cc5d04a71a4462f13480";
 
     // =========================================================================
@@ -115,8 +115,8 @@ public class PaymentPayloadTest extends BaseMogamiTest {
                         .from(VALID_FROM)
                         .to(VALID_TO)
                         .value("not-a-number")
-                        .validAfter(VALID_VALID_AFTER)
-                        .validBefore(VALID_VALID_BEFORE)
+                        .validAfter(VALID_AFTER)
+                        .validBefore(VALID_BEFORE)
                         .nonce(VALID_NONCE)
                         .build())
                 .build();

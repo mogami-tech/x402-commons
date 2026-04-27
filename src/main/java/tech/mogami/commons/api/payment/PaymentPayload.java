@@ -148,7 +148,8 @@ public record PaymentPayload(
 
     /**
      * Delegates extraction to the scheme-specific typed payload via the {@link SchemePayload} interface.
-     * Returns empty if the payload is absent or if the scheme cannot be resolved.
+     * Returns empty if the payload is absent, if the scheme cannot be resolved, or if deserialization fails.
+     * These are all treated as "no value available" from the caller's perspective.
      *
      * @param extractor extractor function defined on {@link SchemePayload}
      * @param <T>       type of the extracted value
