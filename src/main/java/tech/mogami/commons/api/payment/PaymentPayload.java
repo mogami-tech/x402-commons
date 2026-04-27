@@ -113,7 +113,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getNonce() {
-        return extract(ExactSchemePayload::getNonce);
+        return extractFromPayload(SchemePayload::getNonce);
     }
 
     /**
@@ -123,7 +123,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getFromAddress() {
-        return extract(ExactSchemePayload::getFromAddress);
+        return extractFromPayload(SchemePayload::getFromAddress);
     }
 
     /**
@@ -133,7 +133,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getToAddress() {
-        return extract(ExactSchemePayload::getToAddress);
+        return extractFromPayload(SchemePayload::getToAddress);
     }
 
     /**
@@ -143,21 +143,27 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<BigInteger> getAmount() {
-        return extract(ExactSchemePayload::getAmount);
+        return extractFromPayload(SchemePayload::getAmount);
     }
 
     /**
-     * Generic extractor for ExactSchemePayload fields.
-     * Note: only supports the "exact" scheme — returns empty for any other scheme.
+     * Delegates extraction to the scheme-specific typed payload via the {@link SchemePayload} interface.
+     * Returns empty if the payload is absent or if the scheme cannot be resolved.
      *
-     * @param extractor extractor function
+     * @param extractor extractor function defined on {@link SchemePayload}
      * @param <T>       type of the extracted value
      * @return the extracted value if available
      */
-    private <T> Optional<T> extract(final Function<ExactSchemePayload, Optional<T>> extractor) {
-        return Optional.ofNullable(payload)
-                .map(p -> JsonUtil.convertValue(p, ExactSchemePayload.class))
-                .flatMap(extractor);
+    private <T> Optional<T> extractFromPayload(final Function<SchemePayload, Optional<T>> extractor) {
+        if (payload == null) {
+            return Optional.empty();
+        }
+        try {
+            return extractor.apply(getTypedPayload());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
 }
+
