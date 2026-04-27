@@ -25,10 +25,11 @@ public class PaymentRequirementsTest {
                 .extra(Map.of("name", "USDC", "version", "2"))
                 .build();
 
+        // Exact amount, shorter timeout, case-insensitive fields, extra superset.
         PaymentRequirements paid = PaymentRequirements.builder()
                 .scheme("exact")
                 .network("eip155:84532")
-                .amount("1500") // more than required
+                .amount("1500")
                 .asset("0xabcdef") // case-insensitive
                 .payTo("0xpayee") // case-insensitive
                 .maxTimeoutSeconds(30) // shorter timeout
@@ -36,6 +37,54 @@ public class PaymentRequirementsTest {
                 .build();
 
         assertThat(required.isCompatibleWith(paid)).isTrue();
+    }
+
+    @Test
+    @DisplayName("isCompatibleWith() when paid amount is greater than required")
+    void higherAmountForIsCompatibleWith() {
+        PaymentRequirements required = PaymentRequirements.builder()
+                .scheme("exact")
+                .network("eip155:84532")
+                .amount("1000")
+                .asset("0xABCDEF")
+                .payTo("0xPAYEE")
+                .maxTimeoutSeconds(60)
+                .build();
+
+        PaymentRequirements paid = PaymentRequirements.builder()
+                .scheme("exact")
+                .network("eip155:84532")
+                .amount("2000")
+                .asset("0xABCDEF")
+                .payTo("0xPAYEE")
+                .maxTimeoutSeconds(60)
+                .build();
+
+        assertThat(required.isCompatibleWith(paid)).isTrue();
+    }
+
+    @Test
+    @DisplayName("isCompatibleWith() when timeout exceeds maxTimeoutSeconds")
+    void timeoutExceededForIsCompatibleWith() {
+        PaymentRequirements required = PaymentRequirements.builder()
+                .scheme("exact")
+                .network("eip155:84532")
+                .amount("1000")
+                .asset("0xABCDEF")
+                .payTo("0xPAYEE")
+                .maxTimeoutSeconds(60)
+                .build();
+
+        PaymentRequirements paid = PaymentRequirements.builder()
+                .scheme("exact")
+                .network("eip155:84532")
+                .amount("1000")
+                .asset("0xABCDEF")
+                .payTo("0xPAYEE")
+                .maxTimeoutSeconds(120)
+                .build();
+
+        assertThat(required.isCompatibleWith(paid)).isFalse();
     }
 
     @Test

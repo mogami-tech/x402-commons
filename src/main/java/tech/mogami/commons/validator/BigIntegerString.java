@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Big Integer as a String annotation.
+ * Big Integer as a String annotation (positive value).
  */
 @Documented
 @Constraint(validatedBy = BigIntegerStringValidator.class)

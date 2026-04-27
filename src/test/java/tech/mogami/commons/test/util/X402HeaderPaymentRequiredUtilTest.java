@@ -36,7 +36,7 @@ public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {
 
         assertThat(X402HeaderUtil.decodePaymentRequired(getSampleEncodedPaymentRequired())).isNotNull()
                 .satisfies(paymentRequired -> {
-                    assertThat(paymentRequired.getVersion()).hasValue(V2);
+                    assertThat(paymentRequired.getX402Version()).isEqualTo(V2);
                     assertThat(paymentRequired.error()).isEqualTo("PAYMENT-SIGNATURE header is required");
                     assertThat(paymentRequired.resource())
                             .returns("https://api.example.com/premium-data", PaymentResource::url)

@@ -8,6 +8,8 @@ import tech.mogami.commons.api.payment.PaymentRequirements;
 import tech.mogami.commons.constant.network.Network;
 import tech.mogami.commons.constant.network.Networks;
 import tech.mogami.commons.constant.x402.X402Version;
+import tech.mogami.commons.constant.x402.X402Versions;
+import tech.mogami.commons.exception.InvalidX402VersionException;
 
 import java.math.BigInteger;
 import java.util.Optional;
@@ -16,6 +18,13 @@ import java.util.Optional;
  * Payment context interface providing access to payment payload and requirements data.
  */
 public interface PaymentContext {
+
+    /**
+     * Gets the x402 protocol version.
+     *
+     * @return x402 version number
+     */
+    @Nullable Integer x402Version();
 
     /**
      * Gets the payment payload.
@@ -32,14 +41,14 @@ public interface PaymentContext {
     @Nullable PaymentRequirements paymentRequirements();
 
     /**
-     * Get the X402 version from the payload.
+     * Get the X402 version from the request.
      *
-     * @return the X402 version if present
+     * @return the X402 version
      */
     @JsonIgnore
-    default Optional<X402Version> getVersion() {
-        return Optional.ofNullable(paymentPayload())
-                .flatMap(PaymentPayload::getX402Version);
+    default X402Version getVersion() {
+        return X402Versions.findByVersion(x402Version())
+                .orElseThrow(() -> new InvalidX402VersionException("Unknown x402 version: " + x402Version()));
     }
 
     /**

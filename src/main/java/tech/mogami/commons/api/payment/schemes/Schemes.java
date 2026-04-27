@@ -29,10 +29,13 @@ public class Schemes {
             .name(EXACT_SCHEME_NAME)
             .payloadClass(ExactSchemePayload.class)
             .build();
+
     /** Supported schemes. */
     public static final List<Scheme> SUPPORTED_SCHEMES = List.of(EXACT_SCHEME);
+
     /** All schemes. */
     private static final List<Scheme> ALL_SCHEMES = List.of(EXACT_SCHEME);
+
     /** Map of schemes by name. */
     private static final Map<String, Scheme> SCHEMES_BY_NAME = ALL_SCHEMES.stream()
             .collect(Collectors.toUnmodifiableMap(
@@ -48,7 +51,7 @@ public class Schemes {
      */
     public static Optional<Scheme> findByName(@Nullable final String name) {
         return Optional.ofNullable(name)
-                .map(String::toLowerCase)
+                .map(StringUtils::lowerCase)
                 .map(SCHEMES_BY_NAME::get);
     }
 

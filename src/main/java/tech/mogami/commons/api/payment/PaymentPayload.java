@@ -9,11 +9,13 @@ import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.api.payment.schemes.Scheme;
+import tech.mogami.commons.api.payment.schemes.SchemePayload;
 import tech.mogami.commons.api.payment.schemes.Schemes;
 import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.constant.x402.X402Version;
 import tech.mogami.commons.constant.x402.X402Versions;
 import tech.mogami.commons.exception.InvalidX402SchemeException;
+import tech.mogami.commons.exception.InvalidX402VersionException;
 import tech.mogami.commons.util.JsonUtil;
 import tech.mogami.commons.validator.ExistingX402Version;
 
@@ -45,10 +47,9 @@ public record PaymentPayload(
         @Schema(description = "Version of the x402 payment protocol", example = "2", requiredMode = REQUIRED)
         Integer x402Version,
 
-        @JsonProperty(required = true)
+        @Nullable
         @Valid
-        @NotNull(message = "{validation.paymentPayload.resource.required}")
-        @Schema(description = "Resource requiring payment", requiredMode = REQUIRED)
+        @Schema(description = "Resource requiring payment", nullable = true)
         PaymentResource resource,
 
         @JsonProperty(required = true)
@@ -71,11 +72,12 @@ public record PaymentPayload(
     /**
      * Get the X402Version enum corresponding to the x402Version field.
      *
-     * @return the X402Version enum if found
+     * @return the X402 version
      */
     @JsonIgnore
-    public Optional<X402Version> getX402Version() {
-        return X402Versions.findByVersion(x402Version);
+    public X402Version getX402Version() {
+        return X402Versions.findByVersion(x402Version())
+                .orElseThrow(() -> new InvalidX402VersionException("Unknown x402 version: " + x402Version()));
     }
 
     /**
@@ -86,6 +88,9 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Scheme getScheme() {
+        if (accepted == null) {
+            throw new InvalidX402SchemeException("Missing accepted payment requirements");
+        }
         return Schemes.findByName(accepted.scheme())
                 .orElseThrow(() -> new InvalidX402SchemeException("Unsupported scheme: " + accepted.scheme()));
     }
@@ -97,7 +102,7 @@ public record PaymentPayload(
      * @throws InvalidX402SchemeException if the scheme is unsupported
      */
     @JsonIgnore
-    public Object getTypedPayload() {
+    public SchemePayload getTypedPayload() {
         return JsonUtil.convertValue(payload, getScheme().payloadClass());
     }
 
@@ -143,6 +148,7 @@ public record PaymentPayload(
 
     /**
      * Generic extractor for ExactSchemePayload fields.
+     * Note: only supports the "exact" scheme — returns empty for any other scheme.
      *
      * @param extractor extractor function
      * @param <T>       type of the extracted value

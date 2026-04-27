@@ -10,7 +10,10 @@ import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
 
 import java.math.BigInteger;
 
+import tech.mogami.commons.exception.InvalidX402VersionException;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.mogami.commons.constant.network.Networks.BASE_SEPOLIA;
 import static tech.mogami.commons.constant.x402.X402Versions.V2;
 
@@ -23,25 +26,26 @@ public class PaymentContextTest {
         // No payload.
         PaymentContext p = VerificationRequest.builder()
                 .build();
-        assertThat(p.getVersion()).isEmpty();
+        assertThatThrownBy(p::getVersion).isInstanceOf(InvalidX402VersionException.class);
 
         // With payload but no version.
         p = VerificationRequest.builder()
                 .paymentPayload(PaymentPayload.builder().build())
                 .build();
-        assertThat(p.getVersion()).isEmpty();
+        assertThatThrownBy(p::getVersion).isInstanceOf(InvalidX402VersionException.class);
 
         // With payload and invalid version.
         p = VerificationRequest.builder()
                 .paymentPayload(PaymentPayload.builder().x402Version(0).build())
                 .build();
-        assertThat(p.getVersion()).isEmpty();
+        assertThatThrownBy(p::getVersion).isInstanceOf(InvalidX402VersionException.class);
 
         // With payload and valid version.
         p = VerificationRequest.builder()
+                .x402Version(2)
                 .paymentPayload(PaymentPayload.builder().x402Version(2).build())
                 .build();
-        assertThat(p.getVersion()).hasValue(V2);
+        assertThat(p.getVersion()).isEqualTo(V2);
         assertThat(p.getPaymentId()).isEmpty();
         assertThat(p.getFrom()).isEmpty();
         assertThat(p.getTo()).isEmpty();
@@ -75,7 +79,6 @@ public class PaymentContextTest {
                                 .build())
                         .build())
                 .build();
-        assertThat(p.getVersion()).isEmpty();
         assertThat(p.getPaymentId()).hasValue("payment-id-123");
         assertThat(p.getFrom()).isEmpty();
         assertThat(p.getTo()).isEmpty();
@@ -109,8 +112,6 @@ public class PaymentContextTest {
                                 .build())
                         .build())
                 .build();
-        assertThat(p.getVersion()).isEmpty();
-        assertThat(p.getPaymentId()).isEmpty();
         assertThat(p.getFrom()).hasValue("0xFromAddress");
         assertThat(p.getTo()).isEmpty();
         assertThat(p.getAssetAmount()).isEmpty();
@@ -143,9 +144,6 @@ public class PaymentContextTest {
                                 .build())
                         .build())
                 .build();
-        assertThat(p.getVersion()).isEmpty();
-        assertThat(p.getPaymentId()).isEmpty();
-        assertThat(p.getFrom()).isEmpty();
         assertThat(p.getTo()).hasValue("0xToAddress");
         assertThat(p.getAssetAmount()).isEmpty();
         assertThat(p.getAssetContract()).isEmpty();
@@ -177,10 +175,6 @@ public class PaymentContextTest {
                                 .build())
                         .build())
                 .build();
-        assertThat(p.getVersion()).isEmpty();
-        assertThat(p.getPaymentId()).isEmpty();
-        assertThat(p.getFrom()).isEmpty();
-        assertThat(p.getTo()).isEmpty();
         assertThat(p.getAssetAmount()).contains(BigInteger.valueOf(1000));
         assertThat(p.getAssetContract()).isEmpty();
         assertThat(p.getNetwork()).isEmpty();
@@ -212,11 +206,6 @@ public class PaymentContextTest {
                         .asset("0xAssetContract")
                         .build())
                 .build();
-        assertThat(p.getVersion()).isEmpty();
-        assertThat(p.getPaymentId()).isEmpty();
-        assertThat(p.getFrom()).isEmpty();
-        assertThat(p.getTo()).isEmpty();
-        assertThat(p.getAssetAmount()).isEmpty();
         assertThat(p.getAssetContract()).hasValue("0xAssetContract");
         assertThat(p.getNetwork()).isEmpty();
 
@@ -256,12 +245,6 @@ public class PaymentContextTest {
                         .network(BASE_SEPOLIA.networkId())
                         .build())
                 .build();
-        assertThat(p.getVersion()).isEmpty();
-        assertThat(p.getPaymentId()).isEmpty();
-        assertThat(p.getFrom()).isEmpty();
-        assertThat(p.getTo()).isEmpty();
-        assertThat(p.getAssetAmount()).isEmpty();
-        assertThat(p.getAssetContract()).isEmpty();
         assertThat(p.getNetwork()).hasValue(BASE_SEPOLIA);
     }
 

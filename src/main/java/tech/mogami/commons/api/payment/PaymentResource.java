@@ -5,12 +5,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.hibernate.validator.constraints.URL;
 import org.jspecify.annotations.Nullable;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 /**
- * ResourceInfo object describing the protected resource.
+ * Resource object describing the protected resource.
  *
  * @param url         URL of the protected resource
  * @param description Human-readable description of the resource
@@ -24,6 +25,7 @@ public record PaymentResource(
 
         @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentPayload.resource.url.required}")
+        @URL(message = "{validation.paymentPayload.resource.url.invalid}")
         @Schema(description = "URL of the protected resource", example = "https://api.example.com/premium-data", requiredMode = REQUIRED)
         String url,
 

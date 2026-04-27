@@ -124,8 +124,8 @@ public record PaymentRequirements(
      * <p>
      * Compatibility rules:
      * - scheme, network, asset, payTo must match
-     * - paid amount must be superior required amount
-     * - timeout must be inferior to maxTimeoutSeconds
+     * - paid amount must be greater than or equal to required amount
+     * - paid timeout must be less than or equal to maxTimeoutSeconds
      * - extra values required by this instance must be present and equal in the other instance
      *
      * @param other the payment requirements to check against
@@ -138,7 +138,9 @@ public record PaymentRequirements(
                 && StringUtils.equalsIgnoreCase(network, other.network())
                 && StringUtils.equalsIgnoreCase(asset, other.asset())
                 && StringUtils.equalsIgnoreCase(payTo, other.payTo())
-                && other.amountAsBigInteger().compareTo(amountAsBigInteger()) == 0
+                && other.amountAsBigInteger().compareTo(amountAsBigInteger()) >= 0
+                && other.maxTimeoutSeconds() != null
+                && other.maxTimeoutSeconds() <= maxTimeoutSeconds()
                 && (extra == null || extra.isEmpty()
                 || (other.extra() != null
                 && extra.entrySet().stream()

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
@@ -12,11 +13,11 @@ import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.constant.x402.X402Version;
 import tech.mogami.commons.constant.x402.X402Versions;
 import tech.mogami.commons.deserializer.ForceStringDeserializer;
+import tech.mogami.commons.exception.InvalidX402VersionException;
 import tech.mogami.commons.validator.ExistingX402Version;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static tech.mogami.commons.constant.x402.X402Versions.X402_SUPPORTED_VERSIONS;
@@ -38,8 +39,8 @@ import static tech.mogami.commons.constant.x402.X402Versions.X402_SUPPORTED_VERS
 public record PaymentRequired(
 
         @JsonProperty(required = true)
-        @NotNull(message = "{validation.paymentPayload.x402Version.required}")
-        @ExistingX402Version(message = "{validation.paymentPayload.x402Version.invalid}")
+        @NotNull(message = "{validation.paymentRequired.x402Version.required}")
+        @ExistingX402Version(message = "{validation.paymentRequired.x402Version.invalid}")
         @Schema(description = "Version of the x402 payment protocol", example = "2", requiredMode = REQUIRED)
         Integer x402Version,
 
@@ -53,8 +54,10 @@ public record PaymentRequired(
         @Schema(description = "Resource requiring payment", requiredMode = REQUIRED)
         PaymentResource resource,
 
+        @Valid
         @JsonProperty(required = true)
         @NotNull(message = "{validation.paymentRequired.accepts.required}")
+        @NotEmpty(message = "{validation.paymentRequired.accepts.notEmpty}")
         @Schema(description = "List of acceptable payment methods (e.g., different schemes/networks/assets)", requiredMode = REQUIRED)
         List<PaymentRequirements> accepts,
 
@@ -64,13 +67,14 @@ public record PaymentRequired(
 ) {
 
     /**
-     * Retrieves the X402 version as an Optional enum.
+     * Get the X402Version enum corresponding to the x402Version field.
      *
-     * @return An Optional containing the X402Version if found, otherwise an empty Optional.
+     * @return the X402 version
      */
     @JsonIgnore
-    public Optional<X402Version> getVersion() {
-        return X402Versions.findByVersion(x402Version);
+    public X402Version getX402Version() {
+        return X402Versions.findByVersion(x402Version())
+                .orElseThrow(() -> new InvalidX402VersionException("Unknown x402 version: " + x402Version()));
     }
 
     /**
@@ -80,7 +84,7 @@ public record PaymentRequired(
      */
     @JsonIgnore
     public boolean isSupportedVersion() {
-        return getVersion()
+        return X402Versions.findByVersion(x402Version)
                 .map(X402_SUPPORTED_VERSIONS::contains)
                 .orElse(false);
     }

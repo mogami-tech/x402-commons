@@ -12,7 +12,10 @@ import lombok.Builder;
 @Builder
 @SuppressWarnings("unused")
 public record Scheme(
+
         String name,
-        Class<?> payloadClass
+
+        Class<? extends SchemePayload> payloadClass
+
 ) {
 }

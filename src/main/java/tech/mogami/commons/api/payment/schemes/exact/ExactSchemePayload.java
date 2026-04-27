@@ -18,6 +18,8 @@ import java.util.Optional;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
+import tech.mogami.commons.api.payment.schemes.SchemePayload;
+
 /**
  * Exact scheme payload.
  * It uses EIP-3009 (Transfer with Authorization) to enable gasless transfers of specific amounts of ERC-20 tokens.
@@ -42,7 +44,7 @@ public record ExactSchemePayload(
         @Schema(description = "EIP-3009 authorization parameters", requiredMode = REQUIRED)
         Authorization authorization
 
-) {
+) implements SchemePayload {
 
     /**
      * Get the nonce from the payload.

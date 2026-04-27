@@ -19,8 +19,7 @@ public class BigIntegerStringValidator implements ConstraintValidator<BigInteger
         }
 
         try {
-            new BigInteger(StringUtils.trim(value));
-            return true;
+            return new BigInteger(StringUtils.trim(value)).signum() >= 0;
         } catch (NumberFormatException e) {
             return false;
         }
