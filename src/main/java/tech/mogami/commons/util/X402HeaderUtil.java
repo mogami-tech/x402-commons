@@ -63,7 +63,7 @@ public class X402HeaderUtil {
                 "Invalid base64 payment payload header",
                 PaymentPayload.class,
                 "Invalid x402 payment payload",
-                violations -> new InvalidX402HeaderException("Invalid payment payload object")
+                violations -> new InvalidX402HeaderException("Invalid payment payload object", violations)
         );
     }
 
@@ -76,7 +76,7 @@ public class X402HeaderUtil {
     public String encodePaymentPayload(final PaymentPayload paymentPayload) {
         return encodeHeader(
                 paymentPayload,
-                violations -> new InvalidX402HeaderException("Invalid payment payload object"),
+                violations -> new InvalidX402HeaderException("Invalid payment payload object", violations),
                 "Unable to serialize payment payload"
         );
     }
@@ -93,7 +93,7 @@ public class X402HeaderUtil {
                 "Invalid base64 " + X402_PAYMENT_RESPONSE_HEADER + " header",
                 SettlementResponse.class,
                 "Invalid payment-response JSON payload",
-                violations -> new InvalidX402HeaderException("Invalid SettlementResponse object")
+                violations -> new InvalidX402HeaderException("Invalid SettlementResponse object", violations)
         );
     }
 
@@ -106,7 +106,7 @@ public class X402HeaderUtil {
     public String encodeSettlementResponse(final SettlementResponse settlementResponse) {
         return encodeHeader(
                 settlementResponse,
-                violations -> new InvalidX402HeaderException("Invalid SettlementResponse object"),
+                violations -> new InvalidX402HeaderException("Invalid SettlementResponse object", violations),
                 "Unable to serialize payment-response payload"
         );
     }

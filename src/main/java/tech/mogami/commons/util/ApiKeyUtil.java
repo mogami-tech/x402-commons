@@ -21,8 +21,7 @@ public class ApiKeyUtil {
     /** Reusable random string generator. */
     private static final RandomStringGenerator GENERATOR = new RandomStringGenerator.Builder()
             .usingRandom(SECURE_RANDOM::nextInt)
-            .withinRange('0', 'z')
-            .filteredBy(Character::isLetterOrDigit)
+            .withinRange(new char[]{'0', '9'}, new char[]{'A', 'Z'}, new char[]{'a', 'z'})
             .get();
 
     /**
