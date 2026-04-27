@@ -16,6 +16,9 @@ public final class ForceStringDeserializer extends JsonDeserializer<String> {
     @Override
     public String deserialize(final JsonParser parser, final DeserializationContext context) throws IOException {
         JsonNode node = parser.readValueAsTree();
+        if (node.isNull()) {
+            return null;
+        }
         if (node.isTextual()) {
             return node.asText();
         }
