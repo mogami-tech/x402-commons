@@ -5,11 +5,18 @@ import lombok.Builder;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Blockchain.
+ * Represents a blockchain protocol (e.g., Ethereum, Solana).
  *
- * @param namespace   the namespace of the blockchain (example: "eip155" for Ethereum)
- * @param name        the name of the blockchain (example: "Ethereum" or "bitcoin")
- * @param displayName a user-friendly display name for the blockchain
+ * <p>A {@code Blockchain} describes the protocol layer only — its namespace and canonical name.
+ * It does not carry network-specific details such as chain ID, RPC URLs, or deployed contracts.
+ * Those details belong to {@link tech.mogami.commons.constant.network.Network}, which always
+ * references a {@code Blockchain} and represents a specific execution environment
+ * (e.g., Base Mainnet or Base Sepolia on the Ethereum blockchain).
+ *
+ * @param namespace   the CAIP-2 namespace of the blockchain (example: "eip155" for Ethereum-compatible chains)
+ * @param name        the canonical name of the blockchain (example: "ethereum" or "solana")
+ * @param displayName a user-friendly display name for the blockchain (example: "Ethereum")
+ * @see tech.mogami.commons.constant.network.Network
  */
 @Builder
 @SuppressWarnings("unused")
