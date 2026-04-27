@@ -1,12 +1,11 @@
-package tech.mogami.commons.test.dto;
+package tech.mogami.commons.test.api;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.api.payment.PaymentRequired;
 import tech.mogami.commons.api.payment.PaymentRequirements;
-import tech.mogami.commons.util.ValidationUtil;
-
 import tech.mogami.commons.exception.InvalidX402VersionException;
+import tech.mogami.commons.util.ValidationUtil;
 
 import java.util.List;
 

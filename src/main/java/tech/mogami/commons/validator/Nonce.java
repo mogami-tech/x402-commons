@@ -26,7 +26,7 @@ public @interface Nonce {
      *
      * @return message
      */
-    String message() default "{tech.mogami.commons.validator.Nonce.message}";
+    String message();
 
     /**
      * Groups.

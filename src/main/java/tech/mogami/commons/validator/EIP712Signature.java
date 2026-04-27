@@ -25,7 +25,7 @@ public @interface EIP712Signature {
      *
      * @return message
      */
-    String message() default "{tech.mogami.commons.validator.EIP712Signature.message}";
+    String message();
 
     /**
      * Groups.

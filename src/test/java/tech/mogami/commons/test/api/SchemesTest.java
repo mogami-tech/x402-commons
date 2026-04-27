@@ -1,9 +1,10 @@
-package tech.mogami.commons.test.dto;
+package tech.mogami.commons.test.api;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.api.payment.schemes.Schemes;
 import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
+import tech.mogami.commons.api.payment.schemes.upto.UptoSchemePayload;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,6 +46,31 @@ public class SchemesTest {
         assertThat(Schemes.findByName("EXACT")).isPresent();
         assertThat(Schemes.findByName("Exact")).isPresent();
         assertThat(Schemes.findByName("eXaCt")).isPresent();
+    }
+
+    @Test
+    @DisplayName("findByName should return upto scheme")
+    void uptoScheme() {
+        assertThat(Schemes.findByName("upto"))
+                .isPresent()
+                .hasValueSatisfying(scheme -> {
+                    assertThat(scheme.name()).isEqualTo("upto");
+                    assertThat(scheme.payloadClass()).isEqualTo(UptoSchemePayload.class);
+                });
+    }
+
+    @Test
+    @DisplayName("upto scheme should not be in SUPPORTED_SCHEMES")
+    void uptoNotInSupportedSchemes() {
+        assertThat(Schemes.SUPPORTED_SCHEMES)
+                .noneMatch(scheme -> "upto".equals(scheme.name()));
+    }
+
+    @Test
+    @DisplayName("SUPPORTED_SCHEMES should contain only exact scheme")
+    void supportedSchemesContainsOnlyExact() {
+        assertThat(Schemes.SUPPORTED_SCHEMES).hasSize(1);
+        assertThat(Schemes.SUPPORTED_SCHEMES.getFirst().name()).isEqualTo("exact");
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
+import tech.mogami.commons.api.payment.schemes.upto.UptoSchemePayload;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_NAME;
+import static tech.mogami.commons.api.payment.schemes.upto.UptoSchemeConstants.UPTO_SCHEME_NAME;
 
 
 /**
@@ -30,11 +32,14 @@ public class Schemes {
             .payloadClass(ExactSchemePayload.class)
             .build();
 
-    /** Supported schemes. */
-    public static final List<Scheme> SUPPORTED_SCHEMES = List.of(EXACT_SCHEME);
+    /** Upto scheme (not yet supported for production use). */
+    public static final Scheme UPTO_SCHEME = Scheme.builder()
+            .name(UPTO_SCHEME_NAME)
+            .payloadClass(UptoSchemePayload.class)
+            .build();
 
-    /** All schemes. */
-    private static final List<Scheme> ALL_SCHEMES = List.of(EXACT_SCHEME);
+    /** All schemes (including schemes not yet supported for production use). */
+    public static final List<Scheme> ALL_SCHEMES = List.of(EXACT_SCHEME, UPTO_SCHEME);
 
     /** Map of schemes by name. */
     private static final Map<String, Scheme> SCHEMES_BY_NAME = ALL_SCHEMES.stream()
@@ -42,6 +47,9 @@ public class Schemes {
                     scheme -> StringUtils.lowerCase(scheme.name()),
                     Function.identity()
             ));
+
+    /** Supported schemes. */
+    public static final List<Scheme> SUPPORTED_SCHEMES = List.of(EXACT_SCHEME);
 
     /**
      * Find a scheme by its name.

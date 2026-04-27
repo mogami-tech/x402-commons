@@ -1,4 +1,4 @@
-package tech.mogami.commons.test.dto;
+package tech.mogami.commons.test.api;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,10 +7,9 @@ import tech.mogami.commons.api.facilitator.verify.VerificationRequest;
 import tech.mogami.commons.api.payment.PaymentPayload;
 import tech.mogami.commons.api.payment.PaymentRequirements;
 import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
+import tech.mogami.commons.exception.InvalidX402VersionException;
 
 import java.math.BigInteger;
-
-import tech.mogami.commons.exception.InvalidX402VersionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

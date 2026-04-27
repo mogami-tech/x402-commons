@@ -1,4 +1,4 @@
-package tech.mogami.commons.test.dto;
+package tech.mogami.commons.test.api;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
