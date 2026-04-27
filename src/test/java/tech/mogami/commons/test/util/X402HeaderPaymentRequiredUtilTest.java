@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import tech.mogami.commons.api.payment.PaymentRequired;
 import tech.mogami.commons.api.payment.PaymentRequirements;
 import tech.mogami.commons.api.payment.PaymentResource;
+import tech.mogami.commons.exception.InvalidPaymentRequirementsException;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
-import tech.mogami.commons.exception.InvalidX402PaymentRequiredException;
 import tech.mogami.commons.test.BaseMogamiTest;
 import tech.mogami.commons.util.X402HeaderUtil;
 
@@ -31,7 +31,7 @@ public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {
                 .hasMessageContaining("Invalid base64 " + X402_PAYMENT_REQUIRED_HEADER + " header");
 
         assertThatThrownBy(() -> X402HeaderUtil.decodePaymentRequired(getEmptyJson()))
-                .isInstanceOf(InvalidX402PaymentRequiredException.class)
+                .isInstanceOf(InvalidPaymentRequirementsException.class)
                 .hasMessageContaining("Invalid x402 payment requirements");
 
         assertThat(X402HeaderUtil.decodePaymentRequired(getSampleEncodedPaymentRequired())).isNotNull()
@@ -63,7 +63,7 @@ public class X402HeaderPaymentRequiredUtilTest extends BaseMogamiTest {
     void encodePaymentRequired() {
         // Invalid PaymentRequired object ==============================================================================
         assertThatThrownBy(() -> X402HeaderUtil.encodePaymentRequired(PaymentRequired.builder().build()))
-                .isInstanceOf(InvalidX402PaymentRequiredException.class)
+                .isInstanceOf(InvalidPaymentRequirementsException.class)
                 .hasMessageContaining("Invalid x402 payment requirements");
 
         // We decode a valid payment ===================================================================================

@@ -5,8 +5,8 @@ import lombok.experimental.UtilityClass;
 import tech.mogami.commons.api.facilitator.settle.SettlementResponse;
 import tech.mogami.commons.api.payment.PaymentPayload;
 import tech.mogami.commons.api.payment.PaymentRequired;
+import tech.mogami.commons.exception.InvalidPaymentRequirementsException;
 import tech.mogami.commons.exception.InvalidX402HeaderException;
-import tech.mogami.commons.exception.InvalidX402PaymentRequiredException;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -33,7 +33,7 @@ public class X402HeaderUtil {
                 "Invalid base64 " + X402_PAYMENT_REQUIRED_HEADER + " header",
                 PaymentRequired.class,
                 "Invalid payment-required JSON payload",
-                InvalidX402PaymentRequiredException::new
+                InvalidPaymentRequirementsException::new
         );
     }
 
@@ -46,7 +46,7 @@ public class X402HeaderUtil {
     public String encodePaymentRequired(final PaymentRequired paymentRequired) {
         return encodeHeader(
                 paymentRequired,
-                InvalidX402PaymentRequiredException::new,
+                InvalidPaymentRequirementsException::new,
                 "Unable to serialize payment-required payload"
         );
     }
