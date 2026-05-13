@@ -7,7 +7,7 @@ import tech.mogami.commons.validator.HttpMethodStringValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("HTTP method string validator tests")
-public class HttpMethodStringValidatorTest {
+class HttpMethodStringValidatorTest {
 
     HttpMethodStringValidator validator = new HttpMethodStringValidator();
 

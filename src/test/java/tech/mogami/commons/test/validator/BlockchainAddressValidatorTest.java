@@ -7,7 +7,7 @@ import tech.mogami.commons.validator.BlockchainAddressValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Blockchain address validator tests")
-public class BlockchainAddressValidatorTest {
+class BlockchainAddressValidatorTest {
 
     BlockchainAddressValidator validator = new BlockchainAddressValidator();
 

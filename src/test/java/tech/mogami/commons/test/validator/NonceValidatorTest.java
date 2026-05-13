@@ -7,7 +7,7 @@ import tech.mogami.commons.validator.NonceValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Nonce validator tests")
-public class NonceValidatorTest {
+class NonceValidatorTest {
 
     private final NonceValidator validator = new NonceValidator();
 

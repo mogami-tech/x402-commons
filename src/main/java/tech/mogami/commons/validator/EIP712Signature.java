@@ -12,7 +12,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * EIP-712 signature annotation.
- * Validates that the value is a well-formed EIP-712 signature: {@code 0x} followed by 130 lowercase hex characters (65 bytes).
+ * Validates that the value is a well-formed EIP-712 signature: {@code 0x} followed by 130 hex
+ * characters (case-insensitive, representing 65 bytes: r + s + v).
+ *
+ * <p>Accepts {@code null} and blank strings as valid (use {@code @NotBlank} to enforce presence).
  */
 @Documented
 @Constraint(validatedBy = EIP712SignatureValidator.class)

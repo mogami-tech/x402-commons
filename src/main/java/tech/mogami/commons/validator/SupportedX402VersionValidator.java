@@ -14,6 +14,10 @@ public class SupportedX402VersionValidator implements ConstraintValidator<Suppor
 
     @Override
     public final boolean isValid(@Nullable final Integer version, final ConstraintValidatorContext constraintValidatorContext) {
+        if (version == null) {
+            return false;
+        }
+
         return X402Versions.findByVersion(version)
                 .filter(X402_SUPPORTED_VERSIONS::contains)
                 .isPresent();

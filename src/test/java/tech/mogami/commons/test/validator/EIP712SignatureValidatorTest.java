@@ -7,7 +7,7 @@ import tech.mogami.commons.validator.EIP712SignatureValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("EIP-712 signature validator tests")
-public class EIP712SignatureValidatorTest {
+class EIP712SignatureValidatorTest {
 
     EIP712SignatureValidator validator = new EIP712SignatureValidator();
 

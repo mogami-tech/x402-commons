@@ -12,6 +12,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Scheme annotation.
+ *
+ * <p>Accepts {@code null} and blank strings as valid (use {@code @NotBlank} to enforce presence).
+ * Validates that the value matches a known payment scheme name (case-insensitive).
  */
 @Documented
 @Constraint(validatedBy = SchemeValidator.class)

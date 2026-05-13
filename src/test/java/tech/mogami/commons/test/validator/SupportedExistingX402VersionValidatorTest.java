@@ -7,7 +7,7 @@ import tech.mogami.commons.validator.SupportedX402VersionValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("X402 supported version validator tests")
-public class SupportedExistingX402VersionValidatorTest {
+class SupportedExistingX402VersionValidatorTest {
 
     SupportedX402VersionValidator validator = new SupportedX402VersionValidator();
 
