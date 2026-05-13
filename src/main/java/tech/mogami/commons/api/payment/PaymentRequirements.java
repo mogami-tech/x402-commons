@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 import tech.mogami.commons.validator.BigIntegerString;
 import tech.mogami.commons.validator.NetworkId;
+import tech.mogami.commons.validator.PayTo;
 import tech.mogami.commons.validator.Scheme;
 
 import java.math.BigInteger;
@@ -68,6 +69,7 @@ public record PaymentRequirements(
 
         @JsonProperty(required = true)
         @NotBlank(message = "{validation.paymentRequirements.payTo.required}")
+        @PayTo(message = "{validation.paymentRequirements.payTo.invalid}")
         @Schema(description = "Recipient wallet address or role constant (e.g., \"merchant\")", example = "0x1234...", requiredMode = REQUIRED)
         String payTo,
 
