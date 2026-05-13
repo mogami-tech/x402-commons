@@ -1,6 +1,7 @@
 package tech.mogami.commons.blockchain.gas;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Builder;
 
 import java.math.BigInteger;
@@ -14,7 +15,7 @@ import java.math.BigInteger;
 @Builder
 @SuppressWarnings("unused")
 public record GasFees(
-        @NotNull BigInteger maximumFeePerGas,
-        @NotNull BigInteger maximumPriorityFeePerGas
+        @NotNull @PositiveOrZero BigInteger maximumFeePerGas,
+        @NotNull @PositiveOrZero BigInteger maximumPriorityFeePerGas
 ) {
 }

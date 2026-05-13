@@ -8,6 +8,7 @@ import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
 import tech.mogami.commons.blockchain.signature.EIP712Helper;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.mogami.commons.api.payment.schemes.Schemes.EXACT_SCHEME;
 import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
 import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
@@ -62,6 +63,82 @@ public class EIP712HelperTest {
                 exactSchemePayloadAuthorization,
                 Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY).getAddress()))
                 .isTrue();
+    }
+
+    @Test
+    @DisplayName("sign() throws NullPointerException when credentials is null")
+    void signThrowsOnNullCredentials() {
+        assertThatThrownBy(() -> EIP712Helper.sign(null, paymentRequirements, exactSchemePayloadAuthorization))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("credentials must not be null");
+    }
+
+    @Test
+    @DisplayName("sign() throws NullPointerException when paymentsRequirements is null")
+    void signThrowsOnNullPaymentRequirements() {
+        assertThatThrownBy(() -> EIP712Helper.sign(
+                        Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY), null, exactSchemePayloadAuthorization))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("paymentsRequirements must not be null");
+    }
+
+    @Test
+    @DisplayName("sign() throws NullPointerException when authorization is null")
+    void signThrowsOnNullAuthorization() {
+        assertThatThrownBy(() -> EIP712Helper.sign(
+                        Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY), paymentRequirements, null))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("exactSchemePayloadAuthorization must not be null");
+    }
+
+    @Test
+    @DisplayName("verify() throws IllegalArgumentException when signatureHex is blank")
+    void verifyThrowsOnBlankSignature() {
+        assertThatThrownBy(() -> EIP712Helper.verify(
+                        "  ", paymentRequirements, exactSchemePayloadAuthorization,
+                        Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY).getAddress()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("signatureHex must not be null or blank");
+    }
+
+    @Test
+    @DisplayName("verify() throws IllegalArgumentException when signatureHex has invalid length")
+    void verifyThrowsOnInvalidSignatureLength() {
+        assertThatThrownBy(() -> EIP712Helper.verify(
+                        "0xdeadbeef", paymentRequirements, exactSchemePayloadAuthorization,
+                        Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY).getAddress()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("EIP712_SIGNATURE_LENGTH")
+                .hasMessageContaining("132");
+    }
+
+    @Test
+    @DisplayName("verify() throws NullPointerException when paymentsRequirements is null")
+    void verifyThrowsOnNullPaymentRequirements() {
+        assertThatThrownBy(() -> EIP712Helper.verify(
+                        expectedSignature, null, exactSchemePayloadAuthorization,
+                        Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY).getAddress()))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("paymentsRequirements must not be null");
+    }
+
+    @Test
+    @DisplayName("verify() throws NullPointerException when authorization is null")
+    void verifyThrowsOnNullAuthorization() {
+        assertThatThrownBy(() -> EIP712Helper.verify(
+                        expectedSignature, paymentRequirements, null,
+                        Credentials.create(TEST_CLIENT_WALLET_ADDRESS_1_PRIVATE_KEY).getAddress()))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("exactSchemePayloadAuthorization must not be null");
+    }
+
+    @Test
+    @DisplayName("verify() throws IllegalArgumentException when expectedSigner is blank")
+    void verifyThrowsOnBlankExpectedSigner() {
+        assertThatThrownBy(() -> EIP712Helper.verify(
+                        expectedSignature, paymentRequirements, exactSchemePayloadAuthorization, "  "))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("expectedSigner must not be null or blank");
     }
 
 }

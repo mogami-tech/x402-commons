@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.StringUtils;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Keys;
 import org.web3j.crypto.Sign;
@@ -16,10 +17,12 @@ import tech.mogami.commons.constant.network.Networks;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_NAME;
 import static tech.mogami.commons.api.payment.schemes.exact.ExactSchemeConstants.EXACT_SCHEME_PARAMETER_VERSION;
 import static tech.mogami.commons.constant.blockchain.BlockchainConstants.BLOCKCHAIN_ADDRESS_PREFIX;
+import static tech.mogami.commons.constant.blockchain.BlockchainConstants.EIP712_SIGNATURE_LENGTH;
 
 /**
  * Utility class for EIP-712 related operations.
@@ -78,6 +81,10 @@ public class EIP712Helper {
     public static String sign(final Credentials credentials,
                               final PaymentRequirements paymentsRequirements,
                               final ExactSchemePayload.Authorization exactSchemePayloadAuthorization) throws Exception {
+        Objects.requireNonNull(credentials, "credentials must not be null");
+        Objects.requireNonNull(paymentsRequirements, "paymentsRequirements must not be null");
+        Objects.requireNonNull(exactSchemePayloadAuthorization, "exactSchemePayloadAuthorization must not be null");
+
         // Build the EIP-712 typed-data JSON (domain + message) exactly once
         String typedDataJson = buildTypedDataJson(paymentsRequirements, exactSchemePayloadAuthorization);
 
@@ -99,6 +106,18 @@ public class EIP712Helper {
                                  final PaymentRequirements paymentsRequirements,
                                  final ExactSchemePayload.Authorization exactSchemePayloadAuthorization,
                                  final String expectedSigner) throws Exception {
+        if (StringUtils.isBlank(signatureHex)) {
+            throw new IllegalArgumentException("signatureHex must not be null or blank");
+        }
+        if (signatureHex.length() != EIP712_SIGNATURE_LENGTH) {
+            throw new IllegalArgumentException("signatureHex must be exactly EIP712_SIGNATURE_LENGTH (" + EIP712_SIGNATURE_LENGTH + ") characters long, got: " + signatureHex.length());
+        }
+        Objects.requireNonNull(paymentsRequirements, "paymentsRequirements must not be null");
+        Objects.requireNonNull(exactSchemePayloadAuthorization, "exactSchemePayloadAuthorization must not be null");
+        if (StringUtils.isBlank(expectedSigner)) {
+            throw new IllegalArgumentException("expectedSigner must not be null or blank");
+        }
+
         // Create the typed-data JSON exactly as in sign()
         String typedDataJson = buildTypedDataJson(paymentsRequirements, exactSchemePayloadAuthorization);
 
@@ -127,10 +146,19 @@ public class EIP712Helper {
         Network network = Networks.findByNetworkId(paymentsRequirements.network())
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported network: " + paymentsRequirements.network()));
 
+        String tokenName = paymentsRequirements.extra().get(EXACT_SCHEME_PARAMETER_NAME);
+        if (StringUtils.isBlank(tokenName)) {
+            throw new IllegalArgumentException("Payment requirements extra parameter '" + EXACT_SCHEME_PARAMETER_NAME + "' must not be null or blank");
+        }
+        String tokenVersion = paymentsRequirements.extra().get(EXACT_SCHEME_PARAMETER_VERSION);
+        if (StringUtils.isBlank(tokenVersion)) {
+            throw new IllegalArgumentException("Payment requirements extra parameter '" + EXACT_SCHEME_PARAMETER_VERSION + "' must not be null or blank");
+        }
+
         // Build the EIP-712 typed-data JSON (domain + message) ========================================================
         ObjectNode domain = OBJECT_MAPPER.createObjectNode();
-        domain.put("name", paymentsRequirements.extra().get(EXACT_SCHEME_PARAMETER_NAME));
-        domain.put("version", paymentsRequirements.extra().get(EXACT_SCHEME_PARAMETER_VERSION));
+        domain.put("name", tokenName);
+        domain.put("version", tokenVersion);
         domain.put("chainId", network.chainId());
         domain.put("verifyingContract", paymentsRequirements.asset());
 
