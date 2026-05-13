@@ -23,9 +23,9 @@ public enum X402Error {
     INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALID_BEFORE("invalid_exact_evm_payload_authorization_valid_before",
             "Payment authorization has expired (after validBefore timestamp)"),
 
-    /** The payment amount is insufficient for the required payment. */
-    INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE("invalid_exact_evm_payload_authorization_value",
-            "Payment amount is insufficient for the required payment"),
+    /** Payment amount does not exactly match the required amount. */
+    INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE_MISMATCH("invalid_exact_evm_payload_authorization_value_mismatch",
+            "Payment amount does not exactly match the required amount"),
 
     /** Payment authorization signature is invalid or improperly signed. */
     INVALID_EXACT_EVM_PAYLOAD_SIGNATURE("invalid_exact_evm_payload_signature",
@@ -82,7 +82,7 @@ public enum X402Error {
             Map.entry(INSUFFICIENT_FUNDS.code, INSUFFICIENT_FUNDS),
             Map.entry(INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALID_AFTER.code, INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALID_AFTER),
             Map.entry(INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALID_BEFORE.code, INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALID_BEFORE),
-            Map.entry(INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE.code, INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE),
+            Map.entry(INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE_MISMATCH.code, INVALID_EXACT_EVM_PAYLOAD_AUTHORIZATION_VALUE_MISMATCH),
             Map.entry(INVALID_EXACT_EVM_PAYLOAD_SIGNATURE.code, INVALID_EXACT_EVM_PAYLOAD_SIGNATURE),
             Map.entry(INVALID_EXACT_EVM_PAYLOAD_RECIPIENT_MISMATCH.code, INVALID_EXACT_EVM_PAYLOAD_RECIPIENT_MISMATCH),
             Map.entry(INVALID_NETWORK.code, INVALID_NETWORK),
