@@ -3,21 +3,21 @@ package tech.mogami.commons.test.exception;
 import jakarta.validation.ConstraintViolation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tech.mogami.commons.exception.InvalidPaymentRequirementsException;
+import tech.mogami.commons.exception.InvalidX402PaymentRequiredException;
 
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("InvalidPaymentRequirementsException tests")
-public class InvalidPaymentRequirementsExceptionTest {
+@DisplayName("InvalidX402PaymentRequiredException tests")
+public class InvalidX402PaymentRequiredExceptionTest {
 
     @Test
     @DisplayName("Constructor with violations should use default message")
     void constructorWithViolations() {
         Set<ConstraintViolation<?>> violations = Set.of();
 
-        InvalidPaymentRequirementsException exception = new InvalidPaymentRequirementsException(violations);
+        InvalidX402PaymentRequiredException exception = new InvalidX402PaymentRequiredException(violations);
 
         assertThat(exception.getMessage()).isEqualTo("Invalid x402 payment requirements");
         assertThat(exception.getViolations()).isSameAs(violations);
@@ -29,7 +29,8 @@ public class InvalidPaymentRequirementsExceptionTest {
     void constructorWithMessageAndViolations() {
         Set<ConstraintViolation<?>> violations = Set.of();
 
-        InvalidPaymentRequirementsException exception = new InvalidPaymentRequirementsException("Custom validation error", violations);
+        InvalidX402PaymentRequiredException exception =
+                new InvalidX402PaymentRequiredException("Custom validation error", violations);
 
         assertThat(exception.getMessage()).isEqualTo("Custom validation error");
         assertThat(exception.getViolations()).isSameAs(violations);
@@ -39,7 +40,7 @@ public class InvalidPaymentRequirementsExceptionTest {
     @Test
     @DisplayName("Exception should be a RuntimeException")
     void isRuntimeException() {
-        InvalidPaymentRequirementsException exception = new InvalidPaymentRequirementsException(Set.of());
+        InvalidX402PaymentRequiredException exception = new InvalidX402PaymentRequiredException(Set.of());
 
         assertThat(exception).isInstanceOf(RuntimeException.class);
     }
@@ -49,7 +50,7 @@ public class InvalidPaymentRequirementsExceptionTest {
     void violationsPreserved() {
         Set<ConstraintViolation<?>> violations = Set.of();
 
-        InvalidPaymentRequirementsException exception = new InvalidPaymentRequirementsException(violations);
+        InvalidX402PaymentRequiredException exception = new InvalidX402PaymentRequiredException(violations);
 
         assertThat(exception.getViolations()).isSameAs(violations);
     }

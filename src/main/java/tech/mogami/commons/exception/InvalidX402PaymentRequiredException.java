@@ -9,7 +9,7 @@ import java.util.Set;
  * Exception thrown when the x402 payment requirements fail bean validation.
  */
 @SuppressWarnings("unused")
-public final class InvalidPaymentRequirementsException extends X402Exception {
+public final class InvalidX402PaymentRequiredException extends X402Exception {
 
     /** Serial version UID. */
     @java.io.Serial
@@ -24,7 +24,7 @@ public final class InvalidPaymentRequirementsException extends X402Exception {
      *
      * @param newViolations the set of constraint violations
      */
-    public InvalidPaymentRequirementsException(final Set<? extends ConstraintViolation<?>> newViolations) {
+    public InvalidX402PaymentRequiredException(final Set<? extends ConstraintViolation<?>> newViolations) {
         super("Invalid x402 payment requirements");
         this.violations = newViolations;
     }
@@ -35,7 +35,10 @@ public final class InvalidPaymentRequirementsException extends X402Exception {
      * @param message       the exception message
      * @param newViolations the set of constraint violations
      */
-    public InvalidPaymentRequirementsException(final String message, final Set<? extends ConstraintViolation<?>> newViolations) {
+    public InvalidX402PaymentRequiredException(
+            final String message,
+            final Set<? extends ConstraintViolation<?>> newViolations
+    ) {
         super(message);
         this.violations = newViolations;
     }
