@@ -190,6 +190,26 @@ public class UptoSchemePayloadTest {
                 .containsExactly("permit2Authorization.witness.validAfter");
     }
 
+    @Test
+    @DisplayName("Invalid nonce format should fail cascaded validation")
+    void invalidNonce() {
+        var auth = UptoSchemePayload.Permit2Authorization.builder()
+                .permitted(validPermitted())
+                .from(VALID_FROM)
+                .spender(VALID_SPENDER)
+                .nonce("not-a-nonce")
+                .deadline(VALID_DEADLINE)
+                .witness(validWitness())
+                .build();
+        assertThat(ValidationUtil.findViolations(UptoSchemePayload.builder()
+                .signature(VALID_SIGNATURE)
+                .permit2Authorization(auth)
+                .build()))
+                .hasSize(1)
+                .extracting(v -> v.getPropertyPath().toString())
+                .containsExactly("permit2Authorization.nonce");
+    }
+
     // =========================================================================
     // Helper methods
     // =========================================================================

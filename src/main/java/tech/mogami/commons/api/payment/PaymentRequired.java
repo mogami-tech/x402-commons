@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.api.payment.extensions.Extensions;
 import tech.mogami.commons.constant.x402.X402Version;
 import tech.mogami.commons.constant.x402.X402Versions;
 import tech.mogami.commons.deserializer.ForceStringDeserializer;
@@ -17,7 +18,6 @@ import tech.mogami.commons.exception.InvalidX402VersionException;
 import tech.mogami.commons.validator.ExistingX402Version;
 
 import java.util.List;
-import java.util.Map;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static tech.mogami.commons.constant.x402.X402Versions.X402_SUPPORTED_VERSIONS;
@@ -61,8 +61,9 @@ public record PaymentRequired(
         @Schema(description = "List of acceptable payment methods (e.g., different schemes/networks/assets)", requiredMode = REQUIRED)
         List<PaymentRequirements> accepts,
 
-        @Schema(description = "Protocol extensions data")
-        @Nullable Map<String, Object> extensions
+        @Valid
+        @Schema(description = "Protocol extensions data", nullable = true)
+        @Nullable Extensions extensions
 
 ) {
 

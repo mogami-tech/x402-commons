@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.api.payment.extensions.Extensions;
 import tech.mogami.commons.api.payment.schemes.Scheme;
 import tech.mogami.commons.api.payment.schemes.SchemePayload;
 import tech.mogami.commons.api.payment.schemes.Schemes;
@@ -20,7 +21,6 @@ import tech.mogami.commons.util.JsonUtil;
 import tech.mogami.commons.validator.ExistingX402Version;
 
 import java.math.BigInteger;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -49,6 +49,7 @@ public record PaymentPayload(
 
         @Nullable
         @Valid
+        @JsonProperty("resource")
         @Schema(description = "Resource requiring payment", nullable = true)
         PaymentResource resource,
 
@@ -64,8 +65,9 @@ public record PaymentPayload(
         @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", requiredMode = REQUIRED, oneOf = {ExactSchemePayload.class})
         Object payload,
 
+        @Valid
         @Schema(description = "Protocol extensions data", nullable = true)
-        @Nullable Map<String, Object> extensions
+        @Nullable Extensions extensions
 
 ) {
 

@@ -4,7 +4,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.mogami.commons.api.payment.PaymentRequired;
 import tech.mogami.commons.api.payment.PaymentRequirements;
+import tech.mogami.commons.api.payment.extensions.Extensions;
+import tech.mogami.commons.api.payment.extensions.bazaar.BazaarExtension;
+import tech.mogami.commons.api.payment.extensions.bazaar.BazaarHttpInput;
+import tech.mogami.commons.api.payment.extensions.bazaar.BazaarInfo;
+import tech.mogami.commons.constant.util.HttpMethod;
 import tech.mogami.commons.exception.InvalidX402VersionException;
+import tech.mogami.commons.util.JsonUtil;
 import tech.mogami.commons.util.ValidationUtil;
 
 import java.util.List;
@@ -86,6 +92,46 @@ public class PaymentRequiredTest {
                 .build()))
                 .extracting(v -> v.getPropertyPath().toString())
                 .anyMatch(p -> p.startsWith("accepts"));
+    }
+
+    @Test
+    @DisplayName("extensions field is typed as Extensions and serialized correctly")
+    void extensionsFieldIsTyped() {
+        var schema = JsonUtil.fromJson("{\"type\":\"object\"}", com.fasterxml.jackson.databind.JsonNode.class);
+        var bazaarExtension = BazaarExtension.builder()
+                .info(BazaarInfo.builder()
+                        .input(BazaarHttpInput.builder().method(HttpMethod.GET).build())
+                        .build())
+                .schema(schema)
+                .build();
+        var extensions = Extensions.builder().bazaar(bazaarExtension).build();
+        var paymentRequired = PaymentRequired.builder()
+                .x402Version(2)
+                .extensions(extensions)
+                .build();
+
+        assertThat(paymentRequired.extensions()).isNotNull();
+        assertThat(paymentRequired.extensions().bazaar()).isEqualTo(bazaarExtension);
+
+        String json = JsonUtil.toJson(paymentRequired);
+        assertThat(json).contains("\"extensions\"");
+        assertThat(json).contains("\"bazaar\"");
+
+        var deserialized = JsonUtil.fromJson(json, PaymentRequired.class);
+        assertThat(deserialized.extensions()).isNotNull();
+        assertThat(deserialized.extensions().bazaar()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Null extensions in PaymentRequired should not produce violations")
+    void nullExtensionsAreValid() {
+        var paymentRequired = PaymentRequired.builder()
+                .x402Version(2)
+                .extensions(null)
+                .build();
+        assertThat(ValidationUtil.findViolations(paymentRequired))
+                .extracting(v -> v.getPropertyPath().toString())
+                .doesNotContain("extensions");
     }
 
 }
