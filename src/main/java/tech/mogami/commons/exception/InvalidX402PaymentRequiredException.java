@@ -6,8 +6,9 @@ import lombok.Getter;
 import java.util.Set;
 
 /**
- * Exception thrown when a x402 payment is invalid.
+ * Exception thrown when the x402 payment requirements fail bean validation.
  */
+@SuppressWarnings("unused")
 public final class InvalidX402PaymentRequiredException extends X402Exception {
 
     /** Serial version UID. */
@@ -25,6 +26,20 @@ public final class InvalidX402PaymentRequiredException extends X402Exception {
      */
     public InvalidX402PaymentRequiredException(final Set<? extends ConstraintViolation<?>> newViolations) {
         super("Invalid x402 payment requirements");
+        this.violations = newViolations;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param message       the exception message
+     * @param newViolations the set of constraint violations
+     */
+    public InvalidX402PaymentRequiredException(
+            final String message,
+            final Set<? extends ConstraintViolation<?>> newViolations
+    ) {
+        super(message);
         this.violations = newViolations;
     }
 
