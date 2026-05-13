@@ -13,6 +13,7 @@ import tech.mogami.commons.api.payment.schemes.Scheme;
 import tech.mogami.commons.api.payment.schemes.SchemePayload;
 import tech.mogami.commons.api.payment.schemes.Schemes;
 import tech.mogami.commons.api.payment.schemes.exact.ExactSchemePayload;
+import tech.mogami.commons.api.payment.schemes.upto.UptoSchemePayload;
 import tech.mogami.commons.constant.x402.X402Version;
 import tech.mogami.commons.constant.x402.X402Versions;
 import tech.mogami.commons.exception.InvalidX402SchemeException;
@@ -21,6 +22,8 @@ import tech.mogami.commons.util.JsonUtil;
 import tech.mogami.commons.validator.ExistingX402Version;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -62,7 +65,7 @@ public record PaymentPayload(
         @JsonProperty(required = true)
         @Valid
         @NotNull(message = "{validation.paymentPayload.payload.required}")
-        @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", requiredMode = REQUIRED, oneOf = {ExactSchemePayload.class})
+        @Schema(description = "Scheme-dependent payload (structure depends on selected scheme)", requiredMode = REQUIRED, oneOf = {ExactSchemePayload.class, UptoSchemePayload.class})
         Object payload,
 
         @Valid
@@ -115,7 +118,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getNonce() {
-        return extract(ExactSchemePayload::getNonce);
+        return extract(SchemePayload::getNonce);
     }
 
     /**
@@ -125,7 +128,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getFromAddress() {
-        return extract(ExactSchemePayload::getFromAddress);
+        return extract(SchemePayload::getFromAddress);
     }
 
     /**
@@ -135,7 +138,7 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<String> getToAddress() {
-        return extract(ExactSchemePayload::getToAddress);
+        return extract(SchemePayload::getToAddress);
     }
 
     /**
@@ -145,21 +148,42 @@ public record PaymentPayload(
      */
     @JsonIgnore
     public Optional<BigInteger> getAmount() {
-        return extract(ExactSchemePayload::getAmount);
+        return extract(SchemePayload::getAmount);
     }
 
     /**
-     * Generic extractor for ExactSchemePayload fields.
-     * Note: only supports the "exact" scheme — returns empty for any other scheme.
+     * Generic extractor for scheme payload fields.
      *
      * @param extractor extractor function
      * @param <T>       type of the extracted value
      * @return the extracted value if available
      */
-    private <T> Optional<T> extract(final Function<ExactSchemePayload, Optional<T>> extractor) {
-        return Optional.ofNullable(payload)
-                .map(p -> JsonUtil.convertValue(p, ExactSchemePayload.class))
-                .flatMap(extractor);
+    private <T> Optional<T> extract(final Function<SchemePayload, Optional<T>> extractor) {
+        if (payload == null) {
+            return Optional.empty();
+        }
+
+        List<SchemePayload> candidates = new ArrayList<>();
+        try {
+            candidates.add(getTypedPayload());
+        } catch (RuntimeException ignored) {
+            // Ignore and fallback to best-effort extraction for backward compatibility.
+        }
+        safeConvert(ExactSchemePayload.class).ifPresent(candidates::add);
+        safeConvert(UptoSchemePayload.class).ifPresent(candidates::add);
+
+        return candidates.stream()
+                .map(extractor)
+                .flatMap(Optional::stream)
+                .findFirst();
+    }
+
+    private Optional<SchemePayload> safeConvert(final Class<? extends SchemePayload> payloadClass) {
+        try {
+            return Optional.of(JsonUtil.convertValue(payload, payloadClass));
+        } catch (RuntimeException e) {
+            return Optional.empty();
+        }
     }
 
 }
