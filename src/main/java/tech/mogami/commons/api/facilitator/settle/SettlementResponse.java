@@ -2,9 +2,13 @@ package tech.mogami.commons.api.facilitator.settle;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.Nullable;
+import tech.mogami.commons.api.payment.extensions.Extensions;
+import tech.mogami.commons.validator.NetworkId;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
@@ -17,6 +21,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
  * @param transaction Blockchain transaction hash (empty string if settlement failed)
  * @param network     Blockchain network identifier in CAIP-2 format
  * @param amount      Actual amount settled in atomic units (omitted if not applicable)
+ * @param extensions  Protocol extensions data
  */
 @Builder
 @Jacksonized
@@ -35,15 +40,21 @@ public record SettlementResponse(
         @Nullable String payer,
 
         @JsonProperty(required = true)
+        @NotNull(message = "{validation.settlementResponse.transaction.required}")
         @Schema(description = "Blockchain transaction hash (empty string if settlement failed)", example = "0x123...", requiredMode = REQUIRED)
         String transaction,
 
         @JsonProperty(required = true)
+        @NotBlank(message = "{validation.settlementResponse.network.required}")
+        @NetworkId(message = "{validation.settlementResponse.network.invalid}")
         @Schema(description = "Blockchain network identifier in CAIP-2 format", example = "eip155:84532", requiredMode = REQUIRED)
         String network,
 
         @Schema(description = "Actual amount settled in atomic units", example = "10000", nullable = true)
-        @Nullable String amount
+        @Nullable String amount,
+
+        @Schema(description = "Protocol extensions data", nullable = true)
+        @Nullable Extensions extensions
 
 ) {
 }

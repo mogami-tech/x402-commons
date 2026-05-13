@@ -65,6 +65,54 @@ public class PaymentRequirementsTest {
     }
 
     @Test
+    @DisplayName("isCompatibleWith() for upto scheme when settlement amount is lower than authorized max")
+    void uptoLowerAmountForIsCompatibleWith() {
+        PaymentRequirements required = PaymentRequirements.builder()
+                .scheme("upto")
+                .network("eip155:84532")
+                .amount("5000000")
+                .asset("0xABCDEF")
+                .payTo("0xPAYEE")
+                .maxTimeoutSeconds(60)
+                .build();
+
+        PaymentRequirements settled = PaymentRequirements.builder()
+                .scheme("upto")
+                .network("eip155:84532")
+                .amount("2350000")
+                .asset("0xABCDEF")
+                .payTo("0xPAYEE")
+                .maxTimeoutSeconds(60)
+                .build();
+
+        assertThat(required.isCompatibleWith(settled)).isTrue();
+    }
+
+    @Test
+    @DisplayName("isCompatibleWith() for upto scheme should reject settlement amount above authorized max")
+    void uptoHigherAmountForIsCompatibleWith() {
+        PaymentRequirements required = PaymentRequirements.builder()
+                .scheme("upto")
+                .network("eip155:84532")
+                .amount("5000000")
+                .asset("0xABCDEF")
+                .payTo("0xPAYEE")
+                .maxTimeoutSeconds(60)
+                .build();
+
+        PaymentRequirements settled = PaymentRequirements.builder()
+                .scheme("upto")
+                .network("eip155:84532")
+                .amount("5000001")
+                .asset("0xABCDEF")
+                .payTo("0xPAYEE")
+                .maxTimeoutSeconds(60)
+                .build();
+
+        assertThat(required.isCompatibleWith(settled)).isFalse();
+    }
+
+    @Test
     @DisplayName("isCompatibleWith() when timeout exceeds maxTimeoutSeconds")
     void timeoutExceededForIsCompatibleWith() {
         PaymentRequirements required = PaymentRequirements.builder()

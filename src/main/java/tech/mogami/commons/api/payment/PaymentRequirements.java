@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 import static java.math.BigInteger.ZERO;
+import static tech.mogami.commons.api.payment.schemes.upto.UptoSchemeConstants.UPTO_SCHEME_NAME;
 
 /**
  * Payment requirement returned to the client when he tries to access a resource.
@@ -137,7 +138,7 @@ public record PaymentRequirements(
                 && StringUtils.equalsIgnoreCase(network, other.network())
                 && StringUtils.equalsIgnoreCase(asset, other.asset())
                 && StringUtils.equalsIgnoreCase(payTo, other.payTo())
-                && other.amountAsBigInteger().compareTo(amountAsBigInteger()) >= 0
+                && isAmountCompatible(other)
                 && other.maxTimeoutSeconds() != null
                 && other.maxTimeoutSeconds() <= maxTimeoutSeconds()
                 && (extra == null || extra.isEmpty()
@@ -147,6 +148,15 @@ public record PaymentRequirements(
                         e.getValue(),
                         other.extra().get(e.getKey())
                 ))));
+    }
+
+    private boolean isAmountCompatible(final PaymentRequirements other) {
+        BigInteger requiredAmount = amountAsBigInteger();
+        BigInteger paidAmount = other.amountAsBigInteger();
+        if (StringUtils.equalsIgnoreCase(scheme, UPTO_SCHEME_NAME)) {
+            return paidAmount.compareTo(requiredAmount) <= 0;
+        }
+        return paidAmount.compareTo(requiredAmount) >= 0;
     }
 
 }
