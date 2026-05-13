@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * Global model attributes.
  */
 @UtilityClass
-@SuppressWarnings("unused")
+@SuppressWarnings({"HideUtilityClassConstructor", "unused"})
 public class GlobalModelAttributes {
 
     /** Error message. */

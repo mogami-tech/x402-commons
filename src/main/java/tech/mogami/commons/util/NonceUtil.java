@@ -1,5 +1,6 @@
 package tech.mogami.commons.util;
 
+import io.reactivex.annotations.Nullable;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +45,7 @@ public class NonceUtil {
      * @param nonce the nonce to shorten
      * @return the shortened nonce
      */
-    public static String shortenNonce(final String nonce) {
+    public static String shortenNonce(@Nullable final String nonce) {
         if (StringUtils.length(nonce) > NONCE_SHORTEN_PREFIX_LENGTH + NONCE_SHORTEN_SUFFIX_LENGTH) {
             return StringUtils.left(nonce, NONCE_SHORTEN_PREFIX_LENGTH)
                     + "..."
