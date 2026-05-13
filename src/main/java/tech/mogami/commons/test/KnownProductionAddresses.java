@@ -1,16 +1,16 @@
 package tech.mogami.commons.test;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Known production wallet addresses used as reference data in integration and cross-repository tests.
  *
  * <p>These addresses are real addresses on production networks. They must never be used to hold
  * private keys or sign transactions in tests.</p>
  */
-@SuppressWarnings("unused")
-public final class KnownProductionAddresses {
-
-    private KnownProductionAddresses() {
-    }
+@UtilityClass
+@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
+public class KnownProductionAddresses {
 
     /** Production: facilitator address. */
     public static final String PRODUCTION_FACILITATOR_WALLET_ADDRESS = "0xFE0920A0a7f0f8a1Ec689146c30C3BBef439bF8A";
