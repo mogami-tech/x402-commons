@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * Global model attributes.
  */
 @UtilityClass
-@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
+@SuppressWarnings("unused")
 public class GlobalModelAttributes {
 
     /** Error message. */
@@ -19,7 +19,7 @@ public class GlobalModelAttributes {
     public static final String RESULT_ATTRIBUTE = "result";
 
     /** Form attribute. */
-    public static final String FORM_ATTRIBUTE = "command";
+    public static final String FORM_ATTRIBUTE = "form";
 
     /** Page title attribute. */
     public static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
