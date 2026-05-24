@@ -76,7 +76,7 @@
         <swagger.version>2.2.50</swagger.version>
 
         <!-- Test dependencies  -->
-        <junit-jupiter.version>5.10.2</junit-jupiter.version>
+        <junit-jupiter.version>6.1.0</junit-jupiter.version>
         <junit-pionner.version>2.3.0</junit-pionner.version>
         <assertj.version>3.27.7</assertj.version>
 
