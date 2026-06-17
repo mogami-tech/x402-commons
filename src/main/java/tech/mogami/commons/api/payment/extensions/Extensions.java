@@ -1,5 +1,6 @@
 package tech.mogami.commons.api.payment.extensions;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import tech.mogami.commons.api.payment.extensions.bazaar.BazaarExtension;
  */
 @Builder
 @Jacksonized
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "Container for supported x402 protocol extensions")
 @SuppressWarnings("unused")
 public record Extensions(

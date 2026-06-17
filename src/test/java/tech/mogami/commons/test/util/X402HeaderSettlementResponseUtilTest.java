@@ -27,7 +27,8 @@ public class X402HeaderSettlementResponseUtilTest extends BaseMogamiTest {
                 .returns("0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", SettlementResponse::transaction)
                 .returns(BASE_SEPOLIA.networkId(), SettlementResponse::network)
                 .returns("0x857b06519E91e3A54538791bDbb0E22373e36b66", SettlementResponse::payer)
-                .returns(null, SettlementResponse::errorReason);
+                .returns(null, SettlementResponse::errorReason)
+                .returns(null, SettlementResponse::extensions);
     }
 
     @Test
@@ -43,7 +44,36 @@ public class X402HeaderSettlementResponseUtilTest extends BaseMogamiTest {
                 .returns("0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", SettlementResponse::transaction)
                 .returns(BASE_SEPOLIA.networkId(), SettlementResponse::network)
                 .returns("0x857b06519E91e3A54538791bDbb0E22373e36b66", SettlementResponse::payer)
-                .returns(null, SettlementResponse::errorReason);
+                .returns(null, SettlementResponse::errorReason)
+                .returns(null, SettlementResponse::extensions);
+    }
+
+    @Test
+    @DisplayName("encodeSettlementResponse() should reject null transaction")
+    void encodeSettlementResponseWithNullTransaction() {
+        assertThatThrownBy(() -> X402HeaderUtil.encodeSettlementResponse(
+                SettlementResponse.builder()
+                        .success(true)
+                        .transaction(null)
+                        .network(BASE_SEPOLIA.networkId())
+                        .build()
+        ))
+                .isInstanceOf(InvalidX402HeaderException.class)
+                .hasMessageContaining("Invalid SettlementResponse object");
+    }
+
+    @Test
+    @DisplayName("encodeSettlementResponse() should reject invalid network")
+    void encodeSettlementResponseWithInvalidNetwork() {
+        assertThatThrownBy(() -> X402HeaderUtil.encodeSettlementResponse(
+                SettlementResponse.builder()
+                        .success(true)
+                        .transaction("0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef")
+                        .network("invalid-network")
+                        .build()
+        ))
+                .isInstanceOf(InvalidX402HeaderException.class)
+                .hasMessageContaining("Invalid SettlementResponse object");
     }
 
 }

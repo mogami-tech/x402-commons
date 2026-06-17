@@ -134,4 +134,34 @@ public class PaymentRequiredTest {
                 .doesNotContain("extensions");
     }
 
+    @Test
+    @DisplayName("Unknown extension keys should not break deserialization")
+    void unknownExtensionKeysAreIgnored() {
+        String json = """
+                {
+                  "x402Version": 2,
+                  "resource": {"url":"https://api.example.com/resource"},
+                  "accepts": [{
+                    "scheme": "exact",
+                    "network": "eip155:84532",
+                    "amount": "10000",
+                    "asset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+                    "payTo": "merchant",
+                    "maxTimeoutSeconds": 60
+                  }],
+                  "extensions": {
+                    "futureExtension": {
+                      "info": {"k": "v"},
+                      "schema": {"type": "object"}
+                    }
+                  }
+                }
+                """;
+
+        PaymentRequired paymentRequired = JsonUtil.fromJson(json, PaymentRequired.class);
+        assertThat(paymentRequired).isNotNull();
+        assertThat(paymentRequired.extensions()).isNotNull();
+        assertThat(paymentRequired.extensions().bazaar()).isNull();
+    }
+
 }
